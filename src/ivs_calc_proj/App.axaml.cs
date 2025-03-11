@@ -4,10 +4,10 @@ using Avalonia.Data.Core;
 using Avalonia.Data.Core.Plugins;
 using System.Linq;
 using Avalonia.Markup.Xaml;
-using IVS_calc_stary_medved.ViewModels;
-using IVS_calc_stary_medved.Views;
+using ivs_calc_proj.ViewModels;
+using ivs_calc_proj.Views;
 
-namespace IVS_calc_stary_medved;
+namespace ivs_calc_proj;
 
 public partial class App : Application
 {

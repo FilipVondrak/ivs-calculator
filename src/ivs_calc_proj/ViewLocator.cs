@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using IVS_calc_stary_medved.ViewModels;
+using ivs_calc_proj.ViewModels;
 
-namespace IVS_calc_stary_medved;
+namespace ivs_calc_proj;
 
 public class ViewLocator : IDataTemplate
 {

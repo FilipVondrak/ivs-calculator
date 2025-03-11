@@ -1,6 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 
-namespace IVS_calc_stary_medved.ViewModels;
+namespace ivs_calc_proj.ViewModels;
 
 public class ViewModelBase : ObservableObject
 {

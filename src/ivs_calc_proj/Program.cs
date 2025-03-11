@@ -1,7 +1,7 @@
 ﻿using Avalonia;
 using System;
 
-namespace IVS_calc_stary_medved;
+namespace ivs_calc_proj;
 
 sealed class Program
 {

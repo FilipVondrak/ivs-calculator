@@ -1,7 +1,6 @@
 using Avalonia.Controls;
-using Avalonia.Interactivity;
 
-namespace IVS_calc_stary_medved.Views;
+namespace ivs_calc_proj.Views;
 
 public partial class MainWindow : Window
 {
