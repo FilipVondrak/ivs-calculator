@@ -1,3 +1,5 @@
 src/.idea/*
 src/obj/*
 src/bin/*
+src/latex/*
+src/html/*
