@@ -1,5 +1,5 @@
-src/.idea/*
-src/obj/*
-src/bin/*
+src/ivs_calc_proj/.idea/*
+src/ivs_calc_proj/obj/*
+src/ivs_calc_proj/bin/*
 src/latex/*
 src/html/*
