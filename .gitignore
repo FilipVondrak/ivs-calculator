@@ -1,5 +1,7 @@
 src/ivs_calc_proj/.idea/*
 src/ivs_calc_proj/obj/*
+src/math_lib/bin/*
+src/math_lib/obj/*
 src/ivs_calc_proj/bin/*
 src/latex/*
 src/html/*
