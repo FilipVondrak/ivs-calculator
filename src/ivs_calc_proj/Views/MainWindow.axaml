@@ -3,11 +3,15 @@
         xmlns:vm="using:ivs_calc_proj.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        mc:Ignorable="d" d:DesignWidth="750" d:DesignHeight="500"
-        MinWidth="420" Width="500" Height="750"
+        mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="750"
+        MinWidth="420" MinHeight="300" Width="500" Height="750"
         x:Class="ivs_calc_proj.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
+        WindowStartupLocation="CenterScreen"
+        ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaTitleBarHeightHint="-1"
+        Padding="{Binding $self.OffScreenMargin}"
         Title="ivs_calc_proj">
 
     <Design.DataContext>
@@ -16,6 +20,107 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        
+        <Grid IsHitTestVisible="True" ZIndex="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            
+            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="IVS - Stary medved"  Margin="10 0 0 0" IsHitTestVisible="True" Foreground="Black" />
+            
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right" IsHitTestVisible="True" Margin="0 0 2.5 0" Spacing="2">
+                <StackPanel.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Width" Value="25"/>
+                        <Setter Property="Height" Value="25"/>
+                        <Setter Property="Background" Value="DarkGray"/>
+                        <Setter Property="CornerRadius" Value="25"/>
+                    </Style>
+                </StackPanel.Styles>
+                <!-- 
+                <Button Click="MinimizeApp"/> 
+                <Button Click="MaximizeApp"/>
+                <Button Click="CloseApp" HotKey="Escape">
+                    <Button.Styles>
+                        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
+                            <Setter Property="Background" Value="IndianRed"/>
+                        </Style>
+                    </Button.Styles>
+                </Button>
+                -->
+            </StackPanel>
+        </Grid>
+        
+        <Border Grid.Row="0" Grid.RowSpan="2" Background="LightGray" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 30 30" Padding="0 30 0 0">
+            <TextBlock Grid.Row="1" Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        </Border>
+        
+        <Grid Grid.Row="2" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/> 
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.Styles>
+                <Style Selector="Button">
+                    <Setter Property="Margin" Value="3"/>
+                    <Setter Property="CornerRadius" Value="30"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="Background" Value="LightGray"/>
+                </Style>
+                <Style Selector="TextBlock">
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                    <Setter Property="HorizontalAlignment" Value="Center"/>
+                    <Setter Property="FontSize" Value="24"/>
+                </Style>
+            </Grid.Styles>
+            
+            <Button Grid.Column="0" Grid.Row="0"><TextBlock>(</TextBlock></Button>
+            <Button Grid.Column="1" Grid.Row="0"><TextBlock>)</TextBlock></Button>
+            <Button Grid.Column="2" Grid.Row="0"><TextBlock>%</TextBlock></Button>
+            <Button Grid.Column="3" Grid.Row="0"><TextBlock>^</TextBlock></Button>
+            <Button Grid.Column="4" Grid.Row="0"><TextBlock>root</TextBlock></Button>
+            
+            <Button Grid.Column="0" Grid.Row="1" HotKey="NumPad7"><TextBlock>7</TextBlock></Button>
+            <Button Grid.Column="1" Grid.Row="1"><TextBlock>8</TextBlock></Button>
+            <Button Grid.Column="2" Grid.Row="1"><TextBlock>9</TextBlock></Button>
+            <Button Grid.Column="3" Grid.Row="1"><TextBlock>/</TextBlock></Button>
+            <Button Grid.Column="4" Grid.Row="1"><TextBlock>Delete</TextBlock></Button>
+            
+            <Button Grid.Column="0" Grid.Row="2"><TextBlock>4</TextBlock></Button>
+            <Button Grid.Column="1" Grid.Row="2"><TextBlock>5</TextBlock></Button>
+            <Button Grid.Column="2" Grid.Row="2"><TextBlock>6</TextBlock></Button>
+            <Button Grid.Column="3" Grid.Row="2"><TextBlock>*</TextBlock></Button>
+            <Button Grid.Column="4" Grid.Row="2"><TextBlock>AC</TextBlock></Button>
+            
+            <Button Grid.Column="0" Grid.Row="3"><TextBlock>1</TextBlock></Button>
+            <Button Grid.Column="1" Grid.Row="3"><TextBlock>2</TextBlock></Button>
+            <Button Grid.Column="2" Grid.Row="3"><TextBlock>3</TextBlock></Button>
+            <Button Grid.Column="3" Grid.Row="3"><TextBlock>-</TextBlock></Button>
+            <Button Grid.Column="4" Grid.Row="3" Grid.RowSpan="2"><TextBlock>=</TextBlock></Button>
+            
+            <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"><TextBlock>0</TextBlock></Button>
+            <Button Grid.Column="2" Grid.Row="4"><TextBlock>.</TextBlock></Button>
+            <Button Grid.Column="3" Grid.Row="4"><TextBlock>+</TextBlock></Button>
+        </Grid>
+    </Grid>
 
 </Window>
