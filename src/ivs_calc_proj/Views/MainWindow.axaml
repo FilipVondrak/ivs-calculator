@@ -10,6 +10,7 @@
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True"
+        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
         Padding="{Binding $self.OffScreenMargin}"
         Title="ivs_calc_proj">
@@ -27,25 +28,26 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
         
-        <Grid IsHitTestVisible="True" ZIndex="2">
+        <Grid IsHitTestVisible="True" ZIndex="2" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             
-            <TextBlock DockPanel.Dock="Left" VerticalAlignment="Center" Text="IVS - Stary medved"  Margin="10 0 0 0" IsHitTestVisible="True" Foreground="Black" />
+            <TextBlock VerticalAlignment="Center" Text="IVS - Stary medved"  Margin="10 0 0 0" Foreground="Black" Name="TitleBarTitle"/>
             
-            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" DockPanel.Dock="Right" IsHitTestVisible="True" Margin="0 0 2.5 0" Spacing="2">
+            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 2.5 0" Spacing="2" Name="TitleBarButtons">
                 <StackPanel.Styles>
                     <Style Selector="Button">
                         <Setter Property="Width" Value="25"/>
                         <Setter Property="Height" Value="25"/>
                         <Setter Property="Background" Value="DarkGray"/>
                         <Setter Property="CornerRadius" Value="25"/>
+                        <Setter Property="IsHitTestVisible" Value="True"/>
                     </Style>
                 </StackPanel.Styles>
-                <!-- 
+                
                 <Button Click="MinimizeApp"/> 
                 <Button Click="MaximizeApp"/>
                 <Button Click="CloseApp" HotKey="Escape">
@@ -55,15 +57,15 @@
                         </Style>
                     </Button.Styles>
                 </Button>
-                -->
+                
             </StackPanel>
         </Grid>
         
-        <Border Grid.Row="0" Grid.RowSpan="2" Background="LightGray" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 30 30" Padding="0 30 0 0">
+        <Border Grid.Row="0" Grid.RowSpan="2" Background="LightGray" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0 30 0 0" Name="DisplayBorder">
             <TextBlock Grid.Row="1" Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         </Border>
         
-        <Grid Grid.Row="2" Margin="10">
+        <Grid Grid.Row="2" Margin="25">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/> 
@@ -81,7 +83,7 @@
             <Grid.Styles>
                 <Style Selector="Button">
                     <Setter Property="Margin" Value="3"/>
-                    <Setter Property="CornerRadius" Value="30"/>
+                    <Setter Property="CornerRadius" Value="25"/>
                     <Setter Property="VerticalAlignment" Value="Stretch"/>
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
                     <Setter Property="Background" Value="LightGray"/>
