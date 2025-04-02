@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ivs_calc_proj", "ivs_calc_p
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "math_lib", "..\math_lib\math_lib.csproj", "{B9F046FD-4366-4BE6-A863-989656C4A43D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "math_tests", "math_tests\math_tests.csproj", "{ACC0DDE0-5612-4DD3-9A90-7CB5742A2E48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{B9F046FD-4366-4BE6-A863-989656C4A43D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B9F046FD-4366-4BE6-A863-989656C4A43D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B9F046FD-4366-4BE6-A863-989656C4A43D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ACC0DDE0-5612-4DD3-9A90-7CB5742A2E48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ACC0DDE0-5612-4DD3-9A90-7CB5742A2E48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ACC0DDE0-5612-4DD3-9A90-7CB5742A2E48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ACC0DDE0-5612-4DD3-9A90-7CB5742A2E48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -24,5 +24,11 @@
             <PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
         </PackageReference>
         <PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.1"/>
+        <PackageReference Include="xunit.assert" Version="2.9.2" />
+        <PackageReference Include="xunit.extensibility.core" Version="2.9.2" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\math_lib\math_lib.csproj" />
     </ItemGroup>
 </Project>
