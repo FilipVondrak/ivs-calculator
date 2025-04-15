@@ -26,10 +26,11 @@ public interface ICalculator
     double Multiply(double x, double y);
     
     /// <summary>
-    /// Divides the first number by the second
+    /// Divides the first number by the second, rounding to 5 decimal places
     /// </summary>
     /// <param name="x"></param>
     /// <param name="y"></param>
+    /// <exception cref="DivideByZeroException">Thrown when y is 0</exception>
     /// <returns>x / y</returns>
     double Divide(double x, double y);
 
@@ -44,8 +45,8 @@ public interface ICalculator
     /// <summary>
     /// Raises a number to the power of an exponent
     /// </summary>
-    /// <param name="x">The base number for exponentiation</param>
-    /// <param name="y">The exponent</param>
+    /// <param name="baseNum">The base number for exponentiation</param>
+    /// <param name="exponent">The exponent</param>
     /// <returns></returns>
     double Power(double baseNum, int exponent);
     

@@ -1,13 +1,5 @@
-src/ivs_calc_proj/.idea/*
-src/ivs_calc_proj/bin/*
-src/ivs_calc_proj/obj/*
-src/ivs_calc_proj/math_tests/bin/*
-src/ivs_calc_proj/math_tests/obj/*
-src/math_lib/.idea/*
-src/math_lib/bin/*
-src/math_lib/obj/*
-src/math_tests/.idea/*
-src/math_tests/bin/*
-src/math_tests/obj/*
+**/bin/
+**/obj/
+**/.idea/
 src/latex/*
 src/html/*
