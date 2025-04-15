@@ -13,10 +13,10 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("math_tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+38eacee8d01656210298246aee1a28d22c6180bb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+33c8b36a1478bf05e33d3bf256ee45b38978a554")]
 [assembly: System.Reflection.AssemblyProductAttribute("math_tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("math_tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
-// Создано классом WriteCodeFragment MSBuild.
+// Vygenerované třídou WriteCodeFragment nástroje MSBuild
 
