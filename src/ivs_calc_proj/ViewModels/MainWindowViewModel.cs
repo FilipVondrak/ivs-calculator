@@ -1,10 +1,58 @@
-﻿namespace ivs_calc_proj.ViewModels;
+﻿using System;
+using System.Linq;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
+
+namespace ivs_calc_proj.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public string Expression { get; set; } = "";
-    public string Output { get; set; } = "";
-    public bool OutputVisible { get; set; } = false;
+    [ObservableProperty]
+    private string _expression = string.Empty;
 
+    [ObservableProperty]
+    private string _output = string.Empty;
+    public bool OutputVisible { get; set; } = true;
 
+    [RelayCommand]
+    private void AddNumber(string newCharacter)
+    {
+        Expression += $"{newCharacter}";
+    }
+
+    [RelayCommand]
+    private void AddOperation(string newOperation)
+    {
+        if (Expression[^1] == ' ')
+            RemoveCharacter();
+        Expression += $" {newOperation} ";
+    }
+
+    [RelayCommand]
+    private void RemoveExpression()
+    {
+        Expression = string.Empty;
+    }
+
+    [RelayCommand]
+    private void RemoveCharacter()
+    {
+        if(Expression.Length==0) return;
+
+        if (Expression[^1] == ' ')
+        {
+            Expression=Expression.Substring(0, Expression.Length - 3);
+        }
+        else
+        {
+            Expression=Expression.Substring(0, Expression.Length - 1);
+        }
+    }
+
+    [RelayCommand]
+    private void Equals()
+    {
+        Expression = Output;
+        Output = string.Empty;
+    }
 }

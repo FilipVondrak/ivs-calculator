@@ -115,33 +115,100 @@
                 </Style>
             </Grid.Styles>
             
-            <Button Grid.Column="0" Grid.Row="0"><TextBlock>(</TextBlock></Button>
-            <Button Grid.Column="1" Grid.Row="0"><TextBlock>)</TextBlock></Button>
-            <Button Grid.Column="2" Grid.Row="0"><TextBlock>%</TextBlock></Button>
-            <Button Grid.Column="3" Grid.Row="0"><TextBlock>^</TextBlock></Button>
-            <Button Grid.Column="4" Grid.Row="0"><TextBlock>root</TextBlock></Button>
+            <Button Grid.Column="0" Grid.Row="0"
+                    Command="{Binding AddNumberCommand}" CommandParameter="(">
+                <TextBlock> ( </TextBlock>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="0"
+                    Command="{Binding AddNumberCommand}" CommandParameter=")">
+                <TextBlock> ) </TextBlock>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="0"
+                    Command="{Binding AddOperationCommand}" CommandParameter="%">
+                <TextBlock> % </TextBlock>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="0"
+                    Command="{Binding AddOperationCommand}" CommandParameter="^">
+                <TextBlock> ^ </TextBlock>
+            </Button>
+            <Button Grid.Column="4" Grid.Row="0"
+                    Command="{Binding AddOperationCommand}" CommandParameter="√">
+                <TextBlock> root </TextBlock>
+            </Button>
             
-            <Button Grid.Column="0" Grid.Row="1" HotKey="NumPad7"><TextBlock>7</TextBlock></Button>
-            <Button Grid.Column="1" Grid.Row="1"><TextBlock>8</TextBlock></Button>
-            <Button Grid.Column="2" Grid.Row="1"><TextBlock>9</TextBlock></Button>
-            <Button Grid.Column="3" Grid.Row="1"><TextBlock>/</TextBlock></Button>
-            <Button Grid.Column="4" Grid.Row="1"><TextBlock>Delete</TextBlock></Button>
+            <Button Grid.Column="0" Grid.Row="1" HotKey="NumPad7"
+                    Command="{Binding AddNumberCommand}" CommandParameter="7">
+                <TextBlock>7</TextBlock>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="1" HotKey="NumPad8"
+                    Command="{Binding AddNumberCommand}" CommandParameter="8">
+                <TextBlock>8</TextBlock>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="1" HotKey="NumPad9"
+                    Command="{Binding AddNumberCommand}" CommandParameter="9">
+                <TextBlock>9</TextBlock>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="1"
+                    Command="{Binding AddOperationCommand}" CommandParameter="/">
+                <TextBlock>/</TextBlock>
+            </Button>
+            <Button Grid.Column="4" Grid.Row="1"
+                    Command="{Binding RemoveCharacterCommand}">
+                <TextBlock>Delete</TextBlock>
+            </Button>
             
-            <Button Grid.Column="0" Grid.Row="2"><TextBlock>4</TextBlock></Button>
-            <Button Grid.Column="1" Grid.Row="2"><TextBlock>5</TextBlock></Button>
-            <Button Grid.Column="2" Grid.Row="2"><TextBlock>6</TextBlock></Button>
-            <Button Grid.Column="3" Grid.Row="2"><TextBlock>*</TextBlock></Button>
-            <Button Grid.Column="4" Grid.Row="2"><TextBlock>AC</TextBlock></Button>
+            <Button Grid.Column="0" Grid.Row="2" HotKey="NumPad4"
+                    Command="{Binding AddNumberCommand}" CommandParameter="4">
+                <TextBlock>4</TextBlock>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="2" HotKey="NumPad5"
+                    Command="{Binding AddNumberCommand}" CommandParameter="5">
+                <TextBlock>5</TextBlock>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="2" HotKey="NumPad6"
+                    Command="{Binding AddNumberCommand}" CommandParameter="6">
+                <TextBlock>6</TextBlock>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="2"
+                    Command="{Binding AddOperationCommand}" CommandParameter="*">
+                <TextBlock>*</TextBlock>
+            </Button>
+            <Button Grid.Column="4" Grid.Row="2"
+                    CommandParameter="{Binding RemoveExpressionCommand}"
+                    ><TextBlock>AC</TextBlock></Button>
             
-            <Button Grid.Column="0" Grid.Row="3"><TextBlock>1</TextBlock></Button>
-            <Button Grid.Column="1" Grid.Row="3"><TextBlock>2</TextBlock></Button>
-            <Button Grid.Column="2" Grid.Row="3"><TextBlock>3</TextBlock></Button>
-            <Button Grid.Column="3" Grid.Row="3"><TextBlock>-</TextBlock></Button>
-            <Button Grid.Column="4" Grid.Row="3" Grid.RowSpan="2"><TextBlock>=</TextBlock></Button>
+            <Button Grid.Column="0" Grid.Row="3" HotKey="NumPad1"
+                    Command="{Binding AddNumberCommand}" CommandParameter="1">
+                <TextBlock>1</TextBlock>
+            </Button>
+            <Button Grid.Column="1" Grid.Row="3" HotKey="NumPad2"
+                    Command="{Binding AddNumberCommand}" CommandParameter="2">
+                <TextBlock>2</TextBlock>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="3" HotKey="NumPad3"
+                    Command="{Binding AddNumberCommand}" CommandParameter="3">
+                <TextBlock>3</TextBlock>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="3"
+                    Command="{Binding AddOperationCommand}" CommandParameter="-">
+                <TextBlock>-</TextBlock>
+            </Button>
+            <Button Grid.Column="4" Grid.Row="3" Grid.RowSpan="2">
+                <TextBlock>=</TextBlock>
+            </Button>
             
-            <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2"><TextBlock>0</TextBlock></Button>
-            <Button Grid.Column="2" Grid.Row="4"><TextBlock>.</TextBlock></Button>
-            <Button Grid.Column="3" Grid.Row="4"><TextBlock>+</TextBlock></Button>
+            <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" HotKey="NumPad0"
+                    Command="{Binding AddNumberCommand}" CommandParameter="0">
+                <TextBlock>0</TextBlock>
+            </Button>
+            <Button Grid.Column="2" Grid.Row="4"
+                    Command="{Binding AddNumberCommand}" CommandParameter=".">
+                <TextBlock>.</TextBlock>
+            </Button>
+            <Button Grid.Column="3" Grid.Row="4"
+                    Command="{Binding AddOperationCommand}" CommandParameter="+">
+                <TextBlock>+</TextBlock>
+            </Button>
         </Grid>
     </Grid>
 
