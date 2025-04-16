@@ -8,5 +8,5 @@ src/math_lib/.idea/*
 src/math_lib/bin/*
 src/math_lib/obj/*
 # ignore tests files
-src/ivs_calc_proj/math_tests/obj/*
-src/ivs_calc_proj/math_tests/bin/*
+src/math_tests/obj/*
+src/math_tests/bin/*
