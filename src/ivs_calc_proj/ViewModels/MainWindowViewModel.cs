@@ -2,5 +2,9 @@
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    public string Greeting { get; } = "Welcome to the calculator!";
+    public string Expression { get; set; } = "";
+    public string Output { get; set; } = "";
+    public bool OutputVisible { get; set; } = false;
+
+
 }

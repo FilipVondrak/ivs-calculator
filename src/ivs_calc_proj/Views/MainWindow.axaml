@@ -21,7 +21,7 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
-    <Grid>
+    <Grid Background="{DynamicResource Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
@@ -60,11 +60,30 @@
                 
             </StackPanel>
         </Grid>
-        
-        <Border Grid.Row="0" Grid.RowSpan="2" Background="LightGray" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0 30 0 0" Name="DisplayBorder">
-            <TextBlock Grid.Row="1" Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+
+        <!-- display -->
+        <Border Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource Primary}" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0 30 0 0" Name="DisplayBorder">
+            <RelativePanel>
+
+                <TextBlock x:Name="Display" Grid.Row="1" Text="{Binding Expression}"
+                           RelativePanel.AlignVerticalCenterWithPanel="True"
+                           RelativePanel.AlignHorizontalCenterWithPanel="True"
+                           FontSize="20"
+                           Foreground="{DynamicResource TextPrimary}"
+                />
+
+                <TextBlock Grid.Row="0" Text="{Binding Output}"
+                           RelativePanel.Below="Display"
+                           RelativePanel.AlignRightWith="Display"
+                           Margin="0 0 0 0"
+                           FontSize="20"
+                           Foreground="{DynamicResource TextSecondary}"
+                           IsVisible="{Binding OutputVisible}"
+                />
+            </RelativePanel>
         </Border>
-        
+
+        <!-- keyboard -->
         <Grid Grid.Row="2" Margin="25">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -86,12 +105,13 @@
                     <Setter Property="CornerRadius" Value="25"/>
                     <Setter Property="VerticalAlignment" Value="Stretch"/>
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="Background" Value="LightGray"/>
+                    <Setter Property="Background" Value="{DynamicResource Primary}"/>
                 </Style>
                 <Style Selector="TextBlock">
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="FontSize" Value="24"/>
+                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
                 </Style>
             </Grid.Styles>
             

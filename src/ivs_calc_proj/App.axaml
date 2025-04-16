@@ -8,8 +8,30 @@
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
+
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <!-- Definice pro světlé téma -->
+                <ResourceDictionary x:Key="Light">
+                    <SolidColorBrush x:Key="TextPrimary">Black</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextSecondary">DimGray</SolidColorBrush>
+                    <SolidColorBrush x:Key="Background">White</SolidColorBrush>
+                    <SolidColorBrush x:Key="Primary">LightGray</SolidColorBrush>
+                </ResourceDictionary>
+
+                <!-- Definice pro tmavé téma -->
+                <ResourceDictionary x:Key="Dark">
+                    <SolidColorBrush x:Key="TextPrimary">#800000</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextSecondary">#008000</SolidColorBrush>
+                    <SolidColorBrush x:Key="Background">#000080</SolidColorBrush>
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries></ResourceDictionary>
+    </Application.Resources>
+
     <Application.Styles>
-        <FluentTheme />
+        <FluentTheme>
+
+        </FluentTheme>
     </Application.Styles>
 </Application>
