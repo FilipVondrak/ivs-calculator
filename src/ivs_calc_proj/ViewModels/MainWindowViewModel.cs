@@ -11,7 +11,7 @@ public partial class MainWindowViewModel : ViewModelBase
     private string _expression = string.Empty;
 
     [ObservableProperty]
-    private string _output = string.Empty;
+    private string _output = "= 0";
     public bool OutputVisible { get; set; } = true;
 
     [RelayCommand]
@@ -21,11 +21,17 @@ public partial class MainWindowViewModel : ViewModelBase
     }
 
     [RelayCommand]
-    private void AddOperation(string newOperation)
+    private void AddBinaryOperation(string newOperation)
     {
         if (Expression[^1] == ' ')
             RemoveCharacter();
         Expression += $" {newOperation} ";
+    }
+
+    [RelayCommand]
+    private void AddUnaryOperation(string newOperation)
+    {
+        Expression += $"{newOperation}";
     }
 
     [RelayCommand]
@@ -47,6 +53,11 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             Expression=Expression.Substring(0, Expression.Length - 1);
         }
+    }
+
+    private void ExpressionChanged()
+    {
+
     }
 
     [RelayCommand]
