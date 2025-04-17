@@ -3,7 +3,7 @@ using Xunit;
 
 namespace math_tests;
 
-public class UnitTestTdd
+public class MathLibUnitTestTdd
 {
     private readonly Calculator _calculator = new Calculator();
 
