@@ -17,27 +17,53 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void AddNumber(string newCharacter)
     {
+        if (Expression.Length > 0 && Expression[^1] == ')')
+        {
+            AddBinaryOperation("*");
+        }
+
         Expression += $"{newCharacter}";
+        ExpressionChanged();
+    }
+
+    [RelayCommand]
+    private void AddBracket(string newBracket)
+    {
+        // if previus character is a number, add a multiply operation
+        if (newBracket=="(" && Expression.Length > 0 && char.IsNumber(Expression[^1]))
+        {
+            AddBinaryOperation("*");
+        }
+
+        Expression += $"{newBracket}";
+
+
+        ExpressionChanged();
     }
 
     [RelayCommand]
     private void AddBinaryOperation(string newOperation)
     {
+        if(Expression.Length==0) return;
+
         if (Expression[^1] == ' ')
             RemoveCharacter();
         Expression += $" {newOperation} ";
+        ExpressionChanged();
     }
 
     [RelayCommand]
     private void AddUnaryOperation(string newOperation)
     {
         Expression += $"{newOperation}";
+        ExpressionChanged();
     }
 
     [RelayCommand]
     private void RemoveExpression()
     {
         Expression = string.Empty;
+        ExpressionChanged();
     }
 
     [RelayCommand]
@@ -53,11 +79,15 @@ public partial class MainWindowViewModel : ViewModelBase
         {
             Expression=Expression.Substring(0, Expression.Length - 1);
         }
+        ExpressionChanged();
     }
 
     private void ExpressionChanged()
     {
-
+        if (Expression == string.Empty)
+            Output = "= 0";
+        else
+            Output = $"= {Expression}";
     }
 
     [RelayCommand]
