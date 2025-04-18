@@ -27,6 +27,8 @@ public partial class MainWindow : Window
             app.RequestedThemeVariant=ThemeVariant.Light;
         else
             app.RequestedThemeVariant=ThemeVariant.Dark;
+
+        ((UserControl)ContentControl.Content)?.Focus();
     }
 
 

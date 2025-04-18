@@ -81,7 +81,7 @@
         </UniformGrid>
 
 
-        <TransitioningContentControl Grid.Row="1" Margin="0 -30 0 0">
+        <TransitioningContentControl x:Name="ContentControl" Grid.Row="1" Margin="0 -30 0 0">
             <controls:Calculator x:Name="Calc"/>
         </TransitioningContentControl>
     </Grid>
