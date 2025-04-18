@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="clr-namespace:ivs_calc_proj.Controls"
         xmlns:mathLib="clr-namespace:math_lib;assembly=math_lib"
+        xmlns:views="clr-namespace:ivs_calc_proj.Views"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="750"
         MinWidth="420" MinHeight="600" Width="420" Height="600"
         x:Class="ivs_calc_proj.Views.MainWindow"
@@ -24,6 +25,37 @@
              to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
         <vm:MainWindowViewModel/>
     </Design.DataContext>
+
+    <Window.Styles>
+        <Style Selector=":is(Button)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector=":is(Border)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector=":is(Grid)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector=":is(TextBlock)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+    </Window.Styles>
 
     <Grid Background="{DynamicResource Background}">
         <Grid.RowDefinitions>
