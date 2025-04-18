@@ -76,7 +76,7 @@
                         <Setter Property="CornerRadius" Value="25"/>
                         <Setter Property="VerticalAlignment" Value="Stretch"/>
                         <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                        <Setter Property="Background" Value="{DynamicResource Primary}"/>
+                        <Setter Property="Background" Value="{DynamicResource Secondary}"/>
                     </Style>
                     <Style Selector="TextBlock">
                         <Setter Property="VerticalAlignment" Value="Center"/>
@@ -132,15 +132,15 @@
                     <TextBlock> √ </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="0" Grid.Row="2" x:Name="SevenButton"
+                <controls:CalcButton Grid.Column="0" Grid.Row="2" x:Name="SevenButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="7">
                     <TextBlock>7</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="1" Grid.Row="2" x:Name="EightButton"
+                <controls:CalcButton Grid.Column="1" Grid.Row="2" x:Name="EightButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="8">
                     <TextBlock>8</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="2" Grid.Row="2" x:Name="NineButton"
+                <controls:CalcButton Grid.Column="2" Grid.Row="2" x:Name="NineButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="9">
                     <TextBlock>9</TextBlock>
                 </controls:CalcButton>
@@ -148,20 +148,20 @@
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="/">
                     <TextBlock>/</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="4" Grid.Row="2" x:Name="DeleteButton"
+                <controls:CalcButton Grid.Column="4" Grid.Row="2" x:Name="DeleteButton" Background="{DynamicResource Delete}"
                         Command="{Binding RemoveCharacterCommand}">
                     <TextBlock>Delete</TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="0" Grid.Row="3" x:Name="FourButton"
+                <controls:CalcButton Grid.Column="0" Grid.Row="3" x:Name="FourButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="4">
                     <TextBlock>4</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="1" Grid.Row="3" x:Name="FiveButton"
+                <controls:CalcButton Grid.Column="1" Grid.Row="3" x:Name="FiveButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="5">
                     <TextBlock>5</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="2" Grid.Row="3" x:Name="SixButton"
+                <controls:CalcButton Grid.Column="2" Grid.Row="3" x:Name="SixButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="6">
                     <TextBlock>6</TextBlock>
                 </controls:CalcButton>
@@ -169,20 +169,20 @@
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="*">
                     <TextBlock>*</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="4" Grid.Row="3" x:Name="ACButton"
+                <controls:CalcButton Grid.Column="4" Grid.Row="3" x:Name="ACButton" Background="{DynamicResource Delete}"
                         Command="{Binding RemoveExpressionCommand}">
                     <TextBlock>AC</TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="0" Grid.Row="4" x:Name="OneButton"
+                <controls:CalcButton Grid.Column="0" Grid.Row="4" x:Name="OneButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="1">
                     <TextBlock>1</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="1" Grid.Row="4" x:Name="TwoButton"
+                <controls:CalcButton Grid.Column="1" Grid.Row="4" x:Name="TwoButton" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="2">
                     <TextBlock>2</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton x:Name="ThreeButton" Grid.Column="2" Grid.Row="4"
+                <controls:CalcButton x:Name="ThreeButton" Grid.Column="2" Grid.Row="4" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="3">
                     <TextBlock>3</TextBlock>
                 </controls:CalcButton>
@@ -191,15 +191,16 @@
                     <TextBlock>-</TextBlock>
                 </controls:CalcButton>
                 <Button x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
+                        Background="{DynamicResource EqualsButton}"
                         Command="{Binding EqualsCommand}">
                     <TextBlock>=</TextBlock>
                 </Button>
 
-                <controls:CalcButton x:Name="ZeroButton" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HotKey="NumPad0"
+                <controls:CalcButton x:Name="ZeroButton" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="0">
                     <TextBlock>0</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton x:Name="DecimalPointButton" Grid.Column="2" Grid.Row="5"
+                <controls:CalcButton x:Name="DecimalPointButton" Grid.Column="2" Grid.Row="5" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter=".">
                     <TextBlock>.</TextBlock>
                 </controls:CalcButton>

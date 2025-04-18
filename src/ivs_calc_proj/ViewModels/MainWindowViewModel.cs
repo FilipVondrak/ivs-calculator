@@ -135,7 +135,7 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void Equals()
     {
-        Expression = Output;
+        Expression = Output.Substring(2);
         Output = string.Empty;
     }
 }

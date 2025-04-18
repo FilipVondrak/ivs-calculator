@@ -20,6 +20,8 @@
                     <SolidColorBrush x:Key="Background">#ebedef</SolidColorBrush>
                     <SolidColorBrush x:Key="Primary">#a9b4c1</SolidColorBrush>
                     <SolidColorBrush x:Key="Secondary">#9eafc2</SolidColorBrush>
+                    <SolidColorBrush x:Key="EqualsButton">DarkSeaGreen</SolidColorBrush>
+                    <SolidColorBrush x:Key="Delete">LightCoral</SolidColorBrush>
                 </ResourceDictionary>
 
                 <!-- Definice pro tmavé téma -->
@@ -29,6 +31,8 @@
                     <SolidColorBrush x:Key="Background">#090915</SolidColorBrush>
                     <SolidColorBrush x:Key="Primary">#3e4956</SolidColorBrush>
                     <SolidColorBrush x:Key="Secondary">#3d4e61</SolidColorBrush>
+                    <SolidColorBrush x:Key="EqualsButton">#18560c</SolidColorBrush>
+                    <SolidColorBrush x:Key="Delete">#8c0b0b</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries></ResourceDictionary>
     </Application.Resources>
