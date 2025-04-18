@@ -14,17 +14,20 @@
             <ResourceDictionary.ThemeDictionaries>
                 <!-- Definice pro světlé téma -->
                 <ResourceDictionary x:Key="Light">
-                    <SolidColorBrush x:Key="TextPrimary">Black</SolidColorBrush>
-                    <SolidColorBrush x:Key="TextSecondary">DimGray</SolidColorBrush>
-                    <SolidColorBrush x:Key="Background">White</SolidColorBrush>
-                    <SolidColorBrush x:Key="Primary">LightGray</SolidColorBrush>
+                    <SolidColorBrush x:Key="Text">#0f0f10</SolidColorBrush>
+                    <SolidColorBrush x:Key="Accent">#5b7da4</SolidColorBrush>
+                    <SolidColorBrush x:Key="Background">#ebedef</SolidColorBrush>
+                    <SolidColorBrush x:Key="Primary">#a9b4c1</SolidColorBrush>
+                    <SolidColorBrush x:Key="Secondary">#9eafc2</SolidColorBrush>
                 </ResourceDictionary>
 
                 <!-- Definice pro tmavé téma -->
                 <ResourceDictionary x:Key="Dark">
-                    <SolidColorBrush x:Key="TextPrimary">#800000</SolidColorBrush>
-                    <SolidColorBrush x:Key="TextSecondary">#008000</SolidColorBrush>
-                    <SolidColorBrush x:Key="Background">#000080</SolidColorBrush>
+                    <SolidColorBrush x:Key="Text">#efeff0</SolidColorBrush>
+                    <SolidColorBrush x:Key="TextSecondary">#5b7da4</SolidColorBrush>
+                    <SolidColorBrush x:Key="Background">#090915</SolidColorBrush>
+                    <SolidColorBrush x:Key="Primary">#3e4956</SolidColorBrush>
+                    <SolidColorBrush x:Key="Secondary">#3d4e61</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries></ResourceDictionary>
     </Application.Resources>

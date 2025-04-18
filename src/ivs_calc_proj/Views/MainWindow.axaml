@@ -28,6 +28,20 @@
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
 
+        <UniformGrid Grid.Row="0" ZIndex="2" Rows="0" Columns="2" Margin="0 0 0 0">
+            <UniformGrid.Styles>
+                <Style Selector="Border">
+                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+                </Style>
+                <Style Selector="TextBlock">
+                    <Setter Property="TextAlignment" Value="Center"/>
+                </Style>
+            </UniformGrid.Styles>
+            <Border><ToggleButton Content="Dark theme" IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Height="30"/></Border>
+            <Border HorizontalAlignment="Right"><Button><TextBlock>HELP</TextBlock></Button></Border>
+        </UniformGrid>
+
         <!-- display -->
         <Border Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource Primary}" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0" Name="DisplayBorder">
             <RelativePanel>
@@ -37,7 +51,7 @@
                            RelativePanel.AlignRightWithPanel="True"
                            FontSize="20"
                            TextAlignment="Center"
-                           Foreground="{DynamicResource TextPrimary}"
+                           Foreground="{DynamicResource Text}"
                 />
 
                 <TextBlock Grid.Row="0" Text="{Binding Output}"
@@ -45,7 +59,7 @@
                            RelativePanel.AlignRightWith="Display"
                            Margin="25 0 25 0"
                            FontSize="20"
-                           Foreground="{DynamicResource TextSecondary}"
+                           Foreground="{DynamicResource Accent}"
                            IsVisible="{Binding OutputVisible}"
                 />
             </RelativePanel>
@@ -55,10 +69,10 @@
         <Grid Grid.Row="2" Margin="25">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/> 
-                <ColumnDefinition Width="*"/> 
-                <ColumnDefinition Width="*"/> 
-                <ColumnDefinition Width="*"/> 
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -79,10 +93,10 @@
                     <Setter Property="VerticalAlignment" Value="Center"/>
                     <Setter Property="HorizontalAlignment" Value="Center"/>
                     <Setter Property="FontSize" Value="24"/>
-                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                    <Setter Property="Foreground" Value="{DynamicResource Text}"/>
                 </Style>
             </Grid.Styles>
-            
+
             <Button Grid.Column="0" Grid.Row="0"
                     Command="{Binding AddNumberCommand}" CommandParameter="(">
                 <TextBlock> ( </TextBlock>
@@ -103,7 +117,7 @@
                     Command="{Binding AddUnaryOperationCommand}" CommandParameter="√">
                 <TextBlock> √ </TextBlock>
             </Button>
-            
+
             <Button Grid.Column="0" Grid.Row="1" HotKey="NumPad7"
                     Command="{Binding AddNumberCommand}" CommandParameter="7">
                 <TextBlock>7</TextBlock>
@@ -124,7 +138,7 @@
                     Command="{Binding RemoveCharacterCommand}">
                 <TextBlock>Delete</TextBlock>
             </Button>
-            
+
             <Button Grid.Column="0" Grid.Row="2" HotKey="NumPad4"
                     Command="{Binding AddNumberCommand}" CommandParameter="4">
                 <TextBlock>4</TextBlock>
@@ -144,7 +158,7 @@
             <Button Grid.Column="4" Grid.Row="2"
                     Command="{Binding RemoveExpressionCommand}"
                     ><TextBlock>AC</TextBlock></Button>
-            
+
             <Button Grid.Column="0" Grid.Row="3" HotKey="NumPad1"
                     Command="{Binding AddNumberCommand}" CommandParameter="1">
                 <TextBlock>1</TextBlock>
@@ -164,7 +178,7 @@
             <Button Grid.Column="4" Grid.Row="3" Grid.RowSpan="2">
                 <TextBlock>=</TextBlock>
             </Button>
-            
+
             <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" HotKey="NumPad0"
                     Command="{Binding AddNumberCommand}" CommandParameter="0">
                 <TextBlock>0</TextBlock>
