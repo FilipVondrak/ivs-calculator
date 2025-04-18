@@ -55,6 +55,8 @@ public partial class MainWindowViewModel : ViewModelBase
     [RelayCommand]
     private void AddUnaryOperation(string newOperation)
     {
+        if (Expression.Length>0 && newOperation == "√" && Expression[^1] != ' ')
+            AddBinaryOperation("*");
         Expression += $"{newOperation}";
         ExpressionChanged();
     }
@@ -74,6 +76,10 @@ public partial class MainWindowViewModel : ViewModelBase
         if (Expression[^1] == ' ')
         {
             Expression=Expression.Substring(0, Expression.Length - 3);
+        }
+        else if (Expression[^1] == '(' && Expression[^2] == ' ')
+        {
+            Expression=Expression.Substring(0, Expression.Length - 4);
         }
         else
         {

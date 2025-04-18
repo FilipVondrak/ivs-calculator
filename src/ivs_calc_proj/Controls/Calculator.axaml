@@ -1,0 +1,212 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:controls="clr-namespace:ivs_calc_proj.Controls"
+             xmlns:viewModels="clr-namespace:ivs_calc_proj.ViewModels"
+             mc:Ignorable="d"
+             Margin="0 -30 0 0"
+             KeyDown="Input_OnKeyDown"
+             Focusable="True"
+             x:DataType="viewModels:MainWindowViewModel"
+             x:Class="ivs_calc_proj.Controls.Calculator">
+
+        <Design.DataContext>
+            <!-- This only sets the DataContext for the previewer in an IDE,
+                 to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+            <viewModels:MainWindowViewModel/>
+        </Design.DataContext>
+
+        <Grid Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="3*"/>
+            </Grid.RowDefinitions>
+
+            <!-- display -->
+            <Border Grid.Row="0" Margin="0 0 0 0" Background="{DynamicResource Primary}" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0" Name="DisplayBorder">
+                <RelativePanel>
+                    <TextBlock x:Name="Display" Grid.Row="1" Text="{Binding Expression}"
+                               RelativePanel.AlignVerticalCenterWithPanel="True"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               RelativePanel.AlignRightWithPanel="True"
+                               FontSize="20"
+                               TextAlignment="Center"
+                               Foreground="{DynamicResource Text}"
+                    />
+
+                    <TextBlock Grid.Row="0" Text="{Binding Output}"
+                               RelativePanel.Below="Display"
+                               RelativePanel.AlignLeftWithPanel="True"
+                               Margin="25 0 25 0"
+                               FontSize="20"
+                               Foreground="{DynamicResource Accent}"
+                               IsVisible="{Binding OutputVisible}"
+                    />
+                </RelativePanel>
+            </Border>
+
+            <!-- keyboard -->
+            <Grid Grid.Row="1" Margin="16">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.Styles>
+                    <Style Selector="Button">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="CornerRadius" Value="25"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="{DynamicResource Primary}"/>
+                    </Style>
+                    <Style Selector="controls|CalcButton">
+                        <Setter Property="Margin" Value="3"/>
+                        <Setter Property="CornerRadius" Value="25"/>
+                        <Setter Property="VerticalAlignment" Value="Stretch"/>
+                        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+                        <Setter Property="Background" Value="{DynamicResource Primary}"/>
+                    </Style>
+                    <Style Selector="TextBlock">
+                        <Setter Property="VerticalAlignment" Value="Center"/>
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="FontSize" Value="24"/>
+                        <Setter Property="Foreground" Value="{DynamicResource Text}"/>
+                    </Style>
+                </Grid.Styles>
+
+                <controls:CalcButton Grid.Column="0" Grid.Row="0" x:Name="SinButton"
+                        Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> sin </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="1" Grid.Row="0" x:Name="CosButton"
+                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> cos </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="2" Grid.Row="0" x:Name="TanButton"
+                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> tan </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LogButton"
+                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> log </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="LnButton"
+                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> ln </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="0" Grid.Row="1" x:Name="LeftBracketButton"
+                        Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> ( </TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="1" Grid.Row="1" x:Name="RightBracketButton"
+                        Command="{Binding AddBracketCommand}" CommandParameter=")">
+                    <TextBlock> ) </TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="2" Grid.Row="1" x:Name="ModuloButton"
+                        Command="{Binding AddBinaryOperationCommand}" CommandParameter="%">
+                    <TextBlock> % </TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="3" Grid.Row="1" x:Name="PowerOfButton"
+                        Command="{Binding AddUnaryOperationCommand}" CommandParameter="^">
+                    <TextBlock> ^ </TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="4" Grid.Row="1" x:Name="RootOfButton"
+                        Command="{Binding AddUnaryOperationCommand}" CommandParameter="√">
+                    <TextBlock> √ </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="0" Grid.Row="2" x:Name="SevenButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="7">
+                    <TextBlock>7</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="1" Grid.Row="2" x:Name="EightButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="8">
+                    <TextBlock>8</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="2" Grid.Row="2" x:Name="NineButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="9">
+                    <TextBlock>9</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="3" Grid.Row="2" x:Name="DivisionButton"
+                        Command="{Binding AddBinaryOperationCommand}" CommandParameter="/">
+                    <TextBlock>/</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="4" Grid.Row="2" x:Name="DeleteButton"
+                        Command="{Binding RemoveCharacterCommand}">
+                    <TextBlock>Delete</TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="0" Grid.Row="3" x:Name="FourButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="4">
+                    <TextBlock>4</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="1" Grid.Row="3" x:Name="FiveButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="5">
+                    <TextBlock>5</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="2" Grid.Row="3" x:Name="SixButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="6">
+                    <TextBlock>6</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="3" Grid.Row="3" x:Name="MultiplicationButton"
+                        Command="{Binding AddBinaryOperationCommand}" CommandParameter="*">
+                    <TextBlock>*</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="4" Grid.Row="3" x:Name="ACButton"
+                        Command="{Binding RemoveExpressionCommand}">
+                    <TextBlock>AC</TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="0" Grid.Row="4" x:Name="OneButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="1">
+                    <TextBlock>1</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton Grid.Column="1" Grid.Row="4" x:Name="TwoButton"
+                        Command="{Binding AddNumberCommand}" CommandParameter="2">
+                    <TextBlock>2</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton x:Name="ThreeButton" Grid.Column="2" Grid.Row="4"
+                        Command="{Binding AddNumberCommand}" CommandParameter="3">
+                    <TextBlock>3</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton x:Name="MinusButton" Grid.Column="3" Grid.Row="4"
+                        Command="{Binding AddBinaryOperationCommand}" CommandParameter="-">
+                    <TextBlock>-</TextBlock>
+                </controls:CalcButton>
+                <Button x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
+                        Command="{Binding EqualsCommand}">
+                    <TextBlock>=</TextBlock>
+                </Button>
+
+                <controls:CalcButton x:Name="ZeroButton" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" HotKey="NumPad0"
+                        Command="{Binding AddNumberCommand}" CommandParameter="0">
+                    <TextBlock>0</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton x:Name="DecimalPointButton" Grid.Column="2" Grid.Row="5"
+                        Command="{Binding AddNumberCommand}" CommandParameter=".">
+                    <TextBlock>.</TextBlock>
+                </controls:CalcButton>
+                <controls:CalcButton x:Name="PlusButton" Grid.Column="3" Grid.Row="5"
+                        Command="{Binding AddBinaryOperationCommand}" CommandParameter="+">
+                    <TextBlock>+</TextBlock>
+                </controls:CalcButton>
+            </Grid>
+        </Grid>
+</UserControl>
