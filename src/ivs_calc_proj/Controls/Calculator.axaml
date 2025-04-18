@@ -5,7 +5,7 @@
              xmlns:controls="clr-namespace:ivs_calc_proj.Controls"
              xmlns:viewModels="clr-namespace:ivs_calc_proj.ViewModels"
              mc:Ignorable="d"
-             Margin="0 -30 0 0"
+             Margin="0 0 0 0"
              KeyDown="Input_OnKeyDown"
              Focusable="True"
              x:DataType="viewModels:MainWindowViewModel"
@@ -101,14 +101,14 @@
                     <TextBlock> tan </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LogButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
-                    <TextBlock> log </TextBlock>
-                </controls:CalcButton>
-
-                <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="LnButton"
+                <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LnButton"
                                      Command="{Binding AddBracketCommand}" CommandParameter="(">
                     <TextBlock> ln </TextBlock>
+                </controls:CalcButton>
+
+                <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="FactorialButton"
+                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                    <TextBlock> ! </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="0" Grid.Row="1" x:Name="LeftBracketButton"
@@ -128,7 +128,7 @@
                     <TextBlock> ^ </TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton Grid.Column="4" Grid.Row="1" x:Name="RootOfButton"
-                        Command="{Binding AddUnaryOperationCommand}" CommandParameter="√">
+                        Command="{Binding AddRootOfOperationCommand}" CommandParameter="√">
                     <TextBlock> √ </TextBlock>
                 </controls:CalcButton>
 
