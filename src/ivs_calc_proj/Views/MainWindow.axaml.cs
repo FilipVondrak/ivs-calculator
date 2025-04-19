@@ -1,9 +1,12 @@
 using System;
+using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
+using Avalonia.Styling;
+using Avalonia.Themes.Fluent;
 
 namespace ivs_calc_proj.Views;
 
@@ -12,20 +15,25 @@ public partial class MainWindow : Window
     public MainWindow()
     {
         InitializeComponent();
-
-        if (!OperatingSystem.IsWindows())
-        {
-            TitleBarTitle.IsVisible = false;
-            TitleBarButtons.IsVisible = false;
-            DisplayBorder.Padding = new Thickness(0);
-        }
     }
 
-    private void CloseApp(object? sender, RoutedEventArgs e) => Close();
-    
-    private void MinimizeApp(object? sender, RoutedEventArgs e) => WindowState = WindowState.Minimized;
+    private void ToggleButton_OnIsCheckedChanged(object? sender, RoutedEventArgs e)
+    {
+        var app = Application.Current;
 
-    private void MaximizeApp(object? sender, RoutedEventArgs e) => WindowState = WindowState.Maximized;
+        if(app==null) return;
 
-    private void TitleBarHold(object? sender, PointerPressedEventArgs e) => BeginMoveDrag(e);
+        if(app.ActualThemeVariant==ThemeVariant.Dark)
+            app.RequestedThemeVariant=ThemeVariant.Light;
+        else
+            app.RequestedThemeVariant=ThemeVariant.Dark;
+
+        ((UserControl)ContentControl.Content)?.Focus();
+    }
+
+
+    private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        Calc.Focus();
+    }
 }

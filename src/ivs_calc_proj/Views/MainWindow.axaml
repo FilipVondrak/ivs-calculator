@@ -3,8 +3,11 @@
         xmlns:vm="using:ivs_calc_proj.ViewModels"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="clr-namespace:ivs_calc_proj.Controls"
+        xmlns:mathLib="clr-namespace:math_lib;assembly=math_lib"
+        xmlns:views="clr-namespace:ivs_calc_proj.Views"
         mc:Ignorable="d" d:DesignWidth="500" d:DesignHeight="750"
-        MinWidth="420" MinHeight="300" Width="500" Height="750"
+        MinWidth="420" MinHeight="600" Width="420" Height="600"
         x:Class="ivs_calc_proj.Views.MainWindow"
         x:DataType="vm:MainWindowViewModel"
         Icon="/Assets/avalonia-logo.ico"
@@ -12,7 +15,9 @@
         ExtendClientAreaToDecorationsHint="True"
         ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
+        Loaded="Control_OnLoaded"
         Padding="{Binding $self.OffScreenMargin}"
+
         Title="ivs_calc_proj">
 
     <Design.DataContext>
@@ -21,195 +26,64 @@
         <vm:MainWindowViewModel/>
     </Design.DataContext>
 
+    <Window.Styles>
+        <Style Selector=":is(Button)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector=":is(Border)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector=":is(Grid)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Background" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+        <Style Selector=":is(TextBlock)">
+            <Setter Property="Transitions">
+                <Transitions>
+                    <BrushTransition Property="Foreground" Duration="0:0:0.4"/>
+                </Transitions>
+            </Setter>
+        </Style>
+    </Window.Styles>
+
     <Grid Background="{DynamicResource Background}">
         <Grid.RowDefinitions>
             <RowDefinition Height="30"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        
-        <Grid IsHitTestVisible="True" ZIndex="2" >
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="Auto"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            
-            <TextBlock VerticalAlignment="Center" Text="IVS - Stary medved"  Margin="10 0 0 0" Foreground="Black" Name="TitleBarTitle"/>
-            
-            <StackPanel Grid.Column="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 2.5 0" Spacing="2" Name="TitleBarButtons">
-                <StackPanel.Styles>
-                    <Style Selector="Button">
-                        <Setter Property="Width" Value="25"/>
-                        <Setter Property="Height" Value="25"/>
-                        <Setter Property="Background" Value="DarkGray"/>
-                        <Setter Property="CornerRadius" Value="25"/>
-                        <Setter Property="IsHitTestVisible" Value="True"/>
-                    </Style>
-                </StackPanel.Styles>
-                
-                <Button Click="MinimizeApp"/> 
-                <Button Click="MaximizeApp"/>
-                <Button Click="CloseApp" HotKey="Escape">
-                    <Button.Styles>
-                        <Style Selector="Button:pointerover /template/ ContentPresenter#PART_ContentPresenter">
-                            <Setter Property="Background" Value="IndianRed"/>
-                        </Style>
-                    </Button.Styles>
-                </Button>
-                
-            </StackPanel>
-        </Grid>
 
-        <!-- display -->
-        <Border Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource Primary}" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0 30 0 0" Name="DisplayBorder">
-            <RelativePanel>
-
-                <TextBlock x:Name="Display" Grid.Row="1" Text="{Binding Expression}"
-                           RelativePanel.AlignVerticalCenterWithPanel="True"
-                           RelativePanel.AlignHorizontalCenterWithPanel="True"
-                           FontSize="20"
-                           Foreground="{DynamicResource TextPrimary}"
-                />
-
-                <TextBlock Grid.Row="0" Text="{Binding Output}"
-                           RelativePanel.Below="Display"
-                           RelativePanel.AlignRightWith="Display"
-                           Margin="0 0 0 0"
-                           FontSize="20"
-                           Foreground="{DynamicResource TextSecondary}"
-                           IsVisible="{Binding OutputVisible}"
-                />
-            </RelativePanel>
-        </Border>
-
-        <!-- keyboard -->
-        <Grid Grid.Row="2" Margin="25">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="*"/> 
-                <ColumnDefinition Width="*"/> 
-                <ColumnDefinition Width="*"/> 
-                <ColumnDefinition Width="*"/> 
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Grid.Styles>
-                <Style Selector="Button">
-                    <Setter Property="Margin" Value="3"/>
-                    <Setter Property="CornerRadius" Value="25"/>
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
+        <UniformGrid Grid.Row="0" ZIndex="2" Rows="0" Columns="2" Margin="0 0 0 0">
+            <UniformGrid.Styles>
+                <Style Selector="Border">
                     <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="Background" Value="{DynamicResource Primary}"/>
+                    <Setter Property="VerticalAlignment" Value="Stretch"/>
                 </Style>
                 <Style Selector="TextBlock">
-                    <Setter Property="VerticalAlignment" Value="Center"/>
-                    <Setter Property="HorizontalAlignment" Value="Center"/>
-                    <Setter Property="FontSize" Value="24"/>
-                    <Setter Property="Foreground" Value="{DynamicResource TextPrimary}"/>
+                    <Setter Property="TextAlignment" Value="Center"/>
                 </Style>
-            </Grid.Styles>
-            
-            <Button Grid.Column="0" Grid.Row="0"
-                    Command="{Binding AddNumberCommand}" CommandParameter="(">
-                <TextBlock> ( </TextBlock>
-            </Button>
-            <Button Grid.Column="1" Grid.Row="0"
-                    Command="{Binding AddNumberCommand}" CommandParameter=")">
-                <TextBlock> ) </TextBlock>
-            </Button>
-            <Button Grid.Column="2" Grid.Row="0"
-                    Command="{Binding AddOperationCommand}" CommandParameter="%">
-                <TextBlock> % </TextBlock>
-            </Button>
-            <Button Grid.Column="3" Grid.Row="0"
-                    Command="{Binding AddOperationCommand}" CommandParameter="^">
-                <TextBlock> ^ </TextBlock>
-            </Button>
-            <Button Grid.Column="4" Grid.Row="0"
-                    Command="{Binding AddOperationCommand}" CommandParameter="√">
-                <TextBlock> root </TextBlock>
-            </Button>
-            
-            <Button Grid.Column="0" Grid.Row="1" HotKey="NumPad7"
-                    Command="{Binding AddNumberCommand}" CommandParameter="7">
-                <TextBlock>7</TextBlock>
-            </Button>
-            <Button Grid.Column="1" Grid.Row="1" HotKey="NumPad8"
-                    Command="{Binding AddNumberCommand}" CommandParameter="8">
-                <TextBlock>8</TextBlock>
-            </Button>
-            <Button Grid.Column="2" Grid.Row="1" HotKey="NumPad9"
-                    Command="{Binding AddNumberCommand}" CommandParameter="9">
-                <TextBlock>9</TextBlock>
-            </Button>
-            <Button Grid.Column="3" Grid.Row="1"
-                    Command="{Binding AddOperationCommand}" CommandParameter="/">
-                <TextBlock>/</TextBlock>
-            </Button>
-            <Button Grid.Column="4" Grid.Row="1"
-                    Command="{Binding RemoveCharacterCommand}">
-                <TextBlock>Delete</TextBlock>
-            </Button>
-            
-            <Button Grid.Column="0" Grid.Row="2" HotKey="NumPad4"
-                    Command="{Binding AddNumberCommand}" CommandParameter="4">
-                <TextBlock>4</TextBlock>
-            </Button>
-            <Button Grid.Column="1" Grid.Row="2" HotKey="NumPad5"
-                    Command="{Binding AddNumberCommand}" CommandParameter="5">
-                <TextBlock>5</TextBlock>
-            </Button>
-            <Button Grid.Column="2" Grid.Row="2" HotKey="NumPad6"
-                    Command="{Binding AddNumberCommand}" CommandParameter="6">
-                <TextBlock>6</TextBlock>
-            </Button>
-            <Button Grid.Column="3" Grid.Row="2"
-                    Command="{Binding AddOperationCommand}" CommandParameter="*">
-                <TextBlock>*</TextBlock>
-            </Button>
-            <Button Grid.Column="4" Grid.Row="2"
-                    CommandParameter="{Binding RemoveExpressionCommand}"
-                    ><TextBlock>AC</TextBlock></Button>
-            
-            <Button Grid.Column="0" Grid.Row="3" HotKey="NumPad1"
-                    Command="{Binding AddNumberCommand}" CommandParameter="1">
-                <TextBlock>1</TextBlock>
-            </Button>
-            <Button Grid.Column="1" Grid.Row="3" HotKey="NumPad2"
-                    Command="{Binding AddNumberCommand}" CommandParameter="2">
-                <TextBlock>2</TextBlock>
-            </Button>
-            <Button Grid.Column="2" Grid.Row="3" HotKey="NumPad3"
-                    Command="{Binding AddNumberCommand}" CommandParameter="3">
-                <TextBlock>3</TextBlock>
-            </Button>
-            <Button Grid.Column="3" Grid.Row="3"
-                    Command="{Binding AddOperationCommand}" CommandParameter="-">
-                <TextBlock>-</TextBlock>
-            </Button>
-            <Button Grid.Column="4" Grid.Row="3" Grid.RowSpan="2">
-                <TextBlock>=</TextBlock>
-            </Button>
-            
-            <Button Grid.Column="0" Grid.Row="4" Grid.ColumnSpan="2" HotKey="NumPad0"
-                    Command="{Binding AddNumberCommand}" CommandParameter="0">
-                <TextBlock>0</TextBlock>
-            </Button>
-            <Button Grid.Column="2" Grid.Row="4"
-                    Command="{Binding AddNumberCommand}" CommandParameter=".">
-                <TextBlock>.</TextBlock>
-            </Button>
-            <Button Grid.Column="3" Grid.Row="4"
-                    Command="{Binding AddOperationCommand}" CommandParameter="+">
-                <TextBlock>+</TextBlock>
-            </Button>
-        </Grid>
+            </UniformGrid.Styles>
+            <Border><ToggleButton Content="Dark theme" IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Height="30"/></Border>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Border HorizontalAlignment="Right"><Button><TextBlock>HISTORY</TextBlock></Button></Border>
+                <Border HorizontalAlignment="Right"><Button><TextBlock>HELP</TextBlock></Button></Border>
+            </StackPanel>
+        </UniformGrid>
+
+
+        <TransitioningContentControl x:Name="ContentControl" Grid.Row="1" Margin="0 -30 0 0">
+            <controls:Calculator x:Name="Calc"/>
+        </TransitioningContentControl>
     </Grid>
 
 </Window>
