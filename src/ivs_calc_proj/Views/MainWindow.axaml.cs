@@ -28,12 +28,19 @@ public partial class MainWindow : Window
         else
             app.RequestedThemeVariant=ThemeVariant.Dark;
 
-        ((UserControl)ContentControl.Content)?.Focus();
+        FocusOnContent();
     }
 
 
     private void Control_OnLoaded(object? sender, RoutedEventArgs e)
     {
-        Calc.Focus();
+        FocusOnContent();
+    }
+
+    private void FocusOnContent()
+    {
+        if(ContentControl.Content==null) return;
+
+        ((UserControl)ContentControl.Content).Focus();
     }
 }

@@ -13,7 +13,7 @@
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True"
-        ExtendClientAreaChromeHints="NoChrome"
+
         ExtendClientAreaTitleBarHeightHint="-1"
         Loaded="Control_OnLoaded"
         Padding="{Binding $self.OffScreenMargin}"
@@ -75,14 +75,16 @@
             </UniformGrid.Styles>
             <Border><ToggleButton Content="Dark theme" IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Height="30"/></Border>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Border HorizontalAlignment="Right"><Button Command="{Binding SwitchToCalculatorCommand}"><TextBlock>CALCULATOR</TextBlock></Button></Border>
                 <Border HorizontalAlignment="Right"><Button><TextBlock>HISTORY</TextBlock></Button></Border>
-                <Border HorizontalAlignment="Right"><Button><TextBlock>HELP</TextBlock></Button></Border>
+                <Border HorizontalAlignment="Right"><Button Command="{Binding SwitchToHelpCommand}"><TextBlock>HELP</TextBlock></Button></Border>
             </StackPanel>
         </UniformGrid>
 
 
-        <TransitioningContentControl x:Name="ContentControl" Grid.Row="1" Margin="0 -30 0 0">
-            <controls:Calculator x:Name="Calc"/>
+        <TransitioningContentControl x:Name="ContentControl" Grid.Row="1" Margin="0 -30 0 0" Content="{Binding CurrentContent}">
+            <!--<controls:Calculator x:Name="Calc"/>-->
+            <!--<controls:HelpMenu/>-->
         </TransitioningContentControl>
     </Grid>
 
