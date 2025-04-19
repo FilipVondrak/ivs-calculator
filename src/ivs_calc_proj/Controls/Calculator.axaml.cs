@@ -2,6 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using ivs_calc_proj.ViewModels;
 
 namespace ivs_calc_proj.Controls;
 
@@ -10,6 +11,7 @@ public partial class Calculator : UserControl
     public Calculator()
     {
         InitializeComponent();
+        this.DataContext = new CalculatorViewModel();
         this.Focus();
     }
 
