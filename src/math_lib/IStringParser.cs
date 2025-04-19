@@ -13,7 +13,7 @@ public interface IStringParser
     /// Returns the result of the entire expression.
     /// </summary>
     /// <param name="expression">Expression for the solution</param>
-    /// <returns>Solution of the expression<paramref name="expression"/></returns>
+    /// <returns>Solution of the expression <paramref name="expression"/></returns>
     string SolveExpression(string expression);
 }
 
