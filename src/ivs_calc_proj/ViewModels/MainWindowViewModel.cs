@@ -156,8 +156,29 @@ public partial class MainWindowViewModel : ViewModelBase
     // -------- Commands for switching the main content -------- //
 
     [RelayCommand]
-    private void SwitchToCalculator() => CurrentContent = CalculatorTab;
+    private void SwitchToCalculator()
+    {
+        CurrentContent = CalculatorTab;
+        IsCurrentlyHelpTab = false;
+        IsCurrentlyHistoryTab = false;
+        IsCurrentlyCalculatorTab = true;
+    }
 
     [RelayCommand]
-    private void SwitchToHelp() => CurrentContent = HelpTab;
+    private void SwitchToHelp()
+    {
+        CurrentContent = HelpTab;
+        IsCurrentlyHelpTab = true;
+        IsCurrentlyHistoryTab = false;
+        IsCurrentlyCalculatorTab = false;
+    }
+
+    [ObservableProperty]
+    private bool _isCurrentlyHelpTab = false;
+
+    [ObservableProperty]
+    private bool _isCurrentlyHistoryTab = false;
+
+    [ObservableProperty]
+    private bool _isCurrentlyCalculatorTab = true;
 }

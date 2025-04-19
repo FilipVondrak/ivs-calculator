@@ -13,7 +13,7 @@
         Icon="/Assets/avalonia-logo.ico"
         WindowStartupLocation="CenterScreen"
         ExtendClientAreaToDecorationsHint="True"
-
+        ExtendClientAreaChromeHints="NoChrome"
         ExtendClientAreaTitleBarHeightHint="-1"
         Loaded="Control_OnLoaded"
         Padding="{Binding $self.OffScreenMargin}"
@@ -63,26 +63,37 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <UniformGrid Grid.Row="0" ZIndex="2" Rows="0" Columns="2" Margin="0 0 0 0">
-            <UniformGrid.Styles>
-                <Style Selector="Border">
-                    <Setter Property="HorizontalAlignment" Value="Stretch"/>
-                    <Setter Property="VerticalAlignment" Value="Stretch"/>
-                </Style>
-                <Style Selector="TextBlock">
-                    <Setter Property="TextAlignment" Value="Center"/>
-                </Style>
-            </UniformGrid.Styles>
-            <Border><ToggleButton Content="Dark theme" IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Height="30"/></Border>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <Border HorizontalAlignment="Right"><Button Command="{Binding SwitchToCalculatorCommand}"><TextBlock>CALCULATOR</TextBlock></Button></Border>
-                <Border HorizontalAlignment="Right"><Button><TextBlock>HISTORY</TextBlock></Button></Border>
-                <Border HorizontalAlignment="Right"><Button Command="{Binding SwitchToHelpCommand}"><TextBlock>HELP</TextBlock></Button></Border>
+        <DockPanel Grid.Row="0" ZIndex="2" Margin="0 0 0 0" LastChildFill="False">
+            <Border DockPanel.Dock="Left">
+                <ToggleButton Content="Dark theme" IsCheckedChanged="ToggleButton_OnIsCheckedChanged" Height="30"/>
+            </Border>
+
+            <StackPanel Orientation="Horizontal" DockPanel.Dock="Right" >
+                <Border HorizontalAlignment="Right">
+                    <ToggleButton x:Name="CalculatorToggleButton"
+                                  IsChecked="{Binding IsCurrentlyCalculatorTab}"
+                                  Command="{Binding SwitchToCalculatorCommand}">
+                        <TextBlock>CALCULATOR</TextBlock>
+                    </ToggleButton>
+                </Border>
+                <Border HorizontalAlignment="Right">
+                    <ToggleButton x:Name="HistoryToggleButton" IsChecked="{Binding IsCurrentlyHistoryTab}">
+                        <TextBlock>HISTORY</TextBlock>
+                    </ToggleButton>
+                </Border>
+                <Border HorizontalAlignment="Right">
+                    <ToggleButton x:Name="HelpToggleButton" IsChecked="{Binding IsCurrentlyHelpTab}"
+                                  Command="{Binding SwitchToHelpCommand}">
+                        <TextBlock>HELP</TextBlock>
+                    </ToggleButton>
+                </Border>
             </StackPanel>
-        </UniformGrid>
+        </DockPanel>
 
 
-        <TransitioningContentControl x:Name="ContentControl" Grid.Row="1" Margin="0 -30 0 0" Content="{Binding CurrentContent}">
+        <TransitioningContentControl x:Name="ContentControl" Grid.Row="1" Margin="0 -30 0 0"
+                                      TransitionCompleted="ContentControl_OnTransitionCompleted"
+                                     Content="{Binding CurrentContent}">
             <!--<controls:Calculator x:Name="Calc"/>-->
             <!--<controls:HelpMenu/>-->
         </TransitioningContentControl>

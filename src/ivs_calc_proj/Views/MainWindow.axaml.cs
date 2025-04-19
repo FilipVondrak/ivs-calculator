@@ -2,6 +2,7 @@ using System;
 using System.Threading.Tasks;
 using Avalonia;
 using Avalonia.Controls;
+using Avalonia.Controls.Primitives;
 using Avalonia.Input;
 using Avalonia.Interactivity;
 using Avalonia.Platform;
@@ -33,6 +34,11 @@ public partial class MainWindow : Window
 
 
     private void Control_OnLoaded(object? sender, RoutedEventArgs e)
+    {
+        FocusOnContent();
+    }
+
+    private void ContentControl_OnTransitionCompleted(object? sender, TransitionCompletedEventArgs e)
     {
         FocusOnContent();
     }
