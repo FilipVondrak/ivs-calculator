@@ -87,22 +87,22 @@
                 </Grid.Styles>
 
                 <controls:CalcButton Grid.Column="0" Grid.Row="0" x:Name="SinButton"
-                        Command="{Binding AddBracketCommand}" CommandParameter="(">
+                        Command="{Binding AddBracketCommand}" CommandParameter="sin(">
                     <TextBlock> sin </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="1" Grid.Row="0" x:Name="CosButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddBracketCommand}" CommandParameter="cos(">
                     <TextBlock> cos </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="2" Grid.Row="0" x:Name="TanButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddBracketCommand}" CommandParameter="tan(">
                     <TextBlock> tan </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LnButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddBracketCommand}" CommandParameter="ln(">
                     <TextBlock> ln </TextBlock>
                 </controls:CalcButton>
 

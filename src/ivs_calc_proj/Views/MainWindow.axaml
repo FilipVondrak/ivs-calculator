@@ -77,7 +77,8 @@
                     </ToggleButton>
                 </Border>
                 <Border HorizontalAlignment="Right">
-                    <ToggleButton x:Name="HistoryToggleButton" IsChecked="{Binding IsCurrentlyHistoryTab}">
+                    <ToggleButton x:Name="HistoryToggleButton" IsChecked="{Binding IsCurrentlyHistoryTab}"
+                                  Command="{Binding SwitchToHistoryCommand}">
                         <TextBlock>HISTORY</TextBlock>
                     </ToggleButton>
                 </Border>

@@ -8,34 +8,43 @@ namespace ivs_calc_proj.ViewModels;
 
 public partial class MainWindowViewModel : ViewModelBase
 {
-    private Calculator CalculatorTab;
-    private HelpMenu HelpTab;
+    private readonly Calculator _calculatorTab;
+    private readonly HelpMenu _helpTab;
+    private readonly HistoryMenu _historyTab;
 
     public MainWindowViewModel()
     {
-        CalculatorTab = new Calculator() { Name = "Calc"};
-        HelpTab = new HelpMenu();
-        CurrentContent = CalculatorTab;
+        _calculatorTab = new Calculator() { Name = "Calc"};
+        _helpTab = new HelpMenu();
+        _historyTab = new HistoryMenu();
+        CurrentContent = _calculatorTab;
     }
 
     [ObservableProperty]
     private object _currentContent;
 
-    // -------- Commands for switching the main content -------- //
-
     [RelayCommand]
     private void SwitchToCalculator()
     {
-        CurrentContent = CalculatorTab;
+        CurrentContent = _calculatorTab;
         IsCurrentlyHelpTab = false;
         IsCurrentlyHistoryTab = false;
         IsCurrentlyCalculatorTab = true;
     }
 
     [RelayCommand]
+    private void SwitchToHistory()
+    {
+        CurrentContent = _historyTab;
+        IsCurrentlyHelpTab = false;
+        IsCurrentlyHistoryTab = true;
+        IsCurrentlyCalculatorTab = false;
+    }
+
+    [RelayCommand]
     private void SwitchToHelp()
     {
-        CurrentContent = HelpTab;
+        CurrentContent = _helpTab;
         IsCurrentlyHelpTab = true;
         IsCurrentlyHistoryTab = false;
         IsCurrentlyCalculatorTab = false;

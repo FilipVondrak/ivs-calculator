@@ -96,31 +96,74 @@ public partial class CalculatorViewModel : ViewModelBase
     private void RemoveCharacter()
     {
         if(Expression.Length==0) return;
-
+        // if the last character is a space, then it removes the last operation
         if (Expression[^1] == ' ')
         {
             Expression=Expression.Substring(0, Expression.Length - 3);
+            ExpressionChanged();
+            return;
         }
-        else if (Expression[^1] == '(')
-        {
-            if(Expression.Length==1)
-                Expression=Expression.Substring(0, Expression.Length - 1);
-            else if(Expression[^2] == ' ')
-                Expression=Expression.Substring(0, Expression.Length - 4);
-        }
-        else if (Expression[^1] == '√' && Expression[^2] == '2')
-        {
-            if (Expression.Length>2 && Expression[^3] == ' ')
-                Expression=Expression.Substring(0, Expression.Length - 2);
-            else if (Expression.Length==2)
-                Expression=Expression.Substring(0, Expression.Length - 2);
-            else
-                Expression=Expression.Substring(0, Expression.Length - 1);
-        }
-        else
+        // removes the last character if it is a number
+        if (char.IsNumber(Expression[^1]))
         {
             Expression=Expression.Substring(0, Expression.Length - 1);
+            ExpressionChanged();
+            return;
         }
+
+        // checks if the character to be removed is the "root of" operation
+        // also removes the "2" from the expression because it is the default value
+        if (Expression[^1] == '√' && Expression[^2] == '2')
+        {
+            if ((Expression.Length > 2 && Expression[^3] == ' ') || Expression.Length == 2)
+            {
+                Expression=Expression.Substring(0, Expression.Length - 2);
+                ExpressionChanged();
+                return;
+            }
+
+            Expression=Expression.Substring(0, Expression.Length - 1);
+            ExpressionChanged();
+            return;
+        }
+
+        // checks if the character to be removed is "ln(" operation
+        if (Expression.Length>=3 && Expression.Substring(Expression.Length-3, 3)=="ln(")
+        {
+            Expression=Expression.Substring(0, Expression.Length - 3);
+            ExpressionChanged();
+            return;
+        }
+
+        // checks if the character to be removed is "sin(" operation
+        if (Expression.Length>=4)
+        {
+            string last4 = Expression.Substring(Expression.Length - 4, 4);
+            if (last4 == "sin(" || last4 == "cos(" || last4 == "tan(")
+            {
+                Expression=Expression.Substring(0, Expression.Length - 4);
+                ExpressionChanged();
+                return;
+            }
+        }
+        if (Expression[^1] == '(')
+        {
+            if (Expression.Length == 1)
+            {
+                Expression=Expression.Substring(0, Expression.Length - 1);
+                ExpressionChanged();
+                return;
+            }
+
+            if (Expression[^2] == ' ')
+            {
+                Expression=Expression.Substring(0, Expression.Length - 4);
+                ExpressionChanged();
+                return;
+            }
+        }
+
+        Expression=Expression.Substring(0, Expression.Length - 1);
         ExpressionChanged();
     }
 
