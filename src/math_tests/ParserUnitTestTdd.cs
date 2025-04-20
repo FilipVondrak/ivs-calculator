@@ -5,14 +5,11 @@ namespace math_tests;
 
 public class ParserUnitTestTdd
 {
-    private IStringParser _parser;
+    private readonly IStringParser _parser = new StringParser();
 
     [Fact]
     public void Calculating_multiple_bracket()
     {
-        // inicializace třídy
-        _parser = new StringParser();
-
         string expression = "1 + ((2 + 3) * 4)";
         string result = _parser.CalculateBracket(expression);
 
@@ -20,11 +17,8 @@ public class ParserUnitTestTdd
     }
 
     [Fact]
-    public void Calculating_expression()
+    public void Calculating_expression() // 1 * 8 / 9 + 11 - 48 * 8
     {
-        // inicializace třídy
-        _parser = new StringParser();
-
         string expression = "1 + ((2 + 3) * 4)";
         string result = _parser.CalculateBracket(expression);
 
