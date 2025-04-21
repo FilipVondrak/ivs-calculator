@@ -1,12 +1,18 @@
-src/ivs_calc_proj/.idea/*
-src/ivs_calc_proj/bin/*
-src/ivs_calc_proj/obj/*
-src/latex/*
-src/html/*
-# ignore math library files
-src/math_lib/.idea/*
-src/math_lib/bin/*
-src/math_lib/obj/*
-# ignore tests files
-src/math_tests/obj/*
-src/math_tests/bin/*
+# Build outputs
+**/bin/
+**/obj/
+ 
+# Cache
+**/.idea/
+.vscode/
+.vs/
+ 
+# User files
+*.user
+*.userosscache
+*.suo
+*.csproj.user
+ 
+# Misc
+.DS_Store
+Thumbs.db
