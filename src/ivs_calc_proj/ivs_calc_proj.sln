@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "math_lib", "..\math_lib\mat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "math_tests", "..\math_tests\math_tests.csproj", "{9705CE8E-0C3E-47AF-A9E6-A79E899A08D3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stddev", "stddev\stddev.csproj", "{5373455E-CB14-412E-9DF0-BEE3C9E7875A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "stddev", "..\stddev\stddev.csproj", "{5373455E-CB14-412E-9DF0-BEE3C9E7875A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
