@@ -1,4 +1,6 @@
-﻿namespace math_lib;
+﻿using ExtendedNumerics;
+
+namespace math_lib;
 
 /// <summary>
 /// Definition of basic calculator operations
@@ -9,13 +11,13 @@ public interface ICalculator
     /// Adds two numbers
     /// </summary>
     /// <returns>x + y</returns>
-    double Add(double x, double y);
+    decimal Add(decimal x, decimal y);
     
     /// <summary>
     /// Subtracts the second number from the first
     /// </summary>
     /// <returns>x - y</returns>
-    double Subtract(double x, double y);
+    decimal Subtract(decimal x, decimal y);
     
     /// <summary>
     /// Multiplies the first number with the second
@@ -23,7 +25,7 @@ public interface ICalculator
     /// <param name="x"></param>
     /// <param name="y"></param>
     /// <returns>x * y</returns>
-    double Multiply(double x, double y);
+    decimal Multiply(decimal x, decimal y);
     
     /// <summary>
     /// Divides the first number by the second, rounding to 5 decimal places
@@ -32,7 +34,7 @@ public interface ICalculator
     /// <param name="y"></param>
     /// <exception cref="DivideByZeroException">Thrown when y is 0</exception>
     /// <returns>x / y</returns>
-    double Divide(double x, double y);
+    decimal Divide(decimal x, decimal y);
 
     /// <summary>
     /// Returns the factorial of a non-negative integer
@@ -48,7 +50,7 @@ public interface ICalculator
     /// <param name="baseNum">The base number for exponentiation</param>
     /// <param name="exponent">The exponent</param>
     /// <returns></returns>
-    double Power(double baseNum, int exponent);
+    BigDecimal Power(decimal baseNum, int exponent);
     
     /// <summary>
     /// Calculates the root of a number
@@ -58,7 +60,7 @@ public interface ICalculator
     /// <returns>The n-th root of baseNum</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="rootDegree"/> is less than or equal to 0,
     /// or if <paramref name="baseNum"/> is negative and <paramref name="rootDegree"/> is even</exception>
-    double Root(double baseNum, int rootDegree);
+    BigDecimal Root(decimal baseNum, int rootDegree);
     
     /// <summary>
     /// Calculates the logarithm of a value in a specified base
@@ -68,27 +70,27 @@ public interface ICalculator
     /// <returns>The logarithm of baseNum in logBase base</returns>
     /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="baseNum"/> is less than or equal to 0
     /// or when <paramref name="logBase"/> is less than 0 or equal to 1 or 0</exception>
-    double Log(double baseNum, double logBase);
+    BigDecimal Log(decimal baseNum, int logBase);
     
     /// <summary>
     /// Returns the sine value of a specific angle in radians
     /// </summary>
     /// <param name="angle">Angle in radians</param>
     /// <returns>The sine value of <paramref name="angle"/></returns>
-    double Sin(double angle);
+    BigDecimal Sin(decimal angle);
     
     /// <summary>
     /// Returns the cosine value of a specific angle in radians
     /// </summary>
     /// <param name="angle">Angle in radians</param>
     /// <returns>The cosine value of <paramref name="angle"/></returns>
-    double Cos(double angle);
+    BigDecimal Cos(decimal angle);
     
     /// <summary>
     /// Returns the tangent of a specific angle in radians
     /// </summary>
     /// <param name="angle">Angle in radians</param>
     /// <returns>The tangent of <paramref name="angle"/></returns>
-    double Tan(double angle);
+    BigDecimal Tan(decimal angle);
     
 }

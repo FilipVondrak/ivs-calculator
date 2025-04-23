@@ -1,29 +1,33 @@
-﻿namespace math_lib;
+﻿using System.Numerics;
+using ExtendedNumerics;
+
+namespace math_lib;
 
 public class Calculator : ICalculator
 {
-    public double Add(double x, double y)
+    public decimal Add(decimal x, decimal y)
     {
         return x + y;
     }
 
-    public double Subtract(double x, double y)
+    public decimal Subtract(decimal x, decimal y)
     {
         return x - y;
     }
 
-    public double Multiply(double x, double y)
+    public decimal Multiply(decimal x, decimal y)
     {
         return x * y;
     }
 
-    public double Divide(double x, double y)
+    public decimal Divide(decimal x, decimal y)
     {
         if (y == 0)
         {
             throw new DivideByZeroException("Division by zero is not allowed.");
         }
-        return double.Round(x/y, 5);
+
+        return decimal.Round(x / y, 5);
     }
 
     public long Factorial(int n)
@@ -32,60 +36,71 @@ public class Calculator : ICalculator
         {
             throw new ArgumentOutOfRangeException(nameof(n), n, "Negative numbers are not allowed.");
         }
-        
+
         long result = 1;
         for (int i = 2; i <= n; i++)
         {
             result *= i;
         }
+
         return result;
     }
 
-    public double Power(double baseNum, int exponent)
+    public BigDecimal Power(decimal baseNum, int exponent)
     {
-        return Math.Pow(baseNum, exponent);
+        return BigDecimal.Pow(baseNum, exponent);
     }
 
-    public double Root(double baseNum, int rootDegree)
+    public BigDecimal Root(decimal baseNum, int rootDegree)
     {
         if (rootDegree <= 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(rootDegree), rootDegree, "Root degree must be greater than zero.");
+            throw new ArgumentOutOfRangeException(nameof(rootDegree), rootDegree,
+                "Root degree must be greater than zero.");
         }
+
         if (baseNum < 0 && rootDegree % 2 == 0)
         {
-            throw new ArgumentOutOfRangeException(nameof(baseNum), baseNum, "Root cannot be even when base number is negative.");
+            throw new ArgumentOutOfRangeException(nameof(baseNum), baseNum,
+                "Root cannot be even when base number is negative.");
         }
-        
-        return Math.Pow(baseNum, 1.0 / rootDegree);
-        
+
+        return BigDecimal.NthRoot(baseNum, rootDegree, 5);
     }
 
-    public double Log(double baseNum, double logBase)
+    public BigDecimal Log(decimal baseNum, int logBase)
     {
         if (baseNum <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(baseNum), baseNum, "Base number must be greater than zero.");
         }
+
         if (logBase is < 0 or 0 or 1)
         {
-            throw new ArgumentOutOfRangeException(nameof(logBase), logBase, "logBase cannot be negative, equal to 0 or 1.");
+            throw new ArgumentOutOfRangeException(nameof(logBase), logBase,
+                "logBase cannot be negative, equal to 0 or 1.");
         }
-        return Math.Log(baseNum, logBase);
+
+        return BigDecimal.Round(BigDecimal.Log(baseNum, logBase), 5);
     }
 
-    public double Sin(double angle)
+    public BigDecimal Sin(decimal angle)
     {
-        return double.Round(Math.Sin(angle));
+        var radians = angle * BigDecimal.π / 180;
+        return BigDecimal.Sin(radians);
     }
 
-    public double Cos(double angle)
+    public BigDecimal Cos(decimal angle)
     {
-        return double.Round(Math.Cos(angle));
+        var radians = angle * BigDecimal.π / 180;
+        return BigDecimal.Cos(radians);
     }
 
-    public double Tan(double angle)
+    public BigDecimal Tan(decimal angle)
     {
-        return double.Round(Math.Tan(angle));
+        var radians = angle * BigDecimal.π / 180;
+        var sin = BigDecimal.Sin(radians);
+        var cos = BigDecimal.Cos(radians);
+        return sin / cos;
     }
 }
