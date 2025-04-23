@@ -5,16 +5,9 @@ using Xunit.Sdk;
 
 namespace math_tests;
 
-public class MathLibUnitTestTdd
+public class MathLibUnitTestTdd(ITestOutputHelper output)
 {
     private readonly ICalculator _calculator = new Calculator();
-
-    private readonly ITestOutputHelper _output;
-
-    public MathLibUnitTestTdd(ITestOutputHelper output)
-    {
-        _output = output;
-    }
 
     [Fact]
     public void Add_Basic1()
@@ -333,8 +326,8 @@ public class MathLibUnitTestTdd
     public void Log_Basic1()
     {
         var result = _calculator.Log(100, 10);
-        _output.WriteLine("Actual: " + result);
-        _output.WriteLine("Expected: " + 2);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 2);
         Assert.Equal(0, result.CompareTo(2));
     }
 
@@ -342,8 +335,8 @@ public class MathLibUnitTestTdd
     public void Log_1()
     {
         var result = _calculator.Log(9, 2);
-        _output.WriteLine("Actual: " + result);
-        _output.WriteLine("Expected: " + 3.16993m);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 3.16993m);
         Assert.Equal(0, result.CompareTo(3.16993m));
     }
 
@@ -351,8 +344,8 @@ public class MathLibUnitTestTdd
     public void Log_2()
     {
         var result = _calculator.Log(2, 9);
-        _output.WriteLine("Actual: " + result);
-        _output.WriteLine("Expected: " + 0.31546m);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 0.31546m);
         Assert.Equal(0, result.CompareTo(0.31546m));
     }
 
@@ -360,8 +353,8 @@ public class MathLibUnitTestTdd
     public void Log_decimals1()
     {
         var result = _calculator.Log(2.00333m, 2);
-        _output.WriteLine("Actual: " + result);
-        _output.WriteLine("Expected: " + 1.0024m);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 1.0024m);
         Assert.Equal(0, result.CompareTo(1.0024m));
     }
 
@@ -369,21 +362,77 @@ public class MathLibUnitTestTdd
     public void Log_decimals2()
     {
         var result = _calculator.Log(0.5m, 2);
-        _output.WriteLine("Actual: " + result);
-        _output.WriteLine("Expected: " + -1m);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + -1m);
         Assert.Equal(0, result.CompareTo(-1m));
     }
 
     [Fact]
     public void Log_Exceptions()
     {
-        _output.WriteLine("value can not be 0");
+        output.WriteLine("value can not be 0");
         Assert.Throws<ArgumentOutOfRangeException>(() => _calculator.Log(0, 1));
-        _output.WriteLine("base can not be negative");
+        output.WriteLine("base can not be negative");
         Assert.Throws<ArgumentOutOfRangeException>(() => _calculator.Log(1, -1));
-        _output.WriteLine("value can not be negative");
+        output.WriteLine("value can not be negative");
         Assert.Throws<ArgumentOutOfRangeException>(() => _calculator.Log(-1, 1));
     }
+
+
+    [Fact]
+    public void Ln_Basic1()
+    {
+        var result = _calculator.Ln(100);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 4.60517m);
+        Assert.Equal(0, result.CompareTo(4.60517m));
+    }
+
+    [Fact]
+    public void Ln_1()
+    {
+        var result = _calculator.Ln(9);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 2.19722m);
+        Assert.Equal(0, result.CompareTo(2.19722m));
+    }
+
+    [Fact]
+    public void Ln_2()
+    {
+        var result = _calculator.Ln(2);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 0.69315m);
+        Assert.Equal(0, result.CompareTo(0.69315m));
+    }
+
+    [Fact]
+    public void Ln_decimals1()
+    {
+        var result = _calculator.Ln(2.00333m);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + 0.69481m);
+        Assert.Equal(0, result.CompareTo(0.69481m));
+    }
+
+    [Fact]
+    public void Ln_decimals2()
+    {
+        var result = _calculator.Ln(0.5m);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + -0.69315m);
+        Assert.Equal(0, result.CompareTo(-0.69315m));
+    }
+
+    [Fact]
+    public void Ln_Exceptions()
+    {
+        output.WriteLine("value can not be 0");
+        Assert.Throws<ArgumentOutOfRangeException>(() => _calculator.Ln(0));
+        output.WriteLine("value can not be negative");
+        Assert.Throws<ArgumentOutOfRangeException>(() => _calculator.Ln(-1));
+    }
+
 
     [Fact]
     public void Sin_0()
@@ -571,8 +620,8 @@ public class MathLibUnitTestTdd
         var result = _calculator.Tan(360);
         Assert.Equal(0, result);
     }
-    
-    
+
+
     [Fact]
     public void Tan_720()
     {
