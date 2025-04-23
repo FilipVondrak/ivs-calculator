@@ -73,6 +73,15 @@ public interface ICalculator
     BigDecimal Log(decimal baseNum, int logBase);
     
     /// <summary>
+    /// Calculates the natural logarithm of a value in a specified base
+    /// </summary>
+    /// <param name="baseNum">The value to calculate logarithm for</param>
+    /// <returns>The logarithm of baseNum in logBase base</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="baseNum"/> is less than or equal to 0
+    /// or when <paramref name="logBase"/> is less than 0 or equal to 1 or 0</exception>
+    BigDecimal Ln(decimal baseNum);
+
+    /// <summary>
     /// Returns the sine value of a specific angle in radians
     /// </summary>
     /// <param name="angle">Angle in radians</param>

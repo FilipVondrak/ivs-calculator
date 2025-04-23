@@ -89,6 +89,11 @@ public class Calculator : ICalculator
         return BigDecimal.Round(BigDecimal.Log(baseNum, logBase), 5, RoundingStrategy.AwayFromZero);
     }
 
+    public BigDecimal Ln(decimal baseNum)
+    {
+        throw new NotImplementedException();
+    }
+
     public BigDecimal Sin(decimal angle)
     {
         var radians = angle * BigDecimal.π / 180;
