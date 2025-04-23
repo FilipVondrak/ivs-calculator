@@ -8,17 +8,17 @@ public class Calculator : ICalculator
 {
     public decimal Add(decimal x, decimal y)
     {
-        return x + y;
+        return decimal.Round(x+y, 5, MidpointRounding.AwayFromZero);
     }
 
     public decimal Subtract(decimal x, decimal y)
     {
-        return x - y;
+        return decimal.Round(x-y, 5, MidpointRounding.AwayFromZero);
     }
 
     public decimal Multiply(decimal x, decimal y)
     {
-        return decimal.Round(x*y, 5);
+        return decimal.Round(x*y, 5, MidpointRounding.AwayFromZero);
     }
 
     public decimal Divide(decimal x, decimal y)
@@ -28,7 +28,7 @@ public class Calculator : ICalculator
             throw new DivideByZeroException("Division by zero is not allowed.");
         }
 
-        return decimal.Round(x / y, 5);
+        return decimal.Round(x / y, 5, MidpointRounding.AwayFromZero);
     }
 
     public long Factorial(int n)
@@ -49,7 +49,7 @@ public class Calculator : ICalculator
 
     public BigDecimal Power(double baseNum, double exponent)
     {
-        return BigDecimal.Round(BigDecimal.Pow(baseNum, exponent), 5);
+        return BigDecimal.Round(BigDecimal.Pow(baseNum, exponent), 5, RoundingStrategy.AwayFromZero);
     }
 
     public BigDecimal Root(decimal baseNum, int rootDegree)
