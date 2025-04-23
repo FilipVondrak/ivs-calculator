@@ -6,15 +6,9 @@ namespace math_lib;
 
 public class Calculator : ICalculator
 {
-    public decimal Add(decimal x, decimal y)
-    {
-        return decimal.Round(x+y, 5, MidpointRounding.AwayFromZero);
-    }
+    public decimal Add(decimal x, decimal y) => x + y;
 
-    public decimal Subtract(decimal x, decimal y)
-    {
-        return decimal.Round(x-y, 5, MidpointRounding.AwayFromZero);
-    }
+    public decimal Subtract(decimal x, decimal y) => x - y;
 
     public decimal Multiply(decimal x, decimal y)
     {
@@ -73,7 +67,7 @@ public class Calculator : ICalculator
             invert = true;
             baseNum = decimal.Abs(baseNum);
         }
-        BigDecimal result = BigDecimal.Round(BigDecimal.NthRoot(baseNum, rootDegree, 6),
+        BigDecimal result = BigDecimal.Round(BigDecimal.NthRoot(baseNum, rootDegree, 10),
             precision: 5, RoundingStrategy.AwayFromZero);
         if (invert) return -result;
         return result;
