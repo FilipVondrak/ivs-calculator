@@ -50,7 +50,7 @@ public interface ICalculator
     /// <param name="baseNum">The base number for exponentiation</param>
     /// <param name="exponent">The exponent</param>
     /// <returns></returns>
-    BigDecimal Power(decimal baseNum, int exponent);
+    BigDecimal Power(double baseNum, double exponent);
     
     /// <summary>
     /// Calculates the root of a number

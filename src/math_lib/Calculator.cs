@@ -47,7 +47,7 @@ public class Calculator : ICalculator
         return result;
     }
 
-    public BigDecimal Power(decimal baseNum, int exponent)
+    public BigDecimal Power(double baseNum, double exponent)
     {
         return BigDecimal.Round(BigDecimal.Pow(baseNum, exponent), 5);
     }
