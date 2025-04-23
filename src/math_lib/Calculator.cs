@@ -1,4 +1,5 @@
-﻿using System.Numerics;
+﻿using System.ComponentModel;
+using System.Numerics;
 using ExtendedNumerics;
 
 namespace math_lib;
@@ -48,11 +49,12 @@ public class Calculator : ICalculator
 
     public BigDecimal Power(decimal baseNum, int exponent)
     {
-        return BigDecimal.Pow(baseNum, exponent);
+        return BigDecimal.Round(BigDecimal.Pow(baseNum, exponent), 5);
     }
 
     public BigDecimal Root(decimal baseNum, int rootDegree)
     {
+        bool invert = false;
         if (rootDegree <= 0)
         {
             throw new ArgumentOutOfRangeException(nameof(rootDegree), rootDegree,
@@ -65,7 +67,15 @@ public class Calculator : ICalculator
                 "Root cannot be even when base number is negative.");
         }
 
-        return BigDecimal.NthRoot(baseNum, rootDegree, 5);
+        if (baseNum < 0 && rootDegree % 2 != 0)
+        {
+            // BigDecimal.NthRoot doesn't support negative base numbers
+            invert = true;
+            baseNum = decimal.Abs(baseNum);
+        }
+        BigDecimal result = BigDecimal.NthRoot(baseNum, rootDegree, 5);
+        if (invert) return -result;
+        return result;
     }
 
     public BigDecimal Log(decimal baseNum, int logBase)
@@ -81,19 +91,24 @@ public class Calculator : ICalculator
                 "logBase cannot be negative, equal to 0 or 1.");
         }
 
-        return BigDecimal.Round(BigDecimal.Log(baseNum, logBase), 5);
+        return BigDecimal.Round(BigDecimal.Log(baseNum, logBase), 5, RoundingStrategy.AwayFromZero);
     }
 
     public BigDecimal Sin(decimal angle)
     {
         var radians = angle * BigDecimal.π / 180;
-        return BigDecimal.Sin(radians);
+        return BigDecimal.Round(BigDecimal.Sin(radians), 5, RoundingStrategy.AwayFromZero);
     }
 
     public BigDecimal Cos(decimal angle)
     {
+        //BigDecimal.Cos returns the wrong sign on multiples of 360, which are equal to 0
+        if (angle % 360 == 0)
+        {
+            angle = 0;
+        }
         var radians = angle * BigDecimal.π / 180;
-        return BigDecimal.Cos(radians);
+        return BigDecimal.Round(BigDecimal.Cos(radians), 5, RoundingStrategy.AwayFromZero);
     }
 
     public BigDecimal Tan(decimal angle)
@@ -101,6 +116,10 @@ public class Calculator : ICalculator
         var radians = angle * BigDecimal.π / 180;
         var sin = BigDecimal.Sin(radians);
         var cos = BigDecimal.Cos(radians);
-        return sin / cos;
+        if (cos == 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(angle), angle, "Cosine angle must be greater than zero.");
+        }
+        return Divide((decimal)sin, (decimal)cos);
     }
 }
