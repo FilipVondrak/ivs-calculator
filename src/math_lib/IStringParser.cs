@@ -80,11 +80,11 @@ public interface IStringParser
     bool RootIn(string expression);
 
     /// <summary>
-    /// Checks for a logarithm operation in the expression
+    /// Checks for a natural logarithm operation in the expression
     /// </summary>
     /// <param name="expression">Expression to check</param>
-    /// <returns>True if there is a logarithm operation</returns>
-    bool LogIn(string expression);
+    /// <returns>True if there is a natural logarithm operation</returns>
+    bool LnIn(string expression);
 
     /// <summary>
     /// Checks for trigonometric operations in the expression
