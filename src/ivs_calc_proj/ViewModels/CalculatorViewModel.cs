@@ -1,11 +1,23 @@
 using System.Linq.Expressions;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
+using ivs_calc_proj.Controls;
+using math_lib;
 
 namespace ivs_calc_proj.ViewModels;
 
 public partial class CalculatorViewModel : ViewModelBase
 {
+    public CalculatorViewModel()
+    {
+
+    }
+    public CalculatorViewModel(HistoryMenu historyMenu)
+    {
+        _historyMenu = historyMenu;
+    }
+
+    private readonly HistoryMenu? _historyMenu;
 
     [ObservableProperty]
     private string _expression = string.Empty;
@@ -178,6 +190,8 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void Equals()
     {
+        if (_historyMenu != null)
+            _historyMenu.AddEntry(Expression, Output);
         Expression = Output.Substring(2);
         Output = string.Empty;
     }

@@ -3,14 +3,16 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="clr-namespace:ivs_calc_proj.Controls"
-             mc:Ignorable="d" Margin="20 60 20 0"
+             mc:Ignorable="d" Margin="20 60 20 20"
              x:Class="ivs_calc_proj.Controls.HistoryMenu">
 
-    <StackPanel>
+    <Grid RowDefinitions="Auto,*">
         <Label>Your history:</Label>
-        <StackPanel>
-            <controls:HistoryMenuEntry/>
-        </StackPanel>
-    </StackPanel>
+        <ScrollViewer Grid.Row="1" Padding="10 0 10 0">
+            <StackPanel x:Name="Entries" Spacing="10">
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 
 </UserControl>

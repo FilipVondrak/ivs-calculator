@@ -6,8 +6,10 @@ namespace ivs_calc_proj.Controls;
 
 public partial class HistoryMenuEntry : UserControl
 {
-    public HistoryMenuEntry()
+    public HistoryMenuEntry(string input, string output)
     {
         InitializeComponent();
+        this.InputLabel.Content = input;
+        this.OutputLabel.Content = output;
     }
 }

@@ -15,6 +15,13 @@ public partial class Calculator : UserControl
         this.Focus();
     }
 
+    public Calculator(HistoryMenu historyMenu)
+    {
+        InitializeComponent();
+        this.DataContext = new CalculatorViewModel(historyMenu);
+        this.Focus();
+    }
+
     private void Input_OnKeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.Key)

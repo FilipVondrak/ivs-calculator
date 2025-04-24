@@ -10,4 +10,11 @@ public partial class HistoryMenu : UserControl
     {
         InitializeComponent();
     }
+
+    public void AddEntry(string input, string output)
+    {
+        var entriesStackPanel = (StackPanel)Entries;
+        var entry = new HistoryMenuEntry(input, output);
+        entriesStackPanel.Children.Add(entry);
+    }
 }

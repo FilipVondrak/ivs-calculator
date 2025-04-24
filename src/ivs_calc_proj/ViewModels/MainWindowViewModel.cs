@@ -14,9 +14,9 @@ public partial class MainWindowViewModel : ViewModelBase
 
     public MainWindowViewModel()
     {
-        _calculatorTab = new Calculator() { Name = "Calc"};
-        _helpTab = new HelpMenu();
         _historyTab = new HistoryMenu();
+        _calculatorTab = new Calculator(_historyTab) { Name = "Calc",};
+        _helpTab = new HelpMenu();
         CurrentContent = _calculatorTab;
     }
 
