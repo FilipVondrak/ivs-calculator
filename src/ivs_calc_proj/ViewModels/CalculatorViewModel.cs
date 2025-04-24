@@ -69,7 +69,8 @@ public partial class CalculatorViewModel : ViewModelBase
     private void AddBracket(string newBracket)
     {
         // if the previous character is a number, add a multiply operation
-        if (newBracket=="(" && Expression.Length > 0 && (char.IsNumber(Expression[^1]) || Expression[^1]==')'))
+        if ((newBracket=="(" || newBracket=="sin(" || newBracket=="cos(" || newBracket=="tan(" || newBracket=="ln(")
+            && Expression.Length > 0 && (char.IsNumber(Expression[^1]) || Expression[^1]==')'))
         {
             AddBinaryOperation("*");
         }
