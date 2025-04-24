@@ -85,7 +85,7 @@ public partial class CalculatorViewModel : ViewModelBase
         }
 
         // ensure the bracket is not empty
-        if(newBracket==")" && Expression[^1]==')')
+        if(newBracket==")" && (Expression[^1]=='(' || Expression[^2]=='-'))
         {
             ShowError();
             return;
@@ -100,13 +100,13 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void AddBinaryOperation(string newOperation)
     {
-        if(Expression.Length==0 || Expression[^1]=='(')
+        if(newOperation!="-" && (Expression.Length==0 || Expression[^1]=='('))
         {
             ShowError();
             return;
         }
 
-        if (Expression[^1] == ' ')
+        if (Expression.Length>0 && Expression[^1] == ' ')
             RemoveCharacter();
         Expression += $" {newOperation} ";
         ExpressionChanged();
