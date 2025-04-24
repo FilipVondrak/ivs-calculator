@@ -91,7 +91,12 @@ public class Calculator : ICalculator
 
     public BigDecimal Ln(decimal baseNum)
     {
-        throw new NotImplementedException();
+        if (baseNum <= 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(baseNum), baseNum, "Base number must be greater than zero.");
+        }
+
+        return BigDecimal.Round(BigDecimal.Ln(baseNum), 5, RoundingStrategy.AwayFromZero);
     }
 
     public BigDecimal Sin(decimal angle)
