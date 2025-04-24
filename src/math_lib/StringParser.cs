@@ -169,7 +169,7 @@ public class StringParser : IStringParser
         throw new NotImplementedException();
     }
 
-    public bool LogIn(string expression)
+    public bool LnIn(string expression)
     {
         throw new NotImplementedException();
     }

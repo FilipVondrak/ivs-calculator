@@ -89,12 +89,12 @@ public interface IStringParser
     bool RootIn(string expression);
 
     /// <summary>
-    /// Returns true if log function in expression
+    /// Returns true if ln function in expression
     ///         false if not
     /// </summary>
     /// <param name="expression">Expression to check</param>
     /// <returns>Solution of the expression <paramref name="expression"/></returns>
-    bool LogIn(string expression);
+    bool LnIn(string expression);
 
     /// <summary>
     /// Returns true if trigonometric functions in expression
