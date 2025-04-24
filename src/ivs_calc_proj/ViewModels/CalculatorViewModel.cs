@@ -29,23 +29,23 @@ public partial class CalculatorViewModel : ViewModelBase
     public bool OutputVisible { get; set; } = true;
 
     [ObservableProperty]
-    private bool _errorVisible = false;
+    private int _errorVisible = 0;
 
     private void ShowError()
     {
         var timer = new DispatcherTimer
         {
-            Interval = TimeSpan.FromMilliseconds(500)
+            Interval = TimeSpan.FromMilliseconds(1000)
         };
 
         // Removes the pressed state after the set interval
         timer.Tick += (sender, args) =>
         {
-            ErrorVisible = false;
+            ErrorVisible = 0;
             timer.Stop();
         };
 
-        ErrorVisible = true;
+        ErrorVisible = 1;
         timer.Start();
     }
 
@@ -78,7 +78,7 @@ public partial class CalculatorViewModel : ViewModelBase
         int countClosingBrackets = Expression.Count(c => c == ')');
 
         // ensures that there is a matching bracket for the end bracket
-        if (newBracket == ")" && countOpeningBrackets < countClosingBrackets)
+        if (newBracket == ")" && countOpeningBrackets <= countClosingBrackets)
         {
             ShowError();
             return;

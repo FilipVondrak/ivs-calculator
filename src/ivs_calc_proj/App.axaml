@@ -31,8 +31,8 @@
                     <SolidColorBrush x:Key="Background">#090915</SolidColorBrush>
                     <SolidColorBrush x:Key="Primary">#3e4956</SolidColorBrush>
                     <SolidColorBrush x:Key="Secondary">#3d4e61</SolidColorBrush>
-                    <SolidColorBrush x:Key="EqualsButton">#18560c</SolidColorBrush>
-                    <SolidColorBrush x:Key="Delete">#8c0b0b</SolidColorBrush>
+                    <SolidColorBrush x:Key="EqualsButton">DarkSeaGreen</SolidColorBrush>
+                    <SolidColorBrush x:Key="Delete">#d89797</SolidColorBrush>
                 </ResourceDictionary>
             </ResourceDictionary.ThemeDictionaries></ResourceDictionary>
     </Application.Resources>
