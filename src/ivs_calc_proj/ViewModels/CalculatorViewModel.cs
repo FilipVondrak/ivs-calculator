@@ -1,4 +1,7 @@
+using System;
+using System.Linq;
 using System.Linq.Expressions;
+using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
 using ivs_calc_proj.Controls;
@@ -12,6 +15,7 @@ public partial class CalculatorViewModel : ViewModelBase
     {
 
     }
+
     public CalculatorViewModel(HistoryMenu historyMenu)
     {
         _historyMenu = historyMenu;
@@ -19,17 +23,40 @@ public partial class CalculatorViewModel : ViewModelBase
 
     private readonly HistoryMenu? _historyMenu;
 
-    [ObservableProperty]
-    private string _expression = string.Empty;
+    [ObservableProperty] private string _expression = string.Empty;
 
-    [ObservableProperty]
-    private string _output = "= 0";
+    [ObservableProperty] private string _output = "= 0";
     public bool OutputVisible { get; set; } = true;
 
-    [RelayCommand]
+    [ObservableProperty]
+    private bool _errorVisible = false;
+
+    private void ShowError()
+    {
+        var timer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromMilliseconds(500)
+        };
+
+        // Removes the pressed state after the set interval
+        timer.Tick += (sender, args) =>
+        {
+            ErrorVisible = false;
+            timer.Stop();
+        };
+
+        ErrorVisible = true;
+        timer.Start();
+    }
+
+[RelayCommand]
     private void AddNumber(string newCharacter)
     {
-        if (Expression.Length > 0 && Expression[^1] == ')')
+        // ensures that there is a number before adding floating point
+        if (newCharacter=="." && ((Expression.Length > 0 && !char.IsNumber(Expression[^1])) || Expression.Length==0)) return;
+
+        // if the previous character is a bracket or factorial, add a multiply operation
+        if (Expression.Length > 0 && (Expression[^1] == ')' || Expression[^1] == '!'))
         {
             AddBinaryOperation("*");
         }
@@ -41,10 +68,27 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void AddBracket(string newBracket)
     {
-        // if previus character is a number, add a multiply operation
-        if (newBracket=="(" && Expression.Length > 0 && char.IsNumber(Expression[^1]))
+        // if the previous character is a number, add a multiply operation
+        if (newBracket=="(" && Expression.Length > 0 && (char.IsNumber(Expression[^1]) || Expression[^1]==')'))
         {
             AddBinaryOperation("*");
+        }
+
+        int countOpeningBrackets = Expression.Count(c => c == '(');
+        int countClosingBrackets = Expression.Count(c => c == ')');
+
+        // ensures that there is a matching bracket for the end bracket
+        if (newBracket == ")" && countOpeningBrackets < countClosingBrackets)
+        {
+            ShowError();
+            return;
+        }
+
+        // ensure the bracket is not empty
+        if(newBracket==")" && Expression[^1]==')')
+        {
+            ShowError();
+            return;
         }
 
         Expression += $"{newBracket}";
@@ -56,7 +100,11 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void AddBinaryOperation(string newOperation)
     {
-        if(Expression.Length==0) return;
+        if(Expression.Length==0 || Expression[^1]=='(')
+        {
+            ShowError();
+            return;
+        }
 
         if (Expression[^1] == ' ')
             RemoveCharacter();
@@ -69,6 +117,7 @@ public partial class CalculatorViewModel : ViewModelBase
     {
         if (Expression.Length>0 && !(char.IsNumber(Expression[^1]) || Expression[^1]==' '))
         {
+            ShowError();
             return;
         }
 
@@ -86,12 +135,16 @@ public partial class CalculatorViewModel : ViewModelBase
     {
         // correctly formats the string
         // example: expression is "55" and newOperation is "sin", then ensures there is multiplication between these
-        if (Expression.Length>0 && Expression[^1] != ' ' && newOperation!="^")
+        if (Expression.Length>0 && Expression[^1] != ' ' && !(newOperation!="^" || newOperation!="!"))
             AddBinaryOperation("*");
 
-        // ensures that there is a number before adding the ^ operation
-        if (newOperation=="^" && (Expression.Length>0 && !char.IsNumber(Expression[^1]) || Expression.Length==0))
+        // ensures that there is a number/end-bracket before adding the ^ or ! operation
+        if ((newOperation=="^" || newOperation=="!") &&
+            ((Expression.Length>0 && !char.IsNumber(Expression[^1]) && Expression[^1] != ')')|| Expression.Length==0 ))
+        {
+            ShowError();
             return;
+        }
 
         Expression += $"{newOperation}";
         ExpressionChanged();
@@ -107,7 +160,12 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void RemoveCharacter()
     {
-        if(Expression.Length==0) return;
+        if(Expression.Length==0)
+        {
+            ShowError();
+            return;
+        }
+
         // if the last character is a space, then it removes the last operation
         if (Expression[^1] == ' ')
         {
@@ -190,6 +248,12 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void Equals()
     {
+        if(Output==string.Empty)
+        {
+            ShowError();
+            return;
+        }
+
         if (_historyMenu != null)
             _historyMenu.AddEntry(Expression, Output);
         Expression = Output.Substring(2);

@@ -43,6 +43,16 @@
                                Foreground="{DynamicResource Accent}"
                                IsVisible="{Binding OutputVisible}"
                     />
+
+                    <TextBlock Grid.Row="0" Text="Invalid input!"
+                               RelativePanel.AlignBottomWith="Display"
+                               RelativePanel.Above="Display"
+                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                               Margin="25 0 25 0"
+                               FontSize="20"
+                               Foreground="{DynamicResource Delete}"
+                               IsVisible="{Binding ErrorVisible}"
+                    />
                 </RelativePanel>
             </Border>
 
@@ -107,7 +117,7 @@
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="FactorialButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddUnaryOperationCommand}" CommandParameter="!">
                     <TextBlock> ! </TextBlock>
                 </controls:CalcButton>
 
@@ -150,7 +160,7 @@
                 </controls:CalcButton>
                 <controls:CalcButton Grid.Column="4" Grid.Row="2" x:Name="DeleteButton" Background="{DynamicResource Delete}"
                         Command="{Binding RemoveCharacterCommand}">
-                    <TextBlock>Delete</TextBlock>
+                    <TextBlock>Del</TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="0" Grid.Row="3" x:Name="FourButton" Background="{DynamicResource Primary}"
