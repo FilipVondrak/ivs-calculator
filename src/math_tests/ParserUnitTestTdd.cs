@@ -9,7 +9,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     private readonly IStringParser _parser = new StringParser();
 
     private char[] operands = { '+', '-', '/', '*', '^' };
-    private string[] gonFuncs = { "sin", "cos", "tan", "ln" };
+    private string[] gonFuncs = { "sin", "cos", "tan" };
 
     [Fact]
     void CalculateDeepestBrackets_funcsBrackets()
@@ -122,7 +122,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void BracketIn_1()
+    void BracketIn_T()
     {
         string expression = "(5+8)-1";
         var result = _parser.BracketIn(expression);
@@ -130,7 +130,15 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void AddIn_1()
+    void BracketIn_F()
+    {
+        string expression = "5+8-1";
+        var result = _parser.BracketIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void AddIn_T()
     {
         string expression = "(5+8)-1";
         var result = _parser.AddIn(expression);
@@ -138,7 +146,15 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void SubtractIn_1()
+    void AddIn_F()
+    {
+        string expression = "(5*8)-1";
+        var result = _parser.AddIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void SubtractIn_T()
     {
         string expression = "(5+8)-1";
         var result = _parser.SubtractIn(expression);
@@ -146,7 +162,15 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void MultiplyIn_1()
+    void SubtractIn_F()
+    {
+        string expression = "(5+8)/1";
+        var result = _parser.SubtractIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void MultiplyIn_T()
     {
         string expression = "(5+8)-1*5";
         var result = _parser.MultiplyIn(expression);
@@ -154,7 +178,15 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void DivideIn_1()
+    void MultiplyIn_F()
+    {
+        string expression = "(5+8)-1^5";
+        var result = _parser.MultiplyIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void DivideIn_T()
     {
         string expression = "(5+8)/1";
         var result = _parser.DivideIn(expression);
@@ -162,7 +194,15 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void FactorialIn_1()
+    void DivideIn_F()
+    {
+        string expression = "(5+8)-1";
+        var result = _parser.DivideIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void FactorialIn_T()
     {
         string expression = "(5+8)-1!";
         var result = _parser.FactorialIn(expression);
@@ -170,7 +210,15 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void PowerIn_1()
+    void FactorialIn_F()
+    {
+        string expression = "(5+8)-1";
+        var result = _parser.FactorialIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void PowerIn_T()
     {
         string expression = "(5+8)-1^8";
         var result = _parser.PowerIn(expression);
@@ -178,15 +226,31 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void RootIn_1()
+    void PowerIn_F()
     {
-        string expression = "";
-        var result = _parser.RootIn(expression);
+        string expression = "(5+8)-1*8";
+        var result = _parser.PowerIn(expression);
         Assert.False(result);
     }
 
+    // [Fact]
+    // void RootIn_T()
+    // {
+    //     string expression = "";
+    //     var result = _parser.RootIn(expression);
+    //     Assert.False(result);
+    // }
+    //
+    // [Fact]
+    // void RootIn_F()
+    // {
+    //     string expression = "";
+    //     var result = _parser.RootIn(expression);
+    //     Assert.False(result);
+    // }
+
     [Fact]
-    void LnIn_1()
+    void LnIn_T()
     {
         string expression = "(5+8)-ln(1)";
         var result = _parser.LnIn(expression);
@@ -194,10 +258,22 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
-    void GonFuncsIn_1()
+    void LnIn_F()
     {
-        string expression = "sin(90)";
-        var result = _parser.GonFuncsIn(expression);
-        Assert.True(result);
+        string expression = "(5+8)-sin(1)";
+        var result = _parser.LnIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void GonFuncsIn_T()
+    {
+        foreach (var func in gonFuncs)
+        {
+            string expression = $"{func}(90)";
+            var result = _parser.GonFuncsIn(expression);
+
+            Assert.True(result);
+        }
     }
 }
