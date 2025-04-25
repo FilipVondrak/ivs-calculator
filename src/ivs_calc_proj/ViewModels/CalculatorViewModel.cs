@@ -49,7 +49,7 @@ public partial class CalculatorViewModel : ViewModelBase
         timer.Start();
     }
 
-[RelayCommand]
+    [RelayCommand]
     private void AddNumber(string newCharacter)
     {
         // ensures that there is a number before adding floating point
