@@ -102,7 +102,7 @@ public partial class CalculatorViewModel : ViewModelBase
         }
 
         // ensure the bracket is not empty
-        if(newBracket==")" && (Expression[^1]=='(' || Expression[^2]=='-'))
+        if(newBracket==")" && (Expression.Length >= 2 && (Expression[^1]=='(' || Expression[^2]=='-')))
         {
             ShowError();
             return;
