@@ -16,7 +16,7 @@
                 <!-- Definice pro světlé téma -->
                 <ResourceDictionary x:Key="Light">
                     <SolidColorBrush x:Key="Text">#0f0f10</SolidColorBrush>
-                    <SolidColorBrush x:Key="Accent">#2424ae</SolidColorBrush>
+                    <SolidColorBrush x:Key="Accent">#151563</SolidColorBrush>
                     <SolidColorBrush x:Key="Background">#ebedef</SolidColorBrush>
                     <SolidColorBrush x:Key="Primary">#a9b4c1</SolidColorBrush>
                     <SolidColorBrush x:Key="Secondary">#9eafc2</SolidColorBrush>
@@ -27,7 +27,7 @@
                 <!-- Definice pro tmavé téma -->
                 <ResourceDictionary x:Key="Dark">
                     <SolidColorBrush x:Key="Text">#efeff0</SolidColorBrush>
-                    <SolidColorBrush x:Key="Accent">#5151db</SolidColorBrush>
+                    <SolidColorBrush x:Key="Accent">#b9b9f1</SolidColorBrush>
                     <SolidColorBrush x:Key="Background">#090915</SolidColorBrush>
                     <SolidColorBrush x:Key="Primary">#3e4956</SolidColorBrush>
                     <SolidColorBrush x:Key="Secondary">#3d4e61</SolidColorBrush>
