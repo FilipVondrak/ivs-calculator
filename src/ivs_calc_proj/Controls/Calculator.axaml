@@ -209,11 +209,11 @@
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="-">
                     <TextBlock>-</TextBlock>
                 </controls:CalcButton>
-                <Button x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
-                        Background="{DynamicResource EqualsButton}"
-                        Command="{Binding EqualsCommand}">
+                <controls:CalcButton x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
+                                     Background="{DynamicResource EqualsButton}"
+                                     Command="{Binding EqualsCommand}">
                     <TextBlock>=</TextBlock>
-                </Button>
+                </controls:CalcButton>
 
                 <controls:CalcButton x:Name="ZeroButton" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="0">

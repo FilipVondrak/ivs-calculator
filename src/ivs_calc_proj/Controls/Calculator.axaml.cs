@@ -81,6 +81,9 @@ public partial class Calculator : UserControl
             case Key.Back:
                 DeleteButton.SimulatePress();
                 break;
+            case Key.Enter:
+                EqualButton.SimulatePress();
+                break;
         }
     }
 }
