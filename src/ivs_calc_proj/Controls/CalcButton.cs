@@ -7,6 +7,11 @@ namespace ivs_calc_proj.Controls;
 
 public class CalcButton : Button
 {
+    /// <summary>
+    /// Simulates a press action on the button, temporarily applying the pressed visual state
+    /// and executing the associated command if it exists. The button remains in the pressed
+    /// state for a short duration defined by an internal timer.
+    /// </summary>
     public void SimulatePress()
     {
         // adds the pressed state

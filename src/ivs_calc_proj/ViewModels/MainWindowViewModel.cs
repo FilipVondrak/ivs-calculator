@@ -6,12 +6,26 @@ using ivs_calc_proj.Controls;
 
 namespace ivs_calc_proj.ViewModels;
 
+/// <summary>
+/// Represents the ViewModel for the main window of the application.
+/// </summary>
+/// <remarks>
+/// The MainWindowViewModel serves as the central data-binding context for the main user interface.
+/// It manages the primary interactive components of the application, including the calculator,
+/// help menu, and history menu. This ViewModel implements the navigation between these components
+/// and defines the content currently displayed within the main window.
+/// </remarks>
 public partial class MainWindowViewModel : ViewModelBase
 {
     private readonly Calculator _calculatorTab;
     private readonly HelpMenu _helpTab;
     private readonly HistoryMenu _historyTab;
 
+    /// <summary>
+    /// Represents the ViewModel for the Main Window in the application.
+    /// Manages the main content displayed in the application,
+    /// including the Calculator, Help Menu, and History Menu.
+    /// </summary>
     public MainWindowViewModel()
     {
         _historyTab = new HistoryMenu();

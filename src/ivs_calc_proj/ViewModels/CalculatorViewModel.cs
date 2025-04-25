@@ -9,28 +9,33 @@ using math_lib;
 
 namespace ivs_calc_proj.ViewModels;
 
+/// <summary>
+/// Represents the view model for the calculator.
+/// </summary>
+/// <remarks>
+/// This view model provides the base logic for the Calculator user interface
+/// and interacts with optional components such as history handling.
+/// </remarks>
 public partial class CalculatorViewModel : ViewModelBase
 {
-    public CalculatorViewModel()
-    {
+    public CalculatorViewModel() { }
 
-    }
-
-    public CalculatorViewModel(HistoryMenu historyMenu)
-    {
-        _historyMenu = historyMenu;
-    }
+    public CalculatorViewModel(HistoryMenu historyMenu) => _historyMenu = historyMenu;
 
     private readonly HistoryMenu? _historyMenu;
 
     [ObservableProperty] private string _expression = string.Empty;
 
     [ObservableProperty] private string _output = "= 0";
-    public bool OutputVisible { get; set; } = true;
+
+    [ObservableProperty] private bool _outputVisible = true;
 
     [ObservableProperty]
     private int _errorVisible = 0;
 
+    /// <summary>
+    /// When called, this method shows an "Invalid input" warning for one second
+    /// </summary>
     private void ShowError()
     {
         var timer = new DispatcherTimer
@@ -49,10 +54,14 @@ public partial class CalculatorViewModel : ViewModelBase
         timer.Start();
     }
 
+    /// <summary>
+    /// Adds a number in the parameter "newCharacter" to the end of the expression
+    /// </summary>
+    /// <param name="newCharacter"></param>
     [RelayCommand]
     private void AddNumber(string newCharacter)
     {
-        // ensures that there is a number before adding floating point
+        // ensures that there is a number before adding a floating point
         if (newCharacter=="." && ((Expression.Length > 0 && !char.IsNumber(Expression[^1])) || Expression.Length==0)) return;
 
         // if the previous character is a bracket or factorial, add a multiply operation
@@ -65,6 +74,13 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
+    /// <summary>
+    /// Adds the bracket / goniometric function in the parameter "newBracket" to the end of the expression
+    /// </summary>
+    /// <remarks>
+    /// Also validates that the input can be added
+    /// </remarks>
+    /// <param name="newBracket"></param>
     [RelayCommand]
     private void AddBracket(string newBracket)
     {
@@ -98,6 +114,14 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
+    /// <summary>
+    /// Adds a binary operation to the expression
+    /// </summary>
+    /// <remarks>
+    /// Also validates that the input can be added
+    /// if the previous entry in the expression is also an operation it is removed
+    /// </remarks>
+    /// <param name="newOperation"></param>
     [RelayCommand]
     private void AddBinaryOperation(string newOperation)
     {
@@ -113,6 +137,14 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
+    /// <summary>
+    /// Adds the "root of" operation symbol
+    /// </summary>
+    /// <remarks>
+    /// Also validates that the input can be added
+    /// If there is no number before the symbol, also add the number 2 as it expects square root of a number
+    /// </remarks>
+    /// <param name="newOperation"></param>
     [RelayCommand]
     private void AddRootOfOperation(string newOperation)
     {
@@ -131,6 +163,13 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
+    /// <summary>
+    /// Adds a unary operation to the expression
+    /// </summary>
+    /// <remarks>
+    /// Also validates that the input can be added -> the previous character must either be a number or a bracket
+    /// </remarks>
+    /// <param name="newOperation"></param>
     [RelayCommand]
     private void AddUnaryOperation(string newOperation)
     {
@@ -151,6 +190,9 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
+    /// <summary>
+    /// Removes the whole expression
+    /// </summary>
     [RelayCommand]
     private void RemoveExpression()
     {
@@ -158,6 +200,13 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
+    /// <summary>
+    /// Removes the last character the user added
+    /// </summary>
+    /// <remarks>
+    /// if the last character is an operation also removes the spaces between
+    /// if the last character is a square root operation, removes the 2 as it is added automatically
+    /// </remarks>
     [RelayCommand]
     private void RemoveCharacter()
     {
@@ -238,17 +287,48 @@ public partial class CalculatorViewModel : ViewModelBase
         ExpressionChanged();
     }
 
-    private void ExpressionChanged()
+    /// <summary>
+    /// This method is called whenever the expression is changed to update the output
+    /// </summary>
+    /// <remarks>
+    /// if the current expression isn't valid, then it hides the output label
+    /// </remarks>
+    private int ExpressionChanged()
     {
         if (Expression == string.Empty)
-            Output = "= 0";
-        else
-            Output = $"= {Expression}";
+        {
+            OutputVisible = false;
+            return 1;
+        }
+
+        // check if the expression contains equal brackets
+        if(Expression.Count(c => c == '(') != Expression.Count(c => c == ')'))
+        {
+            OutputVisible = false;
+            return 1;
+        }
+
+        // check if the expression is properly closed
+        if (!(char.IsNumber(Expression[^1]) || Expression[^1]==')' || Expression[^1]=='!'))
+        {
+            OutputVisible = false;
+            return 1;
+        }
+
+        Output = $"= {Expression}";
+        OutputVisible = true;
+        return 0;
     }
 
+    /// <summary>
+    /// Moves the output to the input label and sets output to empty string
+    /// </summary>
     [RelayCommand]
     private void Equals()
     {
+        if (ExpressionChanged() == 1)
+            return;
+
         if(Output==string.Empty)
         {
             ShowError();
