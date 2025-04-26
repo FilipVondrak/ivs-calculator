@@ -212,6 +212,68 @@ public class MathLibUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
+    public void Mod_Basic1()
+    {
+        var result = _calculator.Mod(2, 9);
+        Assert.Equal(2m, result);
+    }
+
+    [Fact]
+    public void Mod_Basic2()
+    {
+        var result = _calculator.Mod(2, -9);
+        Assert.Equal(-7m, result);
+    }
+
+    [Fact]
+    public void Mod_Basic3()
+    {
+        var result = _calculator.Mod(-2, 9);
+        Assert.Equal(7m, result);
+    }
+
+    [Fact]
+    public void Mod_Basic4()
+    {
+        var result = _calculator.Mod(-2, -9);
+        Assert.Equal(-2m, result);
+    }
+
+    [Fact]
+    public void Mod_zero()
+    {
+        Assert.Throws<DivideByZeroException>(() => _calculator.Mod((decimal)0.0000, 0));
+    }
+
+    [Fact]
+    public void Mod_decimals1()
+    {
+        var result = _calculator.Mod(1.53m, 3.1222m);
+        Assert.Equal(1.53m, result);
+    }
+
+    [Fact]
+    public void Mod_decimals2()
+    {
+        var result = _calculator.Mod(11.78m, 7.811m);
+        Assert.Equal(3.969m, result);
+    }
+
+    [Fact]
+    public void Mod_decimals3()
+    {
+        var result = _calculator.Mod(1.5m, 9m);
+        Assert.Equal(1.5m, result);
+    }
+
+    [Fact]
+    public void Mod_decimals4()
+    {
+        var result = _calculator.Mod(9m, 1.89m);
+        Assert.Equal(1.44m, result);
+    }
+
+    [Fact]
     public void Factorial_Basic1()
     {
         var result = _calculator.Factorial(2);
