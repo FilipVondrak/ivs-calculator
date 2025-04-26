@@ -50,7 +50,7 @@ public interface ICalculator
     /// <param name="baseNum">The base number for exponentiation</param>
     /// <param name="exponent">The exponent</param>
     /// <returns></returns>
-    BigDecimal Power(decimal baseNum, int exponent);
+    BigDecimal Power(double baseNum, double exponent);
     
     /// <summary>
     /// Calculates the root of a number
@@ -72,6 +72,14 @@ public interface ICalculator
     /// or when <paramref name="logBase"/> is less than 0 or equal to 1 or 0</exception>
     BigDecimal Log(decimal baseNum, int logBase);
     
+    /// <summary>
+    /// Calculates the natural logarithm of a value
+    /// </summary>
+    /// <param name="baseNum">The value to calculate natural logarithm for</param>
+    /// <returns>The logarithm of baseNum</returns>
+    /// <exception cref="ArgumentOutOfRangeException">Thrown when <paramref name="baseNum"/> is less than or equal to 0
+    BigDecimal Ln(decimal baseNum);
+
     /// <summary>
     /// Returns the sine value of a specific angle in radians
     /// </summary>

@@ -8,10 +8,10 @@ Autoři
 ------
 
 stary_medved
-- xlogin01 Filip Vondrák 
-- xlogin02 Mykola Bondar 
-- xlogin03 Oleksandr Bondar 
-- xlogin04 Vít Kraus
+- xvondrf00 Filip Vondrák 
+- xbondam00 Mykola Bondar 
+- xbondao00 Oleksandr Bondar 
+- xkrausv00 Vít Kraus
 
 Licence
 -------

@@ -8,13 +8,13 @@
              Margin="0 0 0 0"
              KeyDown="Input_OnKeyDown"
              Focusable="True"
-             x:DataType="viewModels:MainWindowViewModel"
+             x:DataType="viewModels:CalculatorViewModel"
              x:Class="ivs_calc_proj.Controls.Calculator">
 
         <Design.DataContext>
             <!-- This only sets the DataContext for the previewer in an IDE,
                  to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
-            <viewModels:MainWindowViewModel/>
+            <viewModels:CalculatorViewModel/>
         </Design.DataContext>
 
         <Grid Grid.Row="1">
@@ -26,6 +26,15 @@
             <!-- display -->
             <Border Grid.Row="0" Margin="0 0 0 0" Background="{DynamicResource Primary}" ZIndex="1" IsHitTestVisible="False" CornerRadius="0 0 25 25" Padding="0" Name="DisplayBorder">
                 <RelativePanel>
+                    <RelativePanel.Styles>
+                        <Style Selector="TextBlock">
+                            <Setter Property="Transitions">
+                                <Transitions>
+                                    <DoubleTransition Property="Opacity" Duration="0:0:0.5"/>
+                                </Transitions>
+                            </Setter>
+                        </Style>
+                    </RelativePanel.Styles>
                     <TextBlock x:Name="Display" Grid.Row="1" Text="{Binding Expression}"
                                RelativePanel.AlignVerticalCenterWithPanel="True"
                                RelativePanel.AlignLeftWithPanel="True"
@@ -42,6 +51,16 @@
                                FontSize="20"
                                Foreground="{DynamicResource Accent}"
                                IsVisible="{Binding OutputVisible}"
+                    />
+
+                    <TextBlock Grid.Row="0" Text="Invalid input!"
+                               RelativePanel.AlignBottomWith="Display"
+                               RelativePanel.Above="Display"
+                               RelativePanel.AlignHorizontalCenterWithPanel="True"
+                               Margin="25 0 25 0"
+                               FontSize="20"
+                               Foreground="{DynamicResource Delete}"
+                               Opacity="{Binding ErrorVisible}"
                     />
                 </RelativePanel>
             </Border>
@@ -87,27 +106,27 @@
                 </Grid.Styles>
 
                 <controls:CalcButton Grid.Column="0" Grid.Row="0" x:Name="SinButton"
-                        Command="{Binding AddBracketCommand}" CommandParameter="(">
+                        Command="{Binding AddBracketCommand}" CommandParameter="sin(">
                     <TextBlock> sin </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="1" Grid.Row="0" x:Name="CosButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddBracketCommand}" CommandParameter="cos(">
                     <TextBlock> cos </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="2" Grid.Row="0" x:Name="TanButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddBracketCommand}" CommandParameter="tan(">
                     <TextBlock> tan </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LnButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddBracketCommand}" CommandParameter="ln(">
                     <TextBlock> ln </TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="FactorialButton"
-                                     Command="{Binding AddBracketCommand}" CommandParameter="(">
+                                     Command="{Binding AddUnaryOperationCommand}" CommandParameter="!">
                     <TextBlock> ! </TextBlock>
                 </controls:CalcButton>
 
@@ -150,7 +169,7 @@
                 </controls:CalcButton>
                 <controls:CalcButton Grid.Column="4" Grid.Row="2" x:Name="DeleteButton" Background="{DynamicResource Delete}"
                         Command="{Binding RemoveCharacterCommand}">
-                    <TextBlock>Delete</TextBlock>
+                    <TextBlock>Del</TextBlock>
                 </controls:CalcButton>
 
                 <controls:CalcButton Grid.Column="0" Grid.Row="3" x:Name="FourButton" Background="{DynamicResource Primary}"
@@ -190,11 +209,11 @@
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="-">
                     <TextBlock>-</TextBlock>
                 </controls:CalcButton>
-                <Button x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
-                        Background="{DynamicResource EqualsButton}"
-                        Command="{Binding EqualsCommand}">
+                <controls:CalcButton x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
+                                     Background="{DynamicResource EqualsButton}"
+                                     Command="{Binding EqualsCommand}">
                     <TextBlock>=</TextBlock>
-                </Button>
+                </controls:CalcButton>
 
                 <controls:CalcButton x:Name="ZeroButton" Grid.Column="0" Grid.Row="5" Grid.ColumnSpan="2" Background="{DynamicResource Primary}"
                         Command="{Binding AddNumberCommand}" CommandParameter="0">

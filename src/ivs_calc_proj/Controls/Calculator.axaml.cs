@@ -2,17 +2,40 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Input;
 using Avalonia.Markup.Xaml;
+using ivs_calc_proj.ViewModels;
 
 namespace ivs_calc_proj.Controls;
 
+/// <summary>
+/// Represents a user control for the calculator interface.
+/// </summary>
+/// <remarks>
+/// This class initializes and manages the data context for the calculator,
+/// leveraging the <see cref="CalculatorViewModel"/> class for its operations.
+/// It also integrates with the history menu functionality if provided.
+/// </remarks>
 public partial class Calculator : UserControl
 {
     public Calculator()
     {
         InitializeComponent();
+        this.DataContext = new CalculatorViewModel();
         this.Focus();
     }
 
+    public Calculator(HistoryMenu historyMenu)
+    {
+        InitializeComponent();
+        this.DataContext = new CalculatorViewModel(historyMenu);
+        this.Focus();
+    }
+
+    /// <summary>
+    /// Handles the KeyDown event and simulates button presses on a calculator UI.
+    /// Maps specific keyboard keys to corresponding calculator button actions.
+    /// </summary>
+    /// <param name="sender">The source of the event, typically the control that received focus.</param>
+    /// <param name="e">The event arguments containing information about the key pressed.</param>
     private void Input_OnKeyDown(object? sender, KeyEventArgs e)
     {
         switch (e.Key)
@@ -71,6 +94,9 @@ public partial class Calculator : UserControl
                 break;
             case Key.Back:
                 DeleteButton.SimulatePress();
+                break;
+            case Key.Enter:
+                EqualButton.SimulatePress();
                 break;
         }
     }
