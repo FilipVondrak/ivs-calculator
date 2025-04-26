@@ -469,56 +469,166 @@ public class StringParser : IStringParser
 
     public bool BracketIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "(" || tokens[i] == ")")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool AddIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "+")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool SubtractIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "-")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool MultiplyIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "*")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool DivideIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "/")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool FactorialIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "!")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool PowerIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "^")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool RootIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "√")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool LnIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "ln")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool GonFuncsIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "sin" || tokens[i] == "cos" || tokens[i] == "tan")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool ModuloIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "%")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
