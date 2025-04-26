@@ -92,4 +92,11 @@ public interface IStringParser
     /// <param name="expression">Expression to check</param>
     /// <returns>True if there are trigonometric operations</returns>
     bool GonFuncsIn(string expression);
+    
+    /// <summary>
+    /// Checks for modulo operations in the expression
+    /// </summary>
+    /// <param name="expression">Expression to check</param>
+    /// <returns>True if there are modulo operations</returns>
+    bool ModuloIn(string expression);
 }

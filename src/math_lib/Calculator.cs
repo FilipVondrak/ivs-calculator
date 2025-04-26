@@ -12,7 +12,7 @@ public class Calculator : ICalculator
 
     public decimal Multiply(decimal x, decimal y)
     {
-        return decimal.Round(x*y, 5, MidpointRounding.AwayFromZero);
+        return decimal.Round(x * y, 5, MidpointRounding.AwayFromZero);
     }
 
     public decimal Divide(decimal x, decimal y)
@@ -67,6 +67,7 @@ public class Calculator : ICalculator
             invert = true;
             baseNum = decimal.Abs(baseNum);
         }
+
         BigDecimal result = BigDecimal.Round(BigDecimal.NthRoot(baseNum, rootDegree, 10),
             precision: 5, RoundingStrategy.AwayFromZero);
         if (invert) return -result;
@@ -112,6 +113,7 @@ public class Calculator : ICalculator
         {
             angle = 0;
         }
+
         var radians = angle * BigDecimal.π / 180;
         return BigDecimal.Round(BigDecimal.Cos(radians), 5, RoundingStrategy.AwayFromZero);
     }
@@ -125,6 +127,17 @@ public class Calculator : ICalculator
         {
             throw new ArgumentOutOfRangeException(nameof(angle), angle, "Cosine angle must be greater than zero.");
         }
+
         return Divide((decimal)sin, (decimal)cos);
+    }
+
+    public BigDecimal Mod(decimal dividend, decimal divisor)
+    {
+        if (divisor == 0)
+        {
+            throw new DivideByZeroException("Division by zero is not allowed.");
+        }
+
+        return BigDecimal.Mod(dividend, divisor);
     }
 }

@@ -101,4 +101,12 @@ public interface ICalculator
     /// <returns>The tangent of <paramref name="angle"/></returns>
     BigDecimal Tan(decimal angle);
     
+    /// <summary>
+    /// Calculates the modulo (remainder after division) of a number.
+    /// </summary>
+    /// <param name="dividend">The number to be divided (dividend).</param>
+    /// <param name="divisor">The number by which to divide (divisor).</param>
+    /// <returns>The remainder after dividing <paramref name="dividend"/> by <paramref name="divisor"/>.</returns>
+    /// <exception cref="ArgumentException">Thrown when <paramref name="divisor"/> is 0.</exception>
+    BigDecimal Mod(decimal dividend, decimal divisor);
 }
