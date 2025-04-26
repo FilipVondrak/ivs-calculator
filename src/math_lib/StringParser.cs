@@ -9,71 +9,22 @@ namespace math_lib;
 public class StringParser : IStringParser
 {
     Calculator calc = new Calculator();
-    // public string CalculateBracket(string expression)
-    // {
-    //     string input = expression; //   "1 + ((2 + 3) * 4)"
-    //     
-    //     string pattern = @"\d+|[()+\-*/]|\s+";
-    //     
-    //     MatchCollection matches = Regex.Matches(input, pattern);
-    //     
-    //     string[] tokens = new string[matches.Count];
-    //     for (int i = 0; i < matches.Count; i++)
-    //     {
-    //         tokens[i] = matches[i].Value;
-    //     }
-    //
-    //     int level = 0;
-    //     int maxLevel = 0;
-    //     int maxLevelIndex = -1;
-    //
-    //     for (int i = 0; i < tokens.Length; i++)
-    //     {
-    //         if (tokens[i] == "(")
-    //         {
-    //             level ++;
-    //             if (level > maxLevel)
-    //             {
-    //                 maxLevel = level;
-    //                 maxLevelIndex = i;
-    //             }
-    //         }
-    //         else if (tokens[i] == ")")
-    //         {
-    //             level--;
-    //         }
-    //     }
-    //     
-    //     for (int i = maxLevelIndex; tokens[i] == "("; i++)
-    //     {
-    //         switch (tokens[i])
-    //         {
-    //             case "+":
-    //                 calc.Add(decimal.Parse(tokens[i+1]), decimal.Parse(tokens[i + 1]));
-    //                 break;
-    //
-    //             case "-":
-    //                 
-    //                 break;
-    //
-    //             case "*":
-    //                 
-    //                 break;
-    //             
-    //             case "/":
-    //                 
-    //                 break;
-    //             
-    //             default:
-    //                 
-    //                 break;
-    //         }
-    //
-    //     }
-    //     
-    //     return "";
-    // }
+    
+    public string[] ParseToTokens(string expression)
+    {
+        string pattern = @"-?\d+(\.\d+)?|sin|cos|tan|ln|[()+\-*/^%!√]";
+             
+        MatchCollection matches = Regex.Matches(expression, pattern);
+             
+        string[] tokens = new string[matches.Count];
+        for (int i = 0; i < matches.Count; i++)
+        {
+            tokens[i] = matches[i].Value;
+        }
 
+        return tokens;
+    }
+    
     public string CalculateDeepestBrackets(string expression)
     {
         /*
@@ -86,7 +37,63 @@ public class StringParser : IStringParser
          *
          * tip: ln(x) je v math_lib log()
          */
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+
+        int level = 0;
+        int maxLevel = 0;
+        int startIndex = -1;
+        
+        // Najít nejhlubší (
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "(")
+            {
+                level++;
+                if (level > maxLevel)
+                {
+                    maxLevel = level;
+                    startIndex = i;
+                }
+            }
+            else if (tokens[i] == ")")
+            {
+                level--;
+            }
+        }
+        
+        // Najít odpovídající )
+        int endIndex = startIndex;
+        int innerLevel = 1;
+        while (endIndex + 1 < tokens.Length && innerLevel > 0)
+        {
+            endIndex++;
+            if (tokens[endIndex] == "(") innerLevel++;
+            else if (tokens[endIndex] == ")") innerLevel--;
+        }
+        
+        // Složit výraz mezi startIndex a endIndex
+        string innerExpression = "";
+        for (int i = startIndex + 1; i < endIndex; i++)
+        {
+            innerExpression += tokens[i];
+        }
+
+        // Vyřešit vnitřní výraz
+        string innerResult = SolveExpression(innerExpression);
+
+        // Složit nový celý výraz
+        string resultExpression = "";
+        for (int i = 0; i < startIndex; i++)
+        {
+            resultExpression += tokens[i];
+        }
+        resultExpression += innerResult;
+        for (int i = endIndex + 1; i < tokens.Length; i++)
+        {
+            resultExpression += tokens[i];
+        }
+
+        return resultExpression;
     }
 
     public string SolveExpression(string expression)
@@ -131,56 +138,166 @@ public class StringParser : IStringParser
 
     public bool BracketIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "(" || tokens[i] == ")")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool AddIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "+")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool SubtractIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "-")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool MultiplyIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "*")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool DivideIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "/")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool FactorialIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "!")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool PowerIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "^")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool RootIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "√")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool LnIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "ln")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool GonFuncsIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "sin" || tokens[i] == "cos" || tokens[i] == "tan")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 
     public bool ModuloIn(string expression)
     {
-        throw new NotImplementedException();
+        string[] tokens = ParseToTokens(expression);
+        
+        for (int i = 0; i < tokens.Length; i++)
+        {
+            if (tokens[i] == "%")
+            {
+                return true;
+            }
+        }
+        
+        return false;
     }
 }
