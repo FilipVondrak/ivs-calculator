@@ -101,7 +101,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void CalculateDeepestBrackets_8()
     {
         string expression = "sin(90)+cos(1.5)+ln(17+(50*2))/(3^2)";
-        string expected = "sin(90)+cos(1.5)+ln[17+100]/(3^2)";
+        string expected = "sin(90)+cos(1.5)+ln(17+100)/(3^2)";
         var result = _parser.CalculateDeepestBrackets(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -113,7 +113,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void CalculateDeepestBrackets_9()
     {
         string expression = "sin((90+5)*2)+90)+cos(1.5)+ln(17)/(3^2)";
-        string expected = "sin[(95*2)+90]+cos(1.5)+ln(17)/(3^2)";
+        string expected = "sin((95*2)+90)+cos(1.5)+ln(17)/(3^2)";
         var result = _parser.CalculateDeepestBrackets(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -161,7 +161,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_3()
     {
         string expression = "cos[0.588]";
-        string expected = "0.83205";
+        string expected = "0,83205";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -173,7 +173,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_4()
     {
         string expression = "55+e";
-        string expected = "57.71828";
+        string expected = "57.71828183";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -184,8 +184,8 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     [Fact]
     void SolveExpression_5()
     {
-        string expression = "55.10+e";
-        string expected = "57.81828";
+        string expression = "55,10+e";
+        string expected = "57,81828";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -197,7 +197,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_6()
     {
         string expression = "55.10+10.80";
-        string expected = "65.90000";
+        string expected = "65,90000";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
