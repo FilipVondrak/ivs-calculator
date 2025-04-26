@@ -9,19 +9,19 @@ namespace math_lib;
 public class StringParser : IStringParser
 {
     Calculator calc = new Calculator();
-    
+
     public string[] ParseToTokens(string expression)
     {
+        //expression = expression.Replace(',', '.');
         string pattern = @"(?<=^|\(|√|\^)-\d+([.,]\d+)?|\d+([.,]\d+)?|e|sin|cos|tan|ln|[()\[\]+\-\*/^%!√]";
-             
+
         MatchCollection matches = Regex.Matches(expression, pattern);
-             
+
         string[] tokens = new string[matches.Count];
         for (int i = 0; i < matches.Count; i++)
         {
             tokens[i] = matches[i].Value;
         }
-
         return tokens;
     }
 
@@ -124,7 +124,7 @@ public class StringParser : IStringParser
 
             tokens = newTokens.ToArray(); // aktualizace tokens po každé úpravě
         }
-
+    
         return string.Join("", tokens);
     }
 
@@ -390,15 +390,21 @@ public class StringParser : IStringParser
             expression =  string.Join("", tokens);
         }
         
-        while (AddIn((expression)))
+        while (AddIn((expression)) || SubtractIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
 
             for (int i = 0; i < tokens.Length; i++)
             {
-                if (tokens[i] == "+")
+                if (tokens[i] == "+"  || tokens[i] == "-")
                 {
-                    decimal result = calc.Add(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                    decimal result;
+
+                    if (tokens[i] == "+")
+                        result = calc.Add(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                    else
+                        result = calc.Subtract(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                    
                     string[] newTokens = new string[tokens.Length - 2];
                     int index = 0;
 
@@ -420,51 +426,18 @@ public class StringParser : IStringParser
             }
             expression =  string.Join("", tokens);
         }
-        
-        while (SubtractIn((expression)))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "-")
-                {
-                    decimal result = calc.Subtract(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
-                    string[] newTokens = new string[tokens.Length - 2];
-                    int index = 0;
-
-                    for (int j = 0; j < tokens.Length; j++)
-                    {
-                        if (j == i-1)
-                        {
-                            newTokens[index++] = result.ToString();
-                            j += 2;
-                        }
-                        else
-                        {
-                            newTokens[index++] = tokens[j];
-                        }
-                    }
-                    tokens = newTokens;
-                    break;
-                }
-            }
-            expression =  string.Join("", tokens);
-        }
-
         return expression;
     }
 
     public decimal SolveWholeExpression(string expression)
     {
-        /*while (BracketIn(expression))
+        while (BracketIn(expression))
         {
             expression = CalculateDeepestBrackets(expression);
         }
-        SolveExpression(expression);
+        expression = SolveExpression(expression);
 
-        return decimal.Parse(expression);*/
-        return 1;
+        return decimal.Parse(expression);
     }
 
     public bool BracketIn(string expression)
