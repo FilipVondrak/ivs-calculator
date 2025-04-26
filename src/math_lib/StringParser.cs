@@ -178,4 +178,9 @@ public class StringParser : IStringParser
     {
         throw new NotImplementedException();
     }
+
+    public bool ModuloIn(string expression)
+    {
+        throw new NotImplementedException();
+    }
 }
