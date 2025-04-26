@@ -112,7 +112,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     [Fact]
     void CalculateDeepestBrackets_9()
     {
-        string expression = "sin((90+5)*2)+90)+cos(1.5)+ln(17)/(3^2)";
+        string expression = "sin(((90+5)*2)+90)+cos(1.5)+ln(17)/(3^2)";
         string expected = "sin((95*2)+90)+cos(1.5)+ln(17)/(3^2)";
         var result = _parser.CalculateDeepestBrackets(expression);
         output.WriteLine("Expression: " + expression);
@@ -160,8 +160,8 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     [Fact]
     void SolveExpression_3()
     {
-        string expression = "cos[0.588]";
-        string expected = "0,83205";
+        string expression = "cos[0,588]";
+        string expected = "0,99995";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -173,7 +173,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_4()
     {
         string expression = "55+e";
-        string expected = "57.71828183";
+        string expected = "57,718281828459045";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -185,7 +185,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_5()
     {
         string expression = "55,10+e";
-        string expected = "57,81828";
+        string expected = "57,818281828459045";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -196,20 +196,20 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     [Fact]
     void SolveExpression_6()
     {
-        string expression = "55.10+10.80";
-        string expected = "65,90000";
+        string expression = "55,10+10,80";
+        string expected = "65,90";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
         output.WriteLine("Expected: " + expected);
         Assert.Equal(expected, result);
     }
-
+    
     [Fact]
     void SolveWholeExpression_1()
     {
         string expression = "5+9*(7/(2^2)+(8%5)+(3+sin(90)))";
-        decimal expected = 59.75m;
+        decimal expected = 83.75m;
         var result = _parser.SolveWholeExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
