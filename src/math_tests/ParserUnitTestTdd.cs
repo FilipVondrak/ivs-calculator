@@ -161,7 +161,42 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_3()
     {
         string expression = "cos(((80%30)*(2+(8/4)))*3)";
-        string expected = "0.32578131";
+        string expected = "0.32578";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void SolveExpression_4()
+    {
+        string expression = "55+e";
+        string expected = "57.71828";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void SolveExpression_5()
+    {
+        string expression = "55.10+e";
+        string expected = "57.81828";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    void SolveExpression_6()
+    {
+        string expression = "55.10+10.80";
+        string expected = "65.90000";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
