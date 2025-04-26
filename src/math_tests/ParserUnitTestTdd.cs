@@ -8,7 +8,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
 {
     private readonly IStringParser _parser = new StringParser();
 
-    private char[] operands = { '+', '-', '/', '*', '^' };
+    private char[] operations = { '+', '-', '/', '*', '^', '√', '%', '!' };
     private string[] gonFuncs = { "sin", "cos", "tan" };
 
     [Fact]
@@ -25,7 +25,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     [Fact]
     void CalculateDeepestBrackets_1()
     {
-        foreach (var operand in operands)
+        foreach (var operand in operations)
         {
             string expression = $"1{operand}5";
             var result = _parser.CalculateDeepestBrackets(expression);
@@ -233,21 +233,21 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
         Assert.False(result);
     }
 
-    // [Fact]
-    // void RootIn_T()
-    // {
-    //     string expression = "";
-    //     var result = _parser.RootIn(expression);
-    //     Assert.False(result);
-    // }
-    //
-    // [Fact]
-    // void RootIn_F()
-    // {
-    //     string expression = "";
-    //     var result = _parser.RootIn(expression);
-    //     Assert.False(result);
-    // }
+    [Fact]
+    void RootIn_T()
+    {
+        string expression = "2√4+25";
+        var result = _parser.RootIn(expression);
+        Assert.True(result);
+    }
+
+    [Fact]
+    void RootIn_F()
+    {
+        string expression = "2^4+25";
+        var result = _parser.RootIn(expression);
+        Assert.False(result);
+    }
 
     [Fact]
     void LnIn_T()
@@ -262,6 +262,22 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     {
         string expression = "(5+8)-sin(1)";
         var result = _parser.LnIn(expression);
+        Assert.False(result);
+    }
+
+    [Fact]
+    void Mod_T()
+    {
+        string expression = "(5%8)-ln(1)";
+        var result = _parser.ModuloIn(expression);
+        Assert.True(result);
+    }
+
+    [Fact]
+    void Mod_F()
+    {
+        string expression = "(5+8)-sin(1)";
+        var result = _parser.ModuloIn(expression);
         Assert.False(result);
     }
 
