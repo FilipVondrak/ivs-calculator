@@ -12,7 +12,7 @@ public class StringParser : IStringParser
 
     public string[] ParseToTokens(string expression)
     {
-        string pattern = @"(?<=^|\(|√|\^)-\d+([.,]\d+)?|\d+([.,]\d+)?|e|sin|cos|tan|ln|[()\[\]+\-\*/^%!√]";
+        string pattern = @"(?<=^|\(|√|\^|\+|\-|\*|\/|\^|\%|\!|\[)-\d+([.,]\d+)?|\d+([.,]\d+)?|e|sin|cos|tan|ln|[()\[\]+\-\*/^%!√]";
 
         MatchCollection matches = Regex.Matches(expression, pattern);
 
@@ -133,6 +133,39 @@ public class StringParser : IStringParser
     {
         expression = expression.Replace("e", Math.E.ToString());
 
+        while (FactorialIn((expression)))
+        {
+            string[] tokens = ParseToTokens(expression);
+
+            for (int i = 0; i < tokens.Length; i++)
+            {
+                if (tokens[i] == "!")
+                {
+                    BigDecimal result = calc.Factorial(int.Parse(tokens[i - 1]));
+                    string[] newTokens = new string[tokens.Length - 1];
+                    int index = 0;
+
+                    for (int j = 0; j < tokens.Length; j++)
+                    {
+                        if (j == i - 1)
+                        {
+                            newTokens[index++] = result.ToString();
+                            j ++;
+                        }
+                        else
+                        {
+                            newTokens[index++] = tokens[j];
+                        }
+                    }
+
+                    tokens = newTokens;
+                    break;
+                }
+            }
+
+            expression = string.Join("", tokens);
+        }
+        
         while (GonFuncsIn(expression) || LnIn(expression))
         {
             string[] tokens = ParseToTokens(expression);
@@ -214,39 +247,6 @@ public class StringParser : IStringParser
                         else
                         {
                             newTokens[index++] = tokens[j];
-                        }
-                    }
-
-                    tokens = newTokens;
-                    break;
-                }
-            }
-
-            expression = string.Join("", tokens);
-        }
-
-        while (FactorialIn((expression)))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "!")
-                {
-                    BigDecimal result = calc.Factorial(int.Parse(tokens[i - 1]));
-                    string[] newTokens = new string[tokens.Length - 1];
-                    int index = 0;
-
-                    for (int j = 0; j < newTokens.Length; j++)
-                    {
-                        if (j == i)
-                        {
-                            newTokens[index++] = tokens[j];
-                            j += 1;
-                        }
-                        else
-                        {
-                            newTokens[index++] = result.ToString();
                         }
                     }
 

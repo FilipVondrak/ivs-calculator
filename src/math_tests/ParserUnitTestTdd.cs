@@ -206,10 +206,34 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
     
     [Fact]
+    void SolveExpression_7()
+    {
+        string expression = "5!";
+        string expected = "120";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_8()
+    {
+        string expression = "2!+1";
+        string expected = "3";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
     void SolveWholeExpression_1()
     {
-        string expression = "5+9*(7/(2^2)+(8%5)+(3+sin(90)))";
-        decimal expected = 83.75m;
+        string expression = "5+9*(7/(2^2)+(8%5)+(3+sin(90))-4!)";
+        decimal expected = -132.25m;
         var result = _parser.SolveWholeExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
