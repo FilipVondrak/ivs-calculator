@@ -12,7 +12,6 @@ public class StringParser : IStringParser
 
     public string[] ParseToTokens(string expression)
     {
-        //expression = expression.Replace(',', '.');
         string pattern = @"(?<=^|\(|√|\^)-\d+([.,]\d+)?|\d+([.,]\d+)?|e|sin|cos|tan|ln|[()\[\]+\-\*/^%!√]";
 
         MatchCollection matches = Regex.Matches(expression, pattern);
@@ -22,6 +21,7 @@ public class StringParser : IStringParser
         {
             tokens[i] = matches[i].Value;
         }
+
         return tokens;
     }
 
@@ -33,7 +33,7 @@ public class StringParser : IStringParser
         int maxLevel = 0;
         List<int> startIndices = new List<int>();
 
-        // 1. Najít nejhlubší level a všechny startIndexy
+        // 1. Find the deepest level and all start indices
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "(")
@@ -57,14 +57,14 @@ public class StringParser : IStringParser
         }
 
         if (startIndices.Count == 0)
-            return expression; // nejsou žádné závorky
+            return expression; // there are no brackets
 
-        // 2. Zpracovávat odzadu (aby se indexy neposunuly)
+        // 2. Process from the end (to avoid shifting indices)
         startIndices.Reverse();
 
         foreach (int startIndex in startIndices)
         {
-            // Najít endIndex pro tento startIndex
+            // Find the endIndex for this startIndex
             int endIndex = startIndex;
             int innerLevel = 1;
             while (endIndex + 1 < tokens.Length && innerLevel > 0)
@@ -74,7 +74,7 @@ public class StringParser : IStringParser
                 else if (tokens[endIndex] == ")") innerLevel--;
             }
 
-            // Vybrat vnitřní tokeny
+            // Select inner tokens
             List<string> innerTokens = new List<string>();
             for (int i = startIndex + 1; i < endIndex; i++)
             {
@@ -84,16 +84,16 @@ public class StringParser : IStringParser
             string innerExpression = string.Join("", innerTokens);
             string innerResult = SolveExpression(innerExpression);
 
-            // Připravit nový seznam tokenů
+            // Prepare a new list of tokens
             List<string> newTokens = new List<string>();
 
-            // Přidat vše před funkcí nebo závorkou
+            // Add everything before the function or bracket
             for (int i = 0; i < startIndex; i++)
             {
                 newTokens.Add(tokens[i]);
             }
 
-            // Zkontrolovat, jestli je před závorkou funkce
+            // Check if there is a function before the bracket
             bool isFunction = false;
             int functionIndex = startIndex - 1;
 
@@ -103,7 +103,7 @@ public class StringParser : IStringParser
                 if (functionName == "sin" || functionName == "cos" || functionName == "tan" || functionName == "ln")
                 {
                     isFunction = true;
-                    newTokens.RemoveAt(newTokens.Count - 1); // Odebrat funkci
+                    newTokens.RemoveAt(newTokens.Count - 1); // Remove the function
                     newTokens.Add(functionName);
                     newTokens.Add("[");
                     newTokens.Add(innerResult);
@@ -116,23 +116,23 @@ public class StringParser : IStringParser
                 newTokens.Add(innerResult);
             }
 
-            // Přidat vše po konci závorky
+            // Add everything after the closing bracket
             for (int i = endIndex + 1; i < tokens.Length; i++)
             {
                 newTokens.Add(tokens[i]);
             }
 
-            tokens = newTokens.ToArray(); // aktualizace tokens po každé úpravě
+            tokens = newTokens.ToArray(); // Update tokens after each modification
         }
-    
+
         return string.Join("", tokens);
     }
 
-    
+
     public string SolveExpression(string expression)
     {
         expression = expression.Replace("e", Math.E.ToString());
-        
+
         while (GonFuncsIn(expression))
         {
             string[] tokens = ParseToTokens(expression);
@@ -143,11 +143,11 @@ public class StringParser : IStringParser
                 {
                     BigDecimal result;
 
-                    if (tokens[i] == "sin") 
+                    if (tokens[i] == "sin")
                         result = calc.Sin(decimal.Parse(tokens[i + 2]));
-                    else if (tokens[i] == "cos") 
+                    else if (tokens[i] == "cos")
                         result = calc.Cos(decimal.Parse(tokens[i + 2]));
-                    else 
+                    else
                         result = calc.Tan(decimal.Parse(tokens[i + 2]));
 
                     string[] newTokens = new string[tokens.Length - 3];
@@ -169,6 +169,7 @@ public class StringParser : IStringParser
                     break;
                 }
             }
+
             expression = string.Join("", tokens);
         }
 
@@ -201,9 +202,10 @@ public class StringParser : IStringParser
                     break;
                 }
             }
+
             expression = string.Join("", tokens);
         }
-        
+
         while (MultiplyIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
@@ -218,7 +220,7 @@ public class StringParser : IStringParser
 
                     for (int j = 0; j < tokens.Length; j++)
                     {
-                        if (j == i-1)
+                        if (j == i - 1)
                         {
                             newTokens[index++] = result.ToString();
                             j += 2;
@@ -228,13 +230,15 @@ public class StringParser : IStringParser
                             newTokens[index++] = tokens[j];
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
-        
+
         while (DivideIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
@@ -249,7 +253,7 @@ public class StringParser : IStringParser
 
                     for (int j = 0; j < tokens.Length; j++)
                     {
-                        if (j == i-1)
+                        if (j == i - 1)
                         {
                             newTokens[index++] = result.ToString();
                             j += 2;
@@ -259,13 +263,15 @@ public class StringParser : IStringParser
                             newTokens[index++] = tokens[j];
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
-        
+
         while (ModuloIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
@@ -280,7 +286,7 @@ public class StringParser : IStringParser
 
                     for (int j = 0; j < tokens.Length; j++)
                     {
-                        if (j == i-1)
+                        if (j == i - 1)
                         {
                             newTokens[index++] = result.ToString();
                             j += 2;
@@ -290,13 +296,15 @@ public class StringParser : IStringParser
                             newTokens[index++] = tokens[j];
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
-        
+
         while (PowerIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
@@ -311,7 +319,7 @@ public class StringParser : IStringParser
 
                     for (int j = 0; j < tokens.Length; j++)
                     {
-                        if (j == i-1)
+                        if (j == i - 1)
                         {
                             newTokens[index++] = result.ToString();
                             j += 2;
@@ -321,13 +329,15 @@ public class StringParser : IStringParser
                             newTokens[index++] = tokens[j];
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
-        
+
         while (RootIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
@@ -342,7 +352,7 @@ public class StringParser : IStringParser
 
                     for (int j = 0; j < tokens.Length; j++)
                     {
-                        if (j == i-1)
+                        if (j == i - 1)
                         {
                             newTokens[index++] = result.ToString();
                             j += 2;
@@ -352,13 +362,15 @@ public class StringParser : IStringParser
                             newTokens[index++] = tokens[j];
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
-        
+
         while (FactorialIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
@@ -383,20 +395,22 @@ public class StringParser : IStringParser
                             newTokens[index++] = result.ToString();
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
-        
+
         while (AddIn((expression)) || SubtractIn((expression)))
         {
             string[] tokens = ParseToTokens(expression);
 
             for (int i = 0; i < tokens.Length; i++)
             {
-                if (tokens[i] == "+"  || tokens[i] == "-")
+                if (tokens[i] == "+" || tokens[i] == "-")
                 {
                     decimal result;
 
@@ -404,13 +418,13 @@ public class StringParser : IStringParser
                         result = calc.Add(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
                     else
                         result = calc.Subtract(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
-                    
+
                     string[] newTokens = new string[tokens.Length - 2];
                     int index = 0;
 
                     for (int j = 0; j < tokens.Length; j++)
                     {
-                        if (j == i-1)
+                        if (j == i - 1)
                         {
                             newTokens[index++] = result.ToString();
                             j += 2;
@@ -420,12 +434,15 @@ public class StringParser : IStringParser
                             newTokens[index++] = tokens[j];
                         }
                     }
+
                     tokens = newTokens;
                     break;
                 }
             }
-            expression =  string.Join("", tokens);
+
+            expression = string.Join("", tokens);
         }
+
         return expression;
     }
 
@@ -435,6 +452,7 @@ public class StringParser : IStringParser
         {
             expression = CalculateDeepestBrackets(expression);
         }
+
         expression = SolveExpression(expression);
 
         return decimal.Parse(expression);
@@ -443,7 +461,7 @@ public class StringParser : IStringParser
     public bool BracketIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "(" || tokens[i] == ")")
@@ -451,14 +469,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool AddIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "+")
@@ -466,14 +484,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool SubtractIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "-")
@@ -481,14 +499,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool MultiplyIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "*")
@@ -496,14 +514,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool DivideIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "/")
@@ -511,14 +529,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool FactorialIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "!")
@@ -526,14 +544,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool PowerIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "^")
@@ -541,14 +559,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool RootIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "√")
@@ -556,14 +574,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool LnIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "ln")
@@ -571,14 +589,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool GonFuncsIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "sin" || tokens[i] == "cos" || tokens[i] == "tan")
@@ -586,14 +604,14 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 
     public bool ModuloIn(string expression)
     {
         string[] tokens = ParseToTokens(expression);
-        
+
         for (int i = 0; i < tokens.Length; i++)
         {
             if (tokens[i] == "%")
@@ -601,7 +619,7 @@ public class StringParser : IStringParser
                 return true;
             }
         }
-        
+
         return false;
     }
 }
