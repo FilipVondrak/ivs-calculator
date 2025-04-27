@@ -133,13 +133,14 @@ public class StringParser : IStringParser
     {
         expression = expression.Replace("e", Math.E.ToString());
 
-        while (GonFuncsIn(expression))
+        while (GonFuncsIn(expression) || LnIn(expression))
         {
             string[] tokens = ParseToTokens(expression);
 
             for (int i = 0; i < tokens.Length; i++)
             {
-                if ((tokens[i] == "sin" || tokens[i] == "cos" || tokens[i] == "tan") && tokens[i + 1] == "[")
+                if ((tokens[i] == "sin" || tokens[i] == "cos" || tokens[i] == "tan") ||
+                    tokens[i] == "ln" && tokens[i + 1] == "[")
                 {
                     BigDecimal result;
 
@@ -147,41 +148,11 @@ public class StringParser : IStringParser
                         result = calc.Sin(decimal.Parse(tokens[i + 2]));
                     else if (tokens[i] == "cos")
                         result = calc.Cos(decimal.Parse(tokens[i + 2]));
-                    else
+                    else if (tokens[i] == "tan")
                         result = calc.Tan(decimal.Parse(tokens[i + 2]));
+                    else
+                        result = calc.Ln(decimal.Parse(tokens[i + 2]));
 
-                    string[] newTokens = new string[tokens.Length - 3];
-                    int index = 0;
-
-                    for (int j = 0; j < newTokens.Length; j++)
-                    {
-                        if (j < i)
-                        {
-                            newTokens[index++] = tokens[j];
-                        }
-                        else
-                        {
-                            newTokens[index++] = result.ToString();
-                        }
-                    }
-
-                    tokens = newTokens;
-                    break;
-                }
-            }
-
-            expression = string.Join("", tokens);
-        }
-
-        while (LnIn(expression))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "ln" && tokens[i + 1] == "[")
-                {
-                    BigDecimal result = calc.Ln(decimal.Parse(tokens[i + 2]));
                     string[] newTokens = new string[tokens.Length - 3];
                     int index = 0;
 
@@ -206,147 +177,30 @@ public class StringParser : IStringParser
             expression = string.Join("", tokens);
         }
 
-        while (MultiplyIn((expression)))
+        while (MultiplyIn(expression) || DivideIn(expression) || ModuloIn(expression) || PowerIn(expression) ||
+               RootIn(expression))
         {
             string[] tokens = ParseToTokens(expression);
 
             for (int i = 0; i < tokens.Length; i++)
             {
-                if (tokens[i] == "*")
+                if (tokens[i] == "*" || tokens[i] == "/" || tokens[i] == "%" || tokens[i] == "^" || tokens[i] == "√")
                 {
-                    decimal result = calc.Multiply(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
-                    string[] newTokens = new string[tokens.Length - 2];
-                    int index = 0;
+                    BigDecimal result = 0;
 
-                    for (int j = 0; j < tokens.Length; j++)
-                    {
-                        if (j == i - 1)
-                        {
-                            newTokens[index++] = result.ToString();
-                            j += 2;
-                        }
-                        else
-                        {
-                            newTokens[index++] = tokens[j];
-                        }
-                    }
+                    if (tokens[i] == "*")
+                        result = BigDecimal.Parse(calc.Multiply(decimal.Parse(tokens[i - 1]),
+                            decimal.Parse(tokens[i + 1])));
+                    else if (tokens[i] == "/")
+                        result = BigDecimal.Parse(calc.Divide(decimal.Parse(tokens[i - 1]),
+                            decimal.Parse(tokens[i + 1])));
+                    else if (tokens[i] == "%")
+                        result = calc.Mod(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                    else if (tokens[i] == "^")
+                        result = calc.Power(double.Parse(tokens[i - 1]), double.Parse(tokens[i + 1]));
+                    else
+                        result = calc.Root(decimal.Parse(tokens[i - 1]), int.Parse(tokens[i + 1]));
 
-                    tokens = newTokens;
-                    break;
-                }
-            }
-
-            expression = string.Join("", tokens);
-        }
-
-        while (DivideIn((expression)))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "/")
-                {
-                    decimal result = calc.Divide(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
-                    string[] newTokens = new string[tokens.Length - 2];
-                    int index = 0;
-
-                    for (int j = 0; j < tokens.Length; j++)
-                    {
-                        if (j == i - 1)
-                        {
-                            newTokens[index++] = result.ToString();
-                            j += 2;
-                        }
-                        else
-                        {
-                            newTokens[index++] = tokens[j];
-                        }
-                    }
-
-                    tokens = newTokens;
-                    break;
-                }
-            }
-
-            expression = string.Join("", tokens);
-        }
-
-        while (ModuloIn((expression)))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "%")
-                {
-                    BigDecimal result = calc.Mod(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
-                    string[] newTokens = new string[tokens.Length - 2];
-                    int index = 0;
-
-                    for (int j = 0; j < tokens.Length; j++)
-                    {
-                        if (j == i - 1)
-                        {
-                            newTokens[index++] = result.ToString();
-                            j += 2;
-                        }
-                        else
-                        {
-                            newTokens[index++] = tokens[j];
-                        }
-                    }
-
-                    tokens = newTokens;
-                    break;
-                }
-            }
-
-            expression = string.Join("", tokens);
-        }
-
-        while (PowerIn((expression)))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "^")
-                {
-                    BigDecimal result = calc.Power(double.Parse(tokens[i - 1]), double.Parse(tokens[i + 1]));
-                    string[] newTokens = new string[tokens.Length - 2];
-                    int index = 0;
-
-                    for (int j = 0; j < tokens.Length; j++)
-                    {
-                        if (j == i - 1)
-                        {
-                            newTokens[index++] = result.ToString();
-                            j += 2;
-                        }
-                        else
-                        {
-                            newTokens[index++] = tokens[j];
-                        }
-                    }
-
-                    tokens = newTokens;
-                    break;
-                }
-            }
-
-            expression = string.Join("", tokens);
-        }
-
-        while (RootIn((expression)))
-        {
-            string[] tokens = ParseToTokens(expression);
-
-            for (int i = 0; i < tokens.Length; i++)
-            {
-                if (tokens[i] == "√")
-                {
-                    BigDecimal result = calc.Root(decimal.Parse(tokens[i - 1]), int.Parse(tokens[i + 1]));
                     string[] newTokens = new string[tokens.Length - 2];
                     int index = 0;
 
