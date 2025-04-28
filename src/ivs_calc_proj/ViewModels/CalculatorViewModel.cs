@@ -136,6 +136,15 @@ public partial class CalculatorViewModel : ViewModelBase
             return;
         }
 
+        // ensures that there is a number/end-bracket before adding the % operation
+        if ((newOperation == "%") &&
+            ((Expression.Length > 0 && !char.IsNumber(Expression[^1]) && Expression[^1] != ')') ||
+             Expression.Length == 0))
+        {
+            ShowError();
+            return;
+        }
+
         if (Expression.Length > 0 && Expression[^1] == ' ')
             RemoveCharacter();
         Expression += $" {newOperation} ";
