@@ -49,9 +49,10 @@
                                RelativePanel.Below="Display"
                                RelativePanel.AlignLeftWithPanel="True"
                                Margin="25 0 25 0"
-                               FontSize="20"
+                               FontSize="16"
                                Foreground="{DynamicResource Accent}"
                                IsVisible="{Binding OutputVisible}"
+                               TextWrapping="Wrap"
                     />
 
                     <TextBlock Grid.Row="0" Text="Invalid input!"
