@@ -36,7 +36,7 @@ internal static class Program
         }
 
         decimal mean = calc.Divide(sum, count); // Mean value of x
-        decimal meanSq = (decimal)calc.Power(mean, 2); // x^2
+        decimal meanSq = (decimal)calc.Power((double)mean, 2); // x^2
         decimal numerator = calc.Add(sumSq, calc.Multiply(-(decimal)count, meanSq)); // Sum of x_i^2 − N * [mean value of x] ^2
         decimal variance = calc.Divide(numerator, count - 1); 
         decimal stddev = (decimal)calc.Root(variance, 2); // Standard deviance
