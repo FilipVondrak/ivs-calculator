@@ -116,6 +116,13 @@ public partial class Calculator : UserControl
             case "√":
                 RootOfButton.SimulatePress();
                 break;
+            case ".":
+            case ",":
+                DecimalPointButton.SimulatePress();
+                break;
+            case "=":
+                EqualButton.SimulatePress();
+                break;
         }
     }
 }
