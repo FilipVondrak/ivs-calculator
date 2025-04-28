@@ -38,6 +38,8 @@ public partial class Calculator : UserControl
     /// <param name="e">The event arguments containing information about the key pressed.</param>
     private void Input_OnKeyDown(object? sender, KeyEventArgs e)
     {
+        if ((e.KeyModifiers & KeyModifiers.Shift) != 0 || (e.KeyModifiers & KeyModifiers.Alt) != 0)
+            return;
         switch (e.Key)
         {
             case Key.D0:
@@ -97,6 +99,38 @@ public partial class Calculator : UserControl
                 break;
             case Key.Enter:
                 EqualButton.SimulatePress();
+                break;
+        }
+    }
+
+    private void Intput_OnTextInput(object? sender, TextInputEventArgs e)
+    {
+        switch (e.Text)
+        {
+            case "^":
+                PowerOfButton.SimulatePress();
+                break;
+            case "!":
+                FactorialButton.SimulatePress();
+                break;
+            case "%":
+                ModuloButton.SimulatePress();
+                break;
+            case "√":
+                RootOfButton.SimulatePress();
+                break;
+            case ".":
+            case ",":
+                DecimalPointButton.SimulatePress();
+                break;
+            case "=":
+                EqualButton.SimulatePress();
+                break;
+            case "(":
+                LeftBracketButton.SimulatePress();
+                break;
+            case ")":
+                RightBracketButton.SimulatePress();
                 break;
         }
     }
