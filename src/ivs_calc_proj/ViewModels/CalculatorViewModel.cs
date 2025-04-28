@@ -107,6 +107,13 @@ public partial class CalculatorViewModel : ViewModelBase
             return;
         }
 
+        // ensures that there is a number/expression in brackets
+        if (newBracket == ")" && Expression.Length > 0 && !char.IsNumber(Expression[^1]) && Expression[^1] != '!')
+        {
+            ShowError();
+            return;
+        }
+
         // ensure the bracket is not empty
         if (newBracket == ")" && (Expression.Length >= 2 && (Expression[^1] == '(' || Expression[^2] == '-')))
         {
@@ -163,13 +170,13 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void AddRootOfOperation(string newOperation)
     {
-        if (Expression.Length > 0 && !(char.IsNumber(Expression[^1]) || Expression[^1] == ' '))
+        if (Expression.Length > 0 && !(char.IsNumber(Expression[^1]) || Expression[^1] == ' ' || Expression[^1] == ')'))
         {
             ShowError();
             return;
         }
 
-        if ((Expression.Length > 0 && !char.IsNumber(Expression[^1])) || Expression.Length == 0)
+        if ((Expression.Length > 0 && !char.IsNumber(Expression[^1]) && Expression[^1] != ')') || Expression.Length == 0)
         {
             AddNumber("2");
         }
