@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Text.RegularExpressions;
 using Avalonia.Threading;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
@@ -333,7 +334,22 @@ public partial class CalculatorViewModel : ViewModelBase
         }
 
         Expression = $"({Expression})";
-        Output = $"= {_stringParser.SolveWholeExpression(Expression.Replace(".", ","))}";
+
+        try
+        {
+            Output = $"= {_stringParser.SolveWholeExpression(Expression.Replace(".", ","))}";
+        }
+        catch (OverflowException)
+        {
+            Output = "Overflow";
+            Expression = Expression.Substring(0, Expression.Length - 1);
+        }
+        catch (Exception e)
+        {
+            Output = Regex.Replace(e.Message, @"\([^)]*\)", "").Trim();
+            Expression = Expression.Substring(0, Expression.Length - 1);
+        }
+
         Expression = Expression.Substring(1, Expression.Length - 2);
         Output = Output.Replace(",", ".");
         OutputVisible = true;
