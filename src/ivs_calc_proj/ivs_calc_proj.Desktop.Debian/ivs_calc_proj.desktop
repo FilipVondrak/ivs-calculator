@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=Calculator
+Comment=Basic calculator
+Exec=ivs_calc_proj
+StartupWMClass=ivs_calc_proj
+Terminal=false
+Type=Application
+Categories=Development
+GenericName=ivs_calc_proj
+Keywords=calc; calculator
