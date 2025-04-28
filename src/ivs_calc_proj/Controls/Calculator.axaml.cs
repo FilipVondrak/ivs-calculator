@@ -123,6 +123,12 @@ public partial class Calculator : UserControl
             case "=":
                 EqualButton.SimulatePress();
                 break;
+            case "(":
+                LeftBracketButton.SimulatePress();
+                break;
+            case ")":
+                RightBracketButton.SimulatePress();
+                break;
         }
     }
 }
