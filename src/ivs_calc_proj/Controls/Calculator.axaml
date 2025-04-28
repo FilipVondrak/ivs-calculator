@@ -7,6 +7,7 @@
              mc:Ignorable="d"
              Margin="0 0 0 0"
              KeyDown="Input_OnKeyDown"
+             TextInput="Intput_OnTextInput"
              Focusable="True"
              x:DataType="viewModels:CalculatorViewModel"
              x:Class="ivs_calc_proj.Controls.Calculator">
