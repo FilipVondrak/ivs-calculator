@@ -98,10 +98,46 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
+    void CalculateDeepestBrackets_8()
+    {
+        string expression = "sin(90)+cos(1.5)+ln(17+(50*2))/(3^2)";
+        string expected = "sin(90)+cos(1.5)+ln(17+100)/(3^2)";
+        var result = _parser.CalculateDeepestBrackets(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void CalculateDeepestBrackets_9()
+    {
+        string expression = "sin(((90+5)*2)+90)+cos(1.5)+ln(17)/(3^2)";
+        string expected = "sin((95*2)+90)+cos(1.5)+ln(17)/(3^2)";
+        var result = _parser.CalculateDeepestBrackets(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void CalculateDeepestBrackets_10()
+    {
+        string expression = "sin(90*2+90)+cos(1.5)+ln(17)/(3^2)";
+        string expected = "sin[270]+cos[1.5]+ln[17]/9";
+        var result = _parser.CalculateDeepestBrackets(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
     void SolveExpression_1()
     {
-        string expression = "5+4*8-8/4+ln[e]+cos[90]";
-        string expected = "36";
+        string expression = "5+4*8-8/4+ln[e]+8%3+cos[90]";
+        string expected = "38";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -110,10 +146,178 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     }
 
     [Fact]
+    void SolveExpression_2()
+    {
+        string expression = "50*5+10/5";
+        string expected = "252";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void SolveExpression_3()
+    {
+        string expression = "cos[0,588]";
+        string expected = "0,99995";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void SolveExpression_4()
+    {
+        string expression = "55+e";
+        string expected = "57,718281828459045";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void SolveExpression_5()
+    {
+        string expression = "55,10+e";
+        string expected = "57,818281828459045";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+
+    [Fact]
+    void SolveExpression_6()
+    {
+        string expression = "55,10+10,80";
+        string expected = "65,90";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_7()
+    {
+        string expression = "5!";
+        string expected = "120";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_8()
+    {
+        string expression = "2!+1";
+        string expected = "3";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_9()
+    {
+        string expression = "2^-1";
+        string expected = "0,5";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_10()
+    {
+        string expression = "12/2^2";
+        string expected = "3";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_11()
+    {
+        string expression = "2√4";
+        string expected = "2";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_12()
+    {
+        string expression = "3√-27";
+        string expected = "-3";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_13()
+    {
+        string expression = "3√27^2";
+        string expected = "9";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveExpression_14()
+    {
+        string expression = "10/2√4";
+        string expected = "5";
+        var result = _parser.SolveExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
     void SolveWholeExpression_1()
     {
-        string expression = "5+9*(7/(2^2)+(3+sin(90)))";
-        decimal expected = 56.75m;
+        string expression = "5+9*(7/(2^2)+(8%5)+(3+sin(90))-4!)";
+        decimal expected = -132.25m;
+        var result = _parser.SolveWholeExpression(expression);
+        output.WriteLine("Expression: " + expression);
+        output.WriteLine("Actual: " + result);
+        output.WriteLine("Expected: " + expected);
+        Assert.Equal(expected, result);
+    }
+    
+    [Fact]
+    void SolveWholeExpression_2()
+    {
+        string expression = "2√(2^3+5*(3+2√16))-2^-3+ln(e^2)*cos(45)+7/2^2+3*(8-sin(90))";
+        decimal expected = 30.59666m;
         var result = _parser.SolveWholeExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -252,7 +456,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     [Fact]
     void LnIn_T()
     {
-        string expression = "(5+8)-ln(1)";
+        string expression = "(5+8)-ln((10+80+10)-90-(3*3))";
         var result = _parser.LnIn(expression);
         Assert.True(result);
     }
