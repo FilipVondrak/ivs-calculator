@@ -18,7 +18,11 @@ namespace ivs_calc_proj.ViewModels;
 /// </remarks>
 public partial class CalculatorViewModel : ViewModelBase
 {
-    public CalculatorViewModel() { }
+    public CalculatorViewModel()
+    {
+    }
+
+    private StringParser _stringParser = new StringParser();
 
     public CalculatorViewModel(HistoryMenu historyMenu) => _historyMenu = historyMenu;
 
@@ -30,8 +34,7 @@ public partial class CalculatorViewModel : ViewModelBase
 
     [ObservableProperty] private bool _outputVisible = true;
 
-    [ObservableProperty]
-    private int _errorVisible = 0;
+    [ObservableProperty] private int _errorVisible = 0;
 
     /// <summary>
     /// When called, this method shows an "Invalid input" warning for one second
@@ -62,7 +65,8 @@ public partial class CalculatorViewModel : ViewModelBase
     private void AddNumber(string newCharacter)
     {
         // ensures that there is a number before adding a floating point
-        if (newCharacter=="." && ((Expression.Length > 0 && !char.IsNumber(Expression[^1])) || Expression.Length==0)) return;
+        if (newCharacter == "." &&
+            ((Expression.Length > 0 && !char.IsNumber(Expression[^1])) || Expression.Length == 0)) return;
 
         // if the previous character is a bracket or factorial, add a multiply operation
         if (Expression.Length > 0 && (Expression[^1] == ')' || Expression[^1] == '!'))
@@ -85,8 +89,9 @@ public partial class CalculatorViewModel : ViewModelBase
     private void AddBracket(string newBracket)
     {
         // if the previous character is a number, add a multiply operation
-        if ((newBracket=="(" || newBracket=="sin(" || newBracket=="cos(" || newBracket=="tan(" || newBracket=="ln(")
-            && Expression.Length > 0 && (char.IsNumber(Expression[^1]) || Expression[^1]==')'))
+        if ((newBracket == "(" || newBracket == "sin(" || newBracket == "cos(" || newBracket == "tan(" ||
+             newBracket == "ln(")
+            && Expression.Length > 0 && (char.IsNumber(Expression[^1]) || Expression[^1] == ')'))
         {
             AddBinaryOperation("*");
         }
@@ -102,7 +107,7 @@ public partial class CalculatorViewModel : ViewModelBase
         }
 
         // ensure the bracket is not empty
-        if(newBracket==")" && (Expression.Length >= 2 && (Expression[^1]=='(' || Expression[^2]=='-')))
+        if (newBracket == ")" && (Expression.Length >= 2 && (Expression[^1] == '(' || Expression[^2] == '-')))
         {
             ShowError();
             return;
@@ -125,13 +130,13 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void AddBinaryOperation(string newOperation)
     {
-        if(newOperation!="-" && (Expression.Length==0 || Expression[^1]=='('))
+        if (newOperation != "-" && (Expression.Length == 0 || Expression[^1] == '('))
         {
             ShowError();
             return;
         }
 
-        if (Expression.Length>0 && Expression[^1] == ' ')
+        if (Expression.Length > 0 && Expression[^1] == ' ')
             RemoveCharacter();
         Expression += $" {newOperation} ";
         ExpressionChanged();
@@ -148,13 +153,13 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void AddRootOfOperation(string newOperation)
     {
-        if (Expression.Length>0 && !(char.IsNumber(Expression[^1]) || Expression[^1]==' '))
+        if (Expression.Length > 0 && !(char.IsNumber(Expression[^1]) || Expression[^1] == ' '))
         {
             ShowError();
             return;
         }
 
-        if ((Expression.Length > 0 && !char.IsNumber(Expression[^1]))||Expression.Length==0)
+        if ((Expression.Length > 0 && !char.IsNumber(Expression[^1])) || Expression.Length == 0)
         {
             AddNumber("2");
         }
@@ -175,12 +180,13 @@ public partial class CalculatorViewModel : ViewModelBase
     {
         // correctly formats the string
         // example: expression is "55" and newOperation is "sin", then ensures there is multiplication between these
-        if (Expression.Length>0 && Expression[^1] != ' ' && !(newOperation!="^" || newOperation!="!"))
+        if (Expression.Length > 0 && Expression[^1] != ' ' && !(newOperation != "^" || newOperation != "!"))
             AddBinaryOperation("*");
 
         // ensures that there is a number/end-bracket before adding the ^ or ! operation
-        if ((newOperation=="^" || newOperation=="!") &&
-            ((Expression.Length>0 && !char.IsNumber(Expression[^1]) && Expression[^1] != ')')|| Expression.Length==0 ))
+        if ((newOperation == "^" || newOperation == "!") &&
+            ((Expression.Length > 0 && !char.IsNumber(Expression[^1]) && Expression[^1] != ')') ||
+             Expression.Length == 0))
         {
             ShowError();
             return;
@@ -210,7 +216,7 @@ public partial class CalculatorViewModel : ViewModelBase
     [RelayCommand]
     private void RemoveCharacter()
     {
-        if(Expression.Length==0)
+        if (Expression.Length == 0)
         {
             ShowError();
             return;
@@ -219,14 +225,15 @@ public partial class CalculatorViewModel : ViewModelBase
         // if the last character is a space, then it removes the last operation
         if (Expression[^1] == ' ')
         {
-            Expression=Expression.Substring(0, Expression.Length - 3);
+            Expression = Expression.Substring(0, Expression.Length - 3);
             ExpressionChanged();
             return;
         }
+
         // removes the last character if it is a number
         if (char.IsNumber(Expression[^1]))
         {
-            Expression=Expression.Substring(0, Expression.Length - 1);
+            Expression = Expression.Substring(0, Expression.Length - 1);
             ExpressionChanged();
             return;
         }
@@ -237,53 +244,54 @@ public partial class CalculatorViewModel : ViewModelBase
         {
             if ((Expression.Length > 2 && Expression[^3] == ' ') || Expression.Length == 2)
             {
-                Expression=Expression.Substring(0, Expression.Length - 2);
+                Expression = Expression.Substring(0, Expression.Length - 2);
                 ExpressionChanged();
                 return;
             }
 
-            Expression=Expression.Substring(0, Expression.Length - 1);
+            Expression = Expression.Substring(0, Expression.Length - 1);
             ExpressionChanged();
             return;
         }
 
         // checks if the character to be removed is "ln(" operation
-        if (Expression.Length>=3 && Expression.Substring(Expression.Length-3, 3)=="ln(")
+        if (Expression.Length >= 3 && Expression.Substring(Expression.Length - 3, 3) == "ln(")
         {
-            Expression=Expression.Substring(0, Expression.Length - 3);
+            Expression = Expression.Substring(0, Expression.Length - 3);
             ExpressionChanged();
             return;
         }
 
         // checks if the character to be removed is "sin(" operation
-        if (Expression.Length>=4)
+        if (Expression.Length >= 4)
         {
             string last4 = Expression.Substring(Expression.Length - 4, 4);
             if (last4 == "sin(" || last4 == "cos(" || last4 == "tan(")
             {
-                Expression=Expression.Substring(0, Expression.Length - 4);
+                Expression = Expression.Substring(0, Expression.Length - 4);
                 ExpressionChanged();
                 return;
             }
         }
+
         if (Expression[^1] == '(')
         {
             if (Expression.Length == 1)
             {
-                Expression=Expression.Substring(0, Expression.Length - 1);
+                Expression = Expression.Substring(0, Expression.Length - 1);
                 ExpressionChanged();
                 return;
             }
 
             if (Expression[^2] == ' ')
             {
-                Expression=Expression.Substring(0, Expression.Length - 4);
+                Expression = Expression.Substring(0, Expression.Length - 4);
                 ExpressionChanged();
                 return;
             }
         }
 
-        Expression=Expression.Substring(0, Expression.Length - 1);
+        Expression = Expression.Substring(0, Expression.Length - 1);
         ExpressionChanged();
     }
 
@@ -302,20 +310,23 @@ public partial class CalculatorViewModel : ViewModelBase
         }
 
         // check if the expression contains equal brackets
-        if(Expression.Count(c => c == '(') != Expression.Count(c => c == ')'))
+        if (Expression.Count(c => c == '(') != Expression.Count(c => c == ')'))
         {
             OutputVisible = false;
             return 1;
         }
 
         // check if the expression is properly closed
-        if (!(char.IsNumber(Expression[^1]) || Expression[^1]==')' || Expression[^1]=='!'))
+        if (!(char.IsNumber(Expression[^1]) || Expression[^1] == ')' || Expression[^1] == '!'))
         {
             OutputVisible = false;
             return 1;
         }
 
-        Output = $"= {Expression}";
+        Expression = $"({Expression})";
+        Output = $"= {_stringParser.SolveWholeExpression(Expression.Replace(".", ","))}";
+        Expression = Expression.Substring(1, Expression.Length - 2);
+        Output = Output.Replace(",", ".");
         OutputVisible = true;
         return 0;
     }
@@ -329,7 +340,7 @@ public partial class CalculatorViewModel : ViewModelBase
         if (ExpressionChanged() == 1)
             return;
 
-        if(Output==string.Empty)
+        if (Output == string.Empty)
         {
             ShowError();
             return;
