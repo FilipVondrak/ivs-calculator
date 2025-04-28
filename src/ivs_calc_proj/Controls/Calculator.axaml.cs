@@ -110,6 +110,9 @@ public partial class Calculator : UserControl
             case "^":
                 PowerOfButton.SimulatePress();
                 break;
+            case "!":
+                FactorialButton.SimulatePress();
+                break;
             case "%":
                 ModuloButton.SimulatePress();
                 break;
