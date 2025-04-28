@@ -3,14 +3,103 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             Margin="0 0 0 0"
+             Margin="0 60 0 0"
+
              x:Class="ivs_calc_proj.Controls.HelpMenu">
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Border>
-            <Button></Button>
-        </Border>
-        <Border>
-            <Button></Button>
-        </Border>
-    </StackPanel>
+    <UserControl.Styles>
+        <Style Selector="Border">
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="Padding" Value="10 0 10 0"/>
+            <Setter Property="CornerRadius" Value="25"/>
+            <Setter Property="Background" Value="{DynamicResource Primary}"/>
+        </Style>
+        <Style Selector="Label">
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Styles>
+    <Grid RowDefinitions="*">
+        <ScrollViewer Grid.Row="0" Padding="30 0 30 0">
+            <StackPanel Spacing="10">
+                <StackPanel.Styles>
+                    <Style Selector="Label">
+                        <Setter Property="HorizontalAlignment" Value="Center"/>
+                        <Setter Property="Margin" Value="0 0 0 5"/>
+                    </Style>
+                    <Style Selector="Border">
+                        <Setter Property="Padding" Value="10"/>
+                    </Style>
+                </StackPanel.Styles>
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Goniometric functions"/>
+                        <TextBlock Text="Solves the goniometric function in this format:"/>
+                        <TextBlock Margin="20 0 0 0" Text="sin(a) where a can be any number"/>
+                        <TextBlock Margin="20 0 0 0" Text="sin(a) where a is any expressions"/>
+                        <TextBlock Text="and sin can be any goniometric function"/>
+                        <TextBlock Text="example: sin(90) =  1, cos(20 + 40) = 0.5"/>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Factorial"/>
+                        <TextBlock Text="Solves factorial in the this format"/>
+                        <TextBlock Margin="20 0 0 0" Text="a! where a can be any number"/>
+                        <TextBlock Margin="20 0 0 0" Text="(a)! where a is any expressions"/>
+                        <TextBlock Text="example: (2 + 3)! = 5 * 4 * 3 * 2 * 1 = 120"/>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Modulo"/>
+                        <TextBlock Text="Solves modulo in the this format"/>
+                        <TextBlock Margin="20 0 0 0" Text="a % b where a and b can be any number"/>
+                        <TextBlock Margin="20 0 0 0" Text="a % b where a and b is any expressions"/>
+                        <TextBlock Text="example: (5 + 6) % 2 = 1"/>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Power of - ^"/>
+                        <TextBlock Text="Solves the power of number/expression"/>
+                        <TextBlock Text="The first number is the base"/>
+                        <TextBlock Text="The second number is the exponent"/>
+                        <TextBlock Margin="20 0 0 0" Text="a^b where a and b can be any number"/>
+                        <TextBlock Margin="20 0 0 0" Text="(a)^(b) where a and b is any expressions"/>
+                        <TextBlock Text="example: (5 + 2)^(1 + 1) = 49"/>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Root of - √"/>
+                        <TextBlock Text="Solves the root of number/expression"/>
+                        <TextBlock Text="The first number is the index"/>
+                        <TextBlock Text="The second number is the radicand"/>
+                        <TextBlock Margin="20 0 0 0" Text="a√b where a and b can be any number"/>
+                        <TextBlock Margin="20 0 0 0" Text="(a)√(b) where a and b is any expressions"/>
+                        <TextBlock Text="example: (1 + 1)√(5 * 5) = 5"/>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Decimal point"/>
+                        <TextBlock Text="Adds a decimal point behind number"/>
+                    </StackPanel>
+                </Border>
+
+                <Border>
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Binary operations"/>
+                        <TextBlock Text="Solves these operations: + - * /"/>
+                        <TextBlock Text="Both operands can be a number or an expression"/>
+                        <TextBlock Text="example: (10 + 5) - (6 * 2) = 3"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
 </UserControl>

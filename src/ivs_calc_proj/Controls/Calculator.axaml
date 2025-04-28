@@ -105,48 +105,48 @@
                     </Style>
                 </Grid.Styles>
 
-                <controls:CalcButton Grid.Column="0" Grid.Row="0" x:Name="SinButton"
+                <controls:CalcButton Grid.Column="0" Grid.Row="0" x:Name="SinButton" ToolTip.Tip="format: sin(a)" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBracketCommand}" CommandParameter="sin(">
                     <TextBlock> sin </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="1" Grid.Row="0" x:Name="CosButton"
+                <controls:CalcButton Grid.Column="1" Grid.Row="0" x:Name="CosButton" ToolTip.Tip="format: cos(a)" ToolTip.ShowDelay="1000"
                                      Command="{Binding AddBracketCommand}" CommandParameter="cos(">
                     <TextBlock> cos </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="2" Grid.Row="0" x:Name="TanButton"
+                <controls:CalcButton Grid.Column="2" Grid.Row="0" x:Name="TanButton" ToolTip.Tip="format: tan(a)" ToolTip.ShowDelay="1000"
                                      Command="{Binding AddBracketCommand}" CommandParameter="tan(">
                     <TextBlock> tan </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LnButton"
+                <controls:CalcButton Grid.Column="3" Grid.Row="0" x:Name="LnButton" ToolTip.Tip="format: ln(a)" ToolTip.ShowDelay="1000"
                                      Command="{Binding AddBracketCommand}" CommandParameter="ln(">
                     <TextBlock> ln </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="FactorialButton"
+                <controls:CalcButton Grid.Column="4" Grid.Row="0" x:Name="FactorialButton" ToolTip.Tip="format: (a)!" ToolTip.ShowDelay="1000"
                                      Command="{Binding AddUnaryOperationCommand}" CommandParameter="!">
                     <TextBlock> ! </TextBlock>
                 </controls:CalcButton>
 
-                <controls:CalcButton Grid.Column="0" Grid.Row="1" x:Name="LeftBracketButton"
+                <controls:CalcButton Grid.Column="0" Grid.Row="1" x:Name="LeftBracketButton" ToolTip.Tip="Adds opening bracket" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBracketCommand}" CommandParameter="(">
                     <TextBlock> ( </TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="1" Grid.Row="1" x:Name="RightBracketButton"
+                <controls:CalcButton Grid.Column="1" Grid.Row="1" x:Name="RightBracketButton" ToolTip.Tip="Adds closing bracket" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBracketCommand}" CommandParameter=")">
                     <TextBlock> ) </TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="2" Grid.Row="1" x:Name="ModuloButton"
+                <controls:CalcButton Grid.Column="2" Grid.Row="1" x:Name="ModuloButton" ToolTip.Tip="format: a % b" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="%">
                     <TextBlock> % </TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="3" Grid.Row="1" x:Name="PowerOfButton"
+                <controls:CalcButton Grid.Column="3" Grid.Row="1" x:Name="PowerOfButton" ToolTip.Tip="format: a^b" ToolTip.ShowDelay="1000"
                         Command="{Binding AddUnaryOperationCommand}" CommandParameter="^">
                     <TextBlock> ^ </TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="4" Grid.Row="1" x:Name="RootOfButton"
+                <controls:CalcButton Grid.Column="4" Grid.Row="1" x:Name="RootOfButton" ToolTip.Tip="format: a√b where a is the base - default 2" ToolTip.ShowDelay="1000"
                         Command="{Binding AddRootOfOperationCommand}" CommandParameter="√">
                     <TextBlock> √ </TextBlock>
                 </controls:CalcButton>
@@ -163,11 +163,12 @@
                         Command="{Binding AddNumberCommand}" CommandParameter="9">
                     <TextBlock>9</TextBlock>
                 </controls:CalcButton>
-                <controls:CalcButton Grid.Column="3" Grid.Row="2" x:Name="DivisionButton"
+                <controls:CalcButton Grid.Column="3" Grid.Row="2" x:Name="DivisionButton" ToolTip.Tip="format: a / b" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="/">
                     <TextBlock>/</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton Grid.Column="4" Grid.Row="2" x:Name="DeleteButton" Background="{DynamicResource Delete}"
+                                     ToolTip.Tip="Deletes the last number/bracket/operation" ToolTip.ShowDelay="1000"
                         Command="{Binding RemoveCharacterCommand}">
                     <TextBlock>Del</TextBlock>
                 </controls:CalcButton>
@@ -185,10 +186,12 @@
                     <TextBlock>6</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton Grid.Column="3" Grid.Row="3" x:Name="MultiplicationButton"
+                                     ToolTip.Tip="format: a * b" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="*">
                     <TextBlock>*</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton Grid.Column="4" Grid.Row="3" x:Name="ACButton" Background="{DynamicResource Delete}"
+                                     ToolTip.Tip="Removes the whole expression" ToolTip.ShowDelay="1000"
                         Command="{Binding RemoveExpressionCommand}">
                     <TextBlock>AC</TextBlock>
                 </controls:CalcButton>
@@ -206,11 +209,13 @@
                     <TextBlock>3</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton x:Name="MinusButton" Grid.Column="3" Grid.Row="4"
+                                     ToolTip.Tip="format: a - b" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="-">
                     <TextBlock>-</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton x:Name="EqualButton" Grid.Column="4" Grid.Row="4" Grid.RowSpan="2"
                                      Background="{DynamicResource EqualsButton}"
+                                     ToolTip.Tip="Solves the expression and moves the output to the input area" ToolTip.ShowDelay="1000"
                                      Command="{Binding EqualsCommand}">
                     <TextBlock>=</TextBlock>
                 </controls:CalcButton>
@@ -220,10 +225,12 @@
                     <TextBlock>0</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton x:Name="DecimalPointButton" Grid.Column="2" Grid.Row="5" Background="{DynamicResource Primary}"
-                        Command="{Binding AddNumberCommand}" CommandParameter=".">
+                                     ToolTip.Tip="Adds a decimal point" ToolTip.ShowDelay="1000"
+                                     Command="{Binding AddNumberCommand}" CommandParameter=".">
                     <TextBlock>.</TextBlock>
                 </controls:CalcButton>
                 <controls:CalcButton x:Name="PlusButton" Grid.Column="3" Grid.Row="5"
+                                     ToolTip.Tip="format: a + b" ToolTip.ShowDelay="1000"
                         Command="{Binding AddBinaryOperationCommand}" CommandParameter="+">
                     <TextBlock>+</TextBlock>
                 </controls:CalcButton>
