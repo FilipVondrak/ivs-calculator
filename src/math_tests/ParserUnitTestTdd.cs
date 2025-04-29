@@ -161,7 +161,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_3()
     {
         string expression = "cos[0,588]";
-        string expected = "0,99995";
+        string expected = "0.99995";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -173,7 +173,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_4()
     {
         string expression = "55+e";
-        string expected = "57,718281828459045";
+        string expected = "57.718281828459045";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -185,7 +185,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_5()
     {
         string expression = "55,10+e";
-        string expected = "57,818281828459045";
+        string expected = "57.818281828459045";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -197,7 +197,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_6()
     {
         string expression = "55,10+10,80";
-        string expected = "65,90";
+        string expected = "65.90";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
@@ -233,7 +233,7 @@ public class ParserUnitTestTdd(ITestOutputHelper output)
     void SolveExpression_9()
     {
         string expression = "2^-1";
-        string expected = "0,5";
+        string expected = "0.5";
         var result = _parser.SolveExpression(expression);
         output.WriteLine("Expression: " + expression);
         output.WriteLine("Actual: " + result);
