@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using ExtendedNumerics;
+using System.Globalization;
 
 namespace math_lib;
 
@@ -132,7 +133,7 @@ public class StringParser : IStringParser
 
     public string SolveExpression(string expression)
     {
-        expression = expression.Replace("e", Math.E.ToString());
+        expression = expression.Replace("e", Math.E.ToString(CultureInfo.InvariantCulture));
 
         while (FactorialIn((expression)))
         {
@@ -142,7 +143,7 @@ public class StringParser : IStringParser
             {
                 if (tokens[i] == "!")
                 {
-                    BigDecimal result = calc.Factorial(int.Parse(tokens[i - 1]));
+                    BigDecimal result = calc.Factorial(int.Parse(tokens[i - 1], CultureInfo.InvariantCulture));
                     string[] newTokens = new string[tokens.Length - 1];
                     int index = 0;
 
@@ -150,7 +151,7 @@ public class StringParser : IStringParser
                     {
                         if (j == i - 1)
                         {
-                            newTokens[index++] = result.ToString();
+                            newTokens[index++] = result.ToString(CultureInfo.InvariantCulture);
                             j++;
                         }
                         else
@@ -179,13 +180,13 @@ public class StringParser : IStringParser
                     BigDecimal result;
 
                     if (tokens[i] == "sin")
-                        result = calc.Sin(decimal.Parse(tokens[i + 2]));
+                        result = calc.Sin(decimal.Parse(tokens[i + 2], CultureInfo.InvariantCulture));
                     else if (tokens[i] == "cos")
-                        result = calc.Cos(decimal.Parse(tokens[i + 2]));
+                        result = calc.Cos(decimal.Parse(tokens[i + 2], CultureInfo.InvariantCulture));
                     else if (tokens[i] == "tan")
-                        result = calc.Tan(decimal.Parse(tokens[i + 2]));
+                        result = calc.Tan(decimal.Parse(tokens[i + 2], CultureInfo.InvariantCulture));
                     else
-                        result = calc.Ln(decimal.Parse(tokens[i + 2]));
+                        result = calc.Ln(decimal.Parse(tokens[i + 2], CultureInfo.InvariantCulture));
 
                     string[] newTokens = new string[tokens.Length - 3];
                     int index = 0;
@@ -194,7 +195,7 @@ public class StringParser : IStringParser
                     {
                         if (j == i)
                         {
-                            newTokens[index++] = result.ToString();
+                            newTokens[index++] = result.ToString(CultureInfo.InvariantCulture);
                             j += 3;
                         }
                         else
@@ -222,9 +223,9 @@ public class StringParser : IStringParser
                     BigDecimal result;
 
                     if (tokens[i] == "√")
-                        result = calc.Root(decimal.Parse(tokens[i + 1]), int.Parse(tokens[i - 1]));
+                        result = calc.Root(decimal.Parse(tokens[i + 1]), int.Parse(tokens[i - 1], CultureInfo.InvariantCulture));
                     else
-                        result = calc.Power(double.Parse(tokens[i - 1]), double.Parse(tokens[i + 1]));
+                        result = calc.Power(double.Parse(tokens[i - 1]), double.Parse(tokens[i + 1], CultureInfo.InvariantCulture));
 
                     string[] newTokens = new string[tokens.Length - 2];
                     int index = 0;
@@ -233,7 +234,7 @@ public class StringParser : IStringParser
                     {
                         if (j == i - 1)
                         {
-                            newTokens[index++] = result.ToString();
+                            newTokens[index++] = result.ToString(CultureInfo.InvariantCulture);
                             j += 2;
                         }
                         else
@@ -261,13 +262,13 @@ public class StringParser : IStringParser
                     BigDecimal result;
 
                     if (tokens[i] == "*")
-                        result = BigDecimal.Parse(calc.Multiply(decimal.Parse(tokens[i - 1]),
-                            decimal.Parse(tokens[i + 1])));
+                        result = BigDecimal.Parse(calc.Multiply(decimal.Parse(tokens[i - 1], CultureInfo.InvariantCulture),
+                            decimal.Parse(tokens[i + 1], CultureInfo.InvariantCulture)));
                     else if (tokens[i] == "/")
-                        result = BigDecimal.Parse(calc.Divide(decimal.Parse(tokens[i - 1]),
-                            decimal.Parse(tokens[i + 1])));
+                        result = BigDecimal.Parse(calc.Divide(decimal.Parse(tokens[i - 1], CultureInfo.InvariantCulture),
+                            decimal.Parse(tokens[i + 1], CultureInfo.InvariantCulture)));
                     else
-                        result = calc.Mod(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                        result = calc.Mod(decimal.Parse(tokens[i - 1], CultureInfo.InvariantCulture), decimal.Parse(tokens[i + 1], CultureInfo.InvariantCulture));
 
                     string[] newTokens = new string[tokens.Length - 2];
                     int index = 0;
@@ -276,7 +277,7 @@ public class StringParser : IStringParser
                     {
                         if (j == i - 1)
                         {
-                            newTokens[index++] = result.ToString();
+                            newTokens[index++] = result.ToString(CultureInfo.InvariantCulture);
                             j += 2;
                         }
                         else
@@ -304,9 +305,9 @@ public class StringParser : IStringParser
                     decimal result;
 
                     if (tokens[i] == "+")
-                        result = calc.Add(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                        result = calc.Add(decimal.Parse(tokens[i - 1], CultureInfo.InvariantCulture), decimal.Parse(tokens[i + 1], CultureInfo.InvariantCulture));
                     else
-                        result = calc.Subtract(decimal.Parse(tokens[i - 1]), decimal.Parse(tokens[i + 1]));
+                        result = calc.Subtract(decimal.Parse(tokens[i - 1], CultureInfo.InvariantCulture), decimal.Parse(tokens[i + 1], CultureInfo.InvariantCulture));
 
                     string[] newTokens = new string[tokens.Length - 2];
                     int index = 0;
@@ -315,8 +316,8 @@ public class StringParser : IStringParser
                     {
                         if (j == i - 1)
                         {
-                            newTokens[index++] = result.ToString();
-                            j += 2;
+                            newTokens[index++] = result.ToString(CultureInfo.InvariantCulture);
+                            j += 2; 
                         }
                         else
                         {
