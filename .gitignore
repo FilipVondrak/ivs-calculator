@@ -18,3 +18,4 @@ installer/Output
 # Misc
 .DS_Store
 Thumbs.db
+**/doc/
