@@ -1,11 +1,22 @@
 ﻿using System.Diagnostics.CodeAnalysis;
+using System.Globalization;
 using math_lib;
 
+namespace stddev;
 [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
 internal static class Program
 {
-    private static void Main()
+    private static TextReader reader;
+    private static void Main(string[] args)
     {
+        if (args.Length >= 1 && !string.IsNullOrWhiteSpace(args[0]))
+        {
+            reader = new StreamReader(args[0]);
+        }
+        else
+        {
+            reader = Console.In;
+        }
         Calculator calc = new();
         decimal sum = 0m; // Sum of x_i
         decimal sumSq = 0m; // x_i ^ 2
@@ -13,13 +24,12 @@ internal static class Program
 
         string? line;
         // Read until EOF
-        while ((line = Console.ReadLine()) != null)
+        while ((line = reader.ReadLine()) != null)
         {
-            // (char[])null splits by every possible white space character
-            foreach (var number in line.Split((char[])null, StringSplitOptions.RemoveEmptyEntries))
+            foreach (var number in line.Split(' ', '\t', '\n'))
             {
                 // Process only valid numbers
-                if (decimal.TryParse(number, out var value))
+                if (decimal.TryParse(number, CultureInfo.InvariantCulture ,out var value))
                 {
                     sum = calc.Add(sum, value);
                     var square = calc.Multiply(value, value);
