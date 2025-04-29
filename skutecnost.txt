@@ -1,0 +1,7 @@
+Rozdíly ve stanovených termínech:
+    - v posledních dvou týdnech se z důvodů nestíhání museli posouvat posunout některé termíny
+    - Kvůli nečekané obtížnosti některých částí projektu bylo třeba celkově změnit pořadí určitých termínů
+
+Rozdíly v rozdělené práci:
+    - Z časových důvodů jsme se na některé týmové schůzky nebyli schopni dostavit všichni a museli jsme změnit přirazení práce
+    - V případech, že se prodloužil vývoj některých z funkcí bylo třeba přiradit následující práci jinému členu týmu
