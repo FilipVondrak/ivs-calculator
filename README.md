@@ -2,7 +2,6 @@ Prostředí
 ---------
 
 Ubuntu 64bit
-Windows 64bit
 
 Autoři
 ------
