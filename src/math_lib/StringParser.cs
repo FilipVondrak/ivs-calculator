@@ -1,4 +1,4 @@
-﻿using System.Numerics;
+using System.Numerics;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

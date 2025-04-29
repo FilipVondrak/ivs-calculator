@@ -1,4 +1,4 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <AssemblyName>ivs_calc_starymedved</AssemblyName>
         <OutputType>WinExe</OutputType>

@@ -1,4 +1,4 @@
-﻿using ExtendedNumerics;
+using ExtendedNumerics;
 
 namespace math_lib;
 
