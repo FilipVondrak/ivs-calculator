@@ -1,5 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
+        <AssemblyName>ivs_calc_starymedved</AssemblyName>
         <OutputType>WinExe</OutputType>
         <TargetFramework>net9.0</TargetFramework>
         <Nullable>enable</Nullable>

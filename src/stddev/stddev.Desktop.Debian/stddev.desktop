@@ -1,0 +1,10 @@
+[Desktop Entry]
+Name=stddev
+Comment=A program for calculating standard deviance
+Exec=stddev
+StartupWMClass=stddev
+Terminal=false
+Type=Application
+Categories=Development
+GenericName=stddev
+Keywords=stddev
