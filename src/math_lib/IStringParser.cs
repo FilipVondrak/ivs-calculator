@@ -1,4 +1,4 @@
-﻿namespace math_lib;
+namespace math_lib;
 
 public interface IStringParser
 {

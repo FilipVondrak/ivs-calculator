@@ -1,4 +1,4 @@
-﻿using math_lib;
+using math_lib;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
