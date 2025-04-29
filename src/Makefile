@@ -51,7 +51,7 @@ run: build
 
 # Run the stddev application
 stddev: check-dotnet
-	dotnet run --project $(STDDEV_PROJECT)
+	dotnet run --project $(STDDEV_PROJECT) -- random_1000.txt
 
 # Create package for submission
 pack: clean
