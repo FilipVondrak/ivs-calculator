@@ -344,7 +344,7 @@ public partial class CalculatorViewModel : ViewModelBase
 
         try
         {
-            Output = $"= {_stringParser.SolveWholeExpression(Expression.Replace(".", ","))}";
+            Output = $"= {_stringParser.SolveWholeExpression(Expression)}";
         }
         catch (OverflowException)
         {
