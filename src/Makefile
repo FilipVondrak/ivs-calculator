@@ -85,21 +85,21 @@ DOTNET_9_INSTALLED := $(shell dotnet --list-sdks | grep -q '9\.0' && echo yes ||
 
 check-dotnet:
 ifeq ($(DOTNET_9_INSTALLED),no)
-	@echo ".NET 9.0 není nainstalován. Instaluji..."
+	@echo ".NET 9.0 not installed. Installing..."
 	@$(MAKE) install-dotnet
 endif
 
 # Instalace .NET 9.0 podle OS
 install-dotnet:
 ifeq ($(IS_WINDOWS),1)
-	@echo "Detekován Windows, provádím instalaci .NET 9.0..."
-	@if ! choco --version 2>nul; then \
-		echo "Chocolatey není nainstalován. Nejprve instaluji Chocolatey..."; \
-		powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"; \
-	fi
-	choco install dotnet-9.0-sdk -y
+	@echo "Instalace .NET 9.0 via PowerShell..."
+	@powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $$ProgressPreference = 'SilentlyContinue'; Invoke-WebRequest -Uri 'https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1' -OutFile \"$$env:TEMP\dotnet-install.ps1\""
+	@powershell -NoProfile -ExecutionPolicy Bypass -Command "& \"$$env:TEMP\dotnet-install.ps1\" -Channel 9.0 -Runtime dotnet -InstallDir \"$$env:USERPROFILE\.dotnet\""
+	@powershell -NoProfile -ExecutionPolicy Bypass -Command "[System.Environment]::SetEnvironmentVariable('Path', \"$$($$env:Path);$$($$env:USERPROFILE)\.dotnet\", 'User')"
+	@echo "Instalace dokončena. Aktuální PATH:"
+	@powershell -NoProfile -Command "$$env:Path"
 else
-	@echo "Detekován Linux, provádím instalaci .NET 9.0..."
+	@echo "Detected Linux, installing .NET 9.0..."
 	wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 	sudo dpkg -i packages-microsoft-prod.deb
 	rm packages-microsoft-prod.deb
