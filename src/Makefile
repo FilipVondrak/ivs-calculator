@@ -19,9 +19,10 @@ ifeq ($(OS),Windows_NT)
           New-Item -ItemType Directory -Path $$repoDir -Force | Out-Null; \
           New-Item -ItemType Directory -Path $$installDir -Force | Out-Null; \
           New-Item -ItemType Directory -Path $$docDir -Force | Out-Null; \
+          Copy-Item -Path '..$(SEP)install$(SEP)*' -Destination $$installDir -Recurse -Force; \
+          Copy-Item -Path 'doc$(SEP)*' -Destination $$docDir -Recurse -Force; \
+          if (Test-Path 'doc') { Remove-Item -Path 'doc' -Recurse -Force; } \
           Copy-Item -Path '..$(SEP)*' -Destination $$repoDir -Recurse -Force; \
-          Copy-Item -Path '..$(SEP)install$(SEP)' -Destination $$installDir -Recurse -Force; \
-          Copy-Item -Path 'doc$(SEP)' -Destination $$docDir -Recurse -Force; \
           Compress-Archive -Force -Path (Join-Path $$tempDir '*') -DestinationPath '$(PACKAGE_DIR).zip'; \
           Remove-Item -Path $$tempDir -Recurse -Force"
     SEP = \\
@@ -32,9 +33,9 @@ else
     RM = test ! -e "$(1)" || rm -rf "$(1)"
     RMDIR = test ! -e "$(1)" || rm -rf "$(1)"
     ZIP = mkdir -p /tmp/package_temp && \
+          { [ -d "../install" ] && cp -r ../install/. /tmp/package_temp/install/ || true; } && \
+          { [ -d "doc" ] && { cp -r doc/. /tmp/package_temp/doc/ && rm -rf doc; } || true; } && \
           cp -r ..$(SEP)/. /tmp/package_temp/repo/ && \
-          cp -r ../install/. /tmp/package_temp/install/ && \
-          cp -r doc/. /tmp/package_temp/doc/ && \
           cd /tmp/package_temp && \
           zip -r "$(CURDIR)/$(PACKAGE_DIR).zip" * && \
           cd - && \
