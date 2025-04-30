@@ -11,11 +11,14 @@ ifeq ($(OS),Windows_NT)
     RM = if exist "$(1)" ( del /s /q "$(1)" )
     RMDIR = if exist "$(1)" ( rmdir /s /q "$(1)" )
     ZIP = powershell -noprofile -executionpolicy bypass -command " \
-          $$newName = 'repo'; \
-          $$tempDir = Join-Path $$env:TEMP $$newName; \
-          Copy-Item -Path '..$(SEP)' -Destination $$tempDir -Recurse -Force; \
-          Copy-Item -Path 'doc' -Destination $$tempDir -Recurse -Force; \
-          Copy-Item -Path '..$(SEP)install' -Destination $$tempDir -Recurse -Force; \
+          $$tempDir = Join-Path $$env:TEMP 'package_temp'; \
+          $$repoDir = Join-Path $$tempDir 'repo'; \
+          $$installDir = Join-Path $$tempDir 'install'; \
+          $$docDir = Join-Path $$tempDir 'doc'; \
+          New-Item -ItemType Directory -Path $$tempDir -Force | Out-Null; \
+          Copy-Item -Path '..$(SEP)' -Destination $$repoDir -Recurse -Force; \
+          Copy-Item -Path '..$(SEP)install' -Destination $$installDir -Recurse -Force; \
+          Copy-Item -Path 'doc' -Destination $$docDir -Recurse -Force; \
           Compress-Archive -Force -Path $$tempDir -DestinationPath '$(PACKAGE_DIR).zip'; \
           Remove-Item -Path $$tempDir -Recurse -Force"
     SEP = \\
@@ -25,12 +28,16 @@ ifeq ($(OS),Windows_NT)
 else
     RM = test ! -e "$(1)" || rm -rf "$(1)"
     RMDIR = test ! -e "$(1)" || rm -rf "$(1)"
-    ZIP = mkdir -p /tmp/repo && \
-          cp -r ..$(SEP)/. /tmp/repo/ && \
-          cp -r doc /tmp/repo/ && \
-          cp -r ../install /tmp/repo/ && \
-          zip -r "$(PACKAGE_DIR).zip" /tmp/repo && \
-          rm -rf /tmp/repo
+    ZIP = mkdir -p /tmp/package_temp/repo && \
+          mkdir -p /tmp/package_temp/install && \
+          mkdir -p /tmp/package_temp/doc && \
+          cp -r ..$(SEP)/. /tmp/package_temp/repo/ && \
+          cp -r ../install/. /tmp/package_temp/install/ && \
+          cp -r doc/. /tmp/package_temp/doc/ && \
+          cd /tmp/package_temp && \
+          zip -r "$(CURDIR)/$(PACKAGE_DIR).zip" . && \
+          cd - && \
+          rm -rf /tmp/package_temp
     SEP = /
     CLEAN_BIN_OBJ = test ! -e bin && test ! -e obj || find . -type d \( -name bin -o -name obj \) -exec rm -rf {} +
     IS_WINDOWS = 0
