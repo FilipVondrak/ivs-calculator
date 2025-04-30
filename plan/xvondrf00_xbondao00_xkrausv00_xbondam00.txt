@@ -1,0 +1,67 @@
+# Stanovené termíny
+11. 3. 
+	- osobní setkání týmu
+	- domluvení komunikace a výběr programovacího jazyku + frameworku
+	- vytvoření repozitáře na GitHubu a inicializování projektu
+	- rozdělení práce
+13. 3.
+	- dohodnutí termínů
+	- vytvoření plánu projektu
+19. 3. 
+	- Odevzdání plánu
+22. 3.
+	- testy k matematickým knihovnám
+	- návrh grafického rozhraní
+30. 3. 
+	- implementace základních matematických funkcí
+5. 4.
+	- otestovat propojení grafického rozhraní s prvními matematickými funkcemi 
+13. 4. 
+	- dokončení pokročilých matematických funkcí
+	- vytvoření makefile
+18. 4.
+	- dokončení grafického rozhraní
+	- profiling 
+23. 4.
+	- instalátor/odinstalátor
+	- doxyfile
+25. 4.
+	- vytvoření uživatelské dokumentace a mockupu
+27. 4.
+	- individuální hodnocení práce členů týmu
+1. 5.
+	- odevzdání projektu
+
+# Rozdělení práce v týmu
+## Společná práce
+	- vytvoření mockupu
+	- instalátor/odinstalátor
+## xvondrf00 (Filip Vondrák)
+	- grafické rozhraní
+	- plán projektu
+	- hlídání termínů a splněné práce
+	- tvorba nápovědy
+## xbondao00 (Oleksandr Bondar)
+	- návrh testů - implementace TDD
+	- následné testování aplikace
+	- vytvoření makefile
+	- napsání readme.md
+## xkrausv00 (Vít Kraus)
+	- matematická knihovna
+	- uživatelská dokumentace
+	- doxygen dokumentace
+## xbondam00 (Mykola Bondar)
+	- profiling
+	- propojení uživatelského rozhraní a matematické knihovny
+	- pomáhání s pokročilými matematickými funkcemi
+
+# Komunikační kanály pro tým
+Pro komunikaci v týmu jsme si mimo osobní schůzky zvolili platformu discord, na které jsme vytvořili privátní server. Náš discord server obsahuje několik kanálů vytvořených k určitým účelům. Mezi nejhlavnější kanály na serveru patří:
+	- informace: tento kanál obsahuje důležité informace k projektu, jako kontakt na všechny členy týmu, data odevzdání, atd..
+	- zdroje: v tomto kanálu lze najít odkazy na dokumentaci použitých knihoven, frameworků. Dále obsahuje ostatní odkazy/doporučení na vybraný software potřebný k vývoji
+	- přiřazení-práce: tento kanál slouží k informování členů týmu o věcech, které jsou potřeba naprogramovat, zadání úkolů členům týmu a popřípadně k informace, že se nestíhá vývoj určité části/funkce 
+	- obecné: pro řešení všeobecných problémů
+	- hlasový kanál - pro online schůze a plánování
+
+# Systém pro správu verzí
+Jako systém pro správu verzí jsme vybrali git a repozitář hostujeme na GitHubu. Repozitář vlastní vedoucí týmu Filip Vondrák na adrese https://github.com/FilipVondrak/ivs-projekt2-kalkulacka. Uživatel ivskontrola je pozván jako kolaborátor a po přijmutí pozvánky bude mít plný přístup k repozitáři.
