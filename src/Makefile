@@ -17,6 +17,7 @@ ifeq ($(OS),Windows_NT)
     SEP = \\
     CLEAN_BIN_OBJ = powershell -noprofile -executionpolicy bypass -command "if ((Test-Path 'bin') -Or (Test-Path 'obj')) { Get-ChildItem -Recurse -Directory -Include bin,obj | Remove-Item -Recurse -Force }"
     IS_WINDOWS = 1
+    DOTNET_9_INSTALLED := $(shell (dotnet --list-sdks 2> nul | findstr /r "9\.0" > nul && echo yes) || echo no)
 else
     RM = test ! -e "$(1)" || rm -rf "$(1)"
     RMDIR = test ! -e "$(1)" || rm -rf "$(1)"
@@ -27,6 +28,7 @@ else
     SEP = /
     CLEAN_BIN_OBJ = test ! -e bin && test ! -e obj || find . -type d \( -name bin -o -name obj \) -exec rm -rf {} +
     IS_WINDOWS = 0
+    DOTNET_9_INSTALLED := $(shell dotnet --list-sdks | grep -q '9\.0' && echo yes || echo no)
 endif
 
 # Default target
@@ -80,26 +82,25 @@ help:
 	@echo "  clean     - Cleans build artifacts and temporary files"
 	@echo "  help      - Displays this help message"
 
-# Zjistí jestli je nainstalován .NET 9.0
-DOTNET_9_INSTALLED := $(shell dotnet --list-sdks | grep -q '9\.0' && echo yes || echo no)
-
 check-dotnet:
-ifeq ($(DOTNET_9_INSTALLED),no)
-	@echo ".NET 9.0 není nainstalován. Instaluji..."
+ifneq ($(DOTNET_9_INSTALLED),yes)
+	@echo ".NET 9.0 not installed. Installing..."
 	@$(MAKE) install-dotnet
 endif
 
 # Instalace .NET 9.0 podle OS
 install-dotnet:
 ifeq ($(IS_WINDOWS),1)
-	@echo "Detekován Windows, provádím instalaci .NET 9.0..."
-	@if ! choco --version 2>nul; then \
-		echo "Chocolatey není nainstalován. Nejprve instaluji Chocolatey..."; \
-		powershell -NoProfile -ExecutionPolicy Bypass -Command "Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"; \
-	fi
-	choco install dotnet-9.0-sdk -y
+	@echo "Installing .NET 9.0 SDK via PowerShell..."
+	@powershell -NoProfile -ExecutionPolicy Bypass -Command "[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; $$ProgressPreference = 'SilentlyContinue'; \
+	Invoke-WebRequest -Uri 'https://dotnet.microsoft.com/download/dotnet/scripts/v1/dotnet-install.ps1' -OutFile \"$$env:TEMP\dotnet-install.ps1\""
+	@powershell -NoProfile -ExecutionPolicy Bypass -Command "& \"$$env:TEMP\dotnet-install.ps1\" -Channel 9.0 -Version latest -InstallDir \"$$env:USERPROFILE\.dotnet\""
+	@powershell -NoProfile -ExecutionPolicy Bypass -Command "[System.Environment]::SetEnvironmentVariable('DOTNET_ROOT', \"$$env:USERPROFILE\.dotnet\", 'User'); \
+	[System.Environment]::SetEnvironmentVariable('Path', \"$$env:Path;$$env:USERPROFILE\.dotnet\", 'User')"
+	@echo "Verifying installation..."
+	@powershell -NoProfile -Command "& \"$$env:USERPROFILE\.dotnet\dotnet.exe\" --version"
 else
-	@echo "Detekován Linux, provádím instalaci .NET 9.0..."
+	@echo "Detected Linux, installing .NET 9.0..."
 	wget https://packages.microsoft.com/config/ubuntu/20.04/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
 	sudo dpkg -i packages-microsoft-prod.deb
 	rm packages-microsoft-prod.deb
