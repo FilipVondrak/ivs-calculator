@@ -6,14 +6,7 @@ rm -rf ./staging_folder/
 
 # .NET publish
 echo "Publishing .NET project..."
-dotnet publish "../src/ivs_calc_proj/ivs_calc_proj.csproj" \
-  --verbosity quiet \
-  --nologo \
-  --configuration Release \
-  --self-contained true \
-  --runtime linux-x64 \
-  --output "../out/linux-x64" \
-  /p:PublishSingleFile=true
+dotnet publish "../src/ivs_calc_proj/ivs_calc_proj.csproj" -c Release -r linux-x64 -o "../out/linux-64" --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /nologo /v:quiet
 
 # Staging directory
 echo "Setting up staging directory..."

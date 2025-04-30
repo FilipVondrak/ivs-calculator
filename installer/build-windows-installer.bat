@@ -20,6 +20,7 @@ dotnet publish "%PROJECT_PATH%" ^
   --self-contained true ^
   -o "%OUTPUT_DIR%" ^
   /p:PublishSingleFile=true ^
+  /p:IncludeNativeLibrariesForSelfExtract=true ^
   /nologo /v:quiet
 
 if errorlevel 1 (
