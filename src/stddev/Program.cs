@@ -6,7 +6,7 @@ namespace stddev;
 [SuppressMessage("ReSharper", "SuggestVarOrType_BuiltInTypes")]
 internal static class Program
 {
-    private static TextReader reader;
+    private static TextReader? reader;
     private static void Main(string[] args)
     {
         if (args.Length >= 1 && !string.IsNullOrWhiteSpace(args[0]))
