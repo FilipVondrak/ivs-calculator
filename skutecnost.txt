@@ -1,0 +1,7 @@
+Rozdíly ve stanovených termínech:
+    V posledních dvou týdnech bylo kvůli časové tísni nutné posunout některé termíny.
+    Kvůli nečekané obtížnosti některých částí projektu bylo třeba změnit celkové pořadí určitých úkolů.
+    
+Rozdíly v rozdělení práce:
+    Z časových důvodů jsme se nemohli všichni zúčastnit některých týmových schůzek, a proto bylo nutné přeorganizovat rozdělení práce.
+    V případech, kdy se prodloužil vývoj některých funkcí, bylo nutné následné úkoly přidělit jinému členovi týmu.

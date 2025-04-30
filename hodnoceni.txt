@@ -1,0 +1,4 @@
+xvondrf00 100 (UI, uživatelská nápověda, plán projektu, dokumentace)
+xbondam00 100 (pokročilé funkce mat. knihovny, testy)
+xbondao00 100 (testy, makefile, license, propojení backendu a frontendu)
+xkrausv00 100 (mat. knihovna, instalátory, profiling)
