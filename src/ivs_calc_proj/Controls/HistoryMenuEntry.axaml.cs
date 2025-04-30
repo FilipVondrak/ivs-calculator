@@ -6,6 +6,7 @@ namespace ivs_calc_proj.Controls;
 
 public partial class HistoryMenuEntry : UserControl
 {
+    public HistoryMenuEntry() {}
     public HistoryMenuEntry(string input, string output)
     {
         InitializeComponent();
