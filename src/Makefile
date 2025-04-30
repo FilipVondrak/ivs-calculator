@@ -20,8 +20,8 @@ ifeq ($(OS),Windows_NT)
           New-Item -ItemType Directory -Path $$installDir -Force | Out-Null; \
           New-Item -ItemType Directory -Path $$docDir -Force | Out-Null; \
           Copy-Item -Path '..$(SEP)*' -Destination $$repoDir -Recurse -Force; \
-          Copy-Item -Path '..$(SEP)install$(SEP)*' -Destination $$installDir -Recurse -Force; \
-          Copy-Item -Path 'doc$(SEP)*' -Destination $$docDir -Recurse -Force; \
+          Copy-Item -Path '..$(SEP)install$(SEP)' -Destination $$installDir -Recurse -Force; \
+          Copy-Item -Path 'doc$(SEP)' -Destination $$docDir -Recurse -Force; \
           Compress-Archive -Force -Path (Join-Path $$tempDir '*') -DestinationPath '$(PACKAGE_DIR).zip'; \
           Remove-Item -Path $$tempDir -Recurse -Force"
     SEP = \\
