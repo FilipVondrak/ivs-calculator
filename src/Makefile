@@ -10,15 +10,14 @@ PACKAGE_DIR = xvondrf00_xbondam00_xbondao00_xkrausv00
 ifeq ($(OS),Windows_NT)
     RM = if exist "$(1)" ( del /s /q "$(1)" )
     RMDIR = if exist "$(1)" ( rmdir /s /q "$(1)" )
-    MKDIR = if not exist "$(1)" ( mkdir "$(1)" )
-    CP = xcopy /e /i /q /y "$(1)" "$(2)"
-    CPFILE = copy /y "$(1)" "$(2)"
     ZIP = powershell -noprofile -executionpolicy bypass -command " \
-         $$newName = 'repo'; \
-         $$tempDir = Join-Path $$env:TEMP $$newName; \
-         Copy-Item -Path '..$(SEP)' -Destination $$tempDir -Recurse -Force; \
-         Compress-Archive -Force -Path $$tempDir -DestinationPath '$(PACKAGE_DIR).zip'; \
-         Remove-Item -Path $$tempDir -Recurse -Force"
+          $$newName = 'repo'; \
+          $$tempDir = Join-Path $$env:TEMP $$newName; \
+          Copy-Item -Path '..$(SEP)' -Destination $$tempDir -Recurse -Force; \
+          Copy-Item -Path 'doc' -Destination $$tempDir -Recurse -Force; \
+          Copy-Item -Path '..$(SEP)install' -Destination $$tempDir -Recurse -Force; \
+          Compress-Archive -Force -Path $$tempDir -DestinationPath '$(PACKAGE_DIR).zip'; \
+          Remove-Item -Path $$tempDir -Recurse -Force"
     SEP = \\
     CLEAN_BIN_OBJ = powershell -noprofile -executionpolicy bypass -command "if ((Test-Path 'bin') -Or (Test-Path 'obj')) { Get-ChildItem -Recurse -Directory -Include bin,obj | Remove-Item -Recurse -Force }"
     IS_WINDOWS = 1
@@ -26,11 +25,10 @@ ifeq ($(OS),Windows_NT)
 else
     RM = test ! -e "$(1)" || rm -rf "$(1)"
     RMDIR = test ! -e "$(1)" || rm -rf "$(1)"
-    MKDIR = mkdir -p "$(1)"
-    CP = cp -r "$(1)" "$(2)"
-    CPFILE = cp "$(1)" "$(2)"
     ZIP = mkdir -p /tmp/repo && \
           cp -r ..$(SEP)/. /tmp/repo/ && \
+          cp -r doc /tmp/repo/ && \
+          cp -r ../install /tmp/repo/ && \
           zip -r "$(PACKAGE_DIR).zip" /tmp/repo && \
           rm -rf /tmp/repo
     SEP = /
