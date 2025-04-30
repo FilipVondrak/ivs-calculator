@@ -4,7 +4,7 @@ SOLUTION_RUN = ivs_calc_proj/ivs_calc_proj.csproj
 TEST_PROJECT = math_tests/math_tests.csproj
 STDDEV_PROJECT = stddev/stddev.csproj
 DOC_CONFIG = Doxyfile
-PACKAGE_DIR = stary_medved
+PACKAGE_DIR = xvondrf00_xbondam00_xbondao00_xkrausv00
 
 # Improved OS detection
 ifeq ($(OS),Windows_NT)
@@ -13,7 +13,12 @@ ifeq ($(OS),Windows_NT)
     MKDIR = if not exist "$(1)" ( mkdir "$(1)" )
     CP = xcopy /e /i /q /y "$(1)" "$(2)"
     CPFILE = copy /y "$(1)" "$(2)"
-    ZIP = powershell -noprofile -executionpolicy bypass -command "Compress-Archive -Force -Path '..$(SEP)' -DestinationPath '$(PACKAGE_DIR).zip'"
+    ZIP = powershell -noprofile -executionpolicy bypass -command " \
+         $$newName = 'repo'; \
+         $$tempDir = Join-Path $$env:TEMP $$newName; \
+         Copy-Item -Path '..$(SEP)' -Destination $$tempDir -Recurse -Force; \
+         Compress-Archive -Force -Path $$tempDir -DestinationPath '$(PACKAGE_DIR).zip'; \
+         Remove-Item -Path $$tempDir -Recurse -Force"
     SEP = \\
     CLEAN_BIN_OBJ = powershell -noprofile -executionpolicy bypass -command "if ((Test-Path 'bin') -Or (Test-Path 'obj')) { Get-ChildItem -Recurse -Directory -Include bin,obj | Remove-Item -Recurse -Force }"
     IS_WINDOWS = 1
@@ -24,7 +29,10 @@ else
     MKDIR = mkdir -p "$(1)"
     CP = cp -r "$(1)" "$(2)"
     CPFILE = cp "$(1)" "$(2)"
-    ZIP = zip -r "$(PACKAGE_DIR).zip" "..$(SEP)..$(SEP)*"
+    ZIP = mkdir -p /tmp/repo && \
+          cp -r ..$(SEP)/. /tmp/repo/ && \
+          zip -r "$(PACKAGE_DIR).zip" /tmp/repo && \
+          rm -rf /tmp/repo
     SEP = /
     CLEAN_BIN_OBJ = test ! -e bin && test ! -e obj || find . -type d \( -name bin -o -name obj \) -exec rm -rf {} +
     IS_WINDOWS = 0
@@ -56,7 +64,7 @@ stddev: check-dotnet
 	dotnet run --project $(STDDEV_PROJECT) -- random_1000.txt
 
 # Create package for submission
-pack: clean
+pack: clean doc
 	$(ZIP)
 
 # Clean build artifacts
