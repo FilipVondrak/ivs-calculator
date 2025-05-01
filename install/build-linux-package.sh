@@ -1,4 +1,4 @@
-#!/bin/bash
+cd ..#!/bin/bash
 
 # Clean-up
 rm -rf ../out/
@@ -6,7 +6,7 @@ rm -rf ./staging_folder/
 
 # .NET publish
 echo "Publishing .NET project..."
-dotnet publish "../src/ivs_calc_proj/ivs_calc_proj.csproj" -c Release -r linux-x64 -o "../out/linux-64" --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /nologo /v:quiet
+dotnet publish "../src/ivs_calc_proj/ivs_calc_proj.csproj" -c Release -r linux-x64 -o "../out/linux-x64" --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /nologo /v:quiet
 
 # Staging directory
 echo "Setting up staging directory..."
