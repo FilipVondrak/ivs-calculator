@@ -1,3 +1,4 @@
+#!/bin/bash
 dotnet publish "../src/stddev/stddev.csproj" -c Release -r linux-x64 -o "../out/linux-x64-stddev" --self-contained true /p:PublishSingleFile=true /p:IncludeNativeLibrariesForSelfExtract=true /nologo /v:quiet
 # Create folders
 mkdir -p staging_folder_stddev/DEBIAN

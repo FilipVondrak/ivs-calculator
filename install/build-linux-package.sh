@@ -1,4 +1,4 @@
-cd ..#!/bin/bash
+#!/bin/bash
 
 # Clean-up
 rm -rf ../out/
